@@ -18,9 +18,10 @@ public class PassagemOnibus extends Itinerario{
 	//LEITO
 		this.leito = leito;
 	//NUMERO DE PARADAS
-		this.numParadas = numParadas;
+		if(numParadas >= 0) {this.numParadas = numParadas;}
+			else {throw new IllegalArgumentException("Numero de paradas nao pode ser negativo");}
 	//HORARIO DAS PARADAS
-		this.horarioParadas = horarioParadas;
+		this.horarioParadas = horarioParadas != null ? horarioParadas.clone() : new Integer[0];;
 	//ALMOCO INCLUSO
 		this.refeicaoInclusa = refeicaoInclusa;
 	}

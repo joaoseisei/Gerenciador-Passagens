@@ -18,12 +18,13 @@ public class PassagemAviao extends Itinerario{
 		if(classe >=1 && classe <= 3) {this.classe = classe;}
 			else {throw new IllegalArgumentException("Tipo de classe nao suportada (1, 2, 3)");}
 	//PESO DA BAGAGEM
-		this.pesoBagagem = pesoBagagem;
+		if(pesoBagagem >= 0) {this.pesoBagagem = pesoBagagem;}
+			else {throw new IllegalArgumentException("O peso da Bagagem nao pode ser negativo");}
 	//TIPO DO VOO
 		this.tipoVoo = tipoVoo;
 	//ALTURA DO VOO
-		this.alturaVoo = alturaVoo;
-		
+		if(alturaVoo > 200) {this.alturaVoo = alturaVoo;}
+			else {throw new IllegalArgumentException("Aviao nao pode voar tao baixo, aumente a altura");}
 	}
 //GETTERS
     public Integer getClasse() {
