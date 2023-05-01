@@ -1,13 +1,13 @@
 Gerenciador de Passagens (PAPO)
 
-Fulano investiu todo seu dinheiro em dogecoin e agora está muito rico e decide investir o dinheiro em viagens, ele encomenda um software de viagens para ajudar os outros.
+João investiu todo seu dinheiro em dogecoin e agora está muito rico e decide investir o dinheiro em um software de viagens que permite a busca em varias marcas diferentes.
 O software deve ter os seguintes requisitos:
-   ○ Ter no minimo 2 opções de transporte (ônibus, avião, trem...).
-   ○ Poder adicionar essas passagens em uma lista mantendo o máximo de coesão possivel, como:
+   * Ter 2 opções de transporte ônibus e avião.
+   * Poder adicionar essas passagens em uma lista mantendo o máximo de coesão possivel, como:
        1. Verificar se a data inicial é anterior a final.
        2. Variar o preço da passagem de acordo com o tipo dela (1° classe, onibus leito...) de forma automática.
        3. Não permitir que as passagens tenham o mesmo lugar de entrada e saída (por exemplo, DF-Brasil, DF-Brasil).
-   ○ Se a passagem tiver escala, a mesma terá um desconto proporcional ao número de escalas, entretanto a passagem não poderá ter o preço negativo.
-   ○ Cada passagem deverá ter um ID único, e que seja possivel editar a passagem ou remove-lá da lista de passagens com base no ID.
-   ○ Filtrar as passagens com base na data de entrada e saída e local de entrada e saída.
-Ademais, fulano também deseja que as passagens de ônibus e avião tenham no minimo 3 diferenças entre elas para diferenciar as passagens.
+   * Se a passagem tiver escala, a mesma terá um desconto proporcional ao número de escalas, entretanto a passagem não poderá ter o preço negativo.
+   * Cada passagem deverá ter um ID único, e que seja possivel editar a passagem (Iterário) ou remove-lá da lista de passagens com base no ID.
+   * Filtrar as passagens com base na data de entrada e saída e local de entrada e saída.
+Ademais, João também deseja que as passagens de ônibus e avião tenham no minimo 3 diferenças entre elas para diferenciar as passagens e também quer que o software seja executado no computador com o máximo de segurança possível.

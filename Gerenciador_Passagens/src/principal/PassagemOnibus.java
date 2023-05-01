@@ -12,16 +12,15 @@ public class PassagemOnibus extends Itinerario{
 //CONSTRUTOR
 	public PassagemOnibus(LocalDate dataInicial, LocalDate dataFinal, LocalTime horaInicial, LocalTime horaFinal,
 					String pontPartida, String pontChegada, String[] escalas, Double preco, String marca, 
-					Boolean leito, Integer numParadas, Integer[] horarioParadas, Boolean refeicaoInclusa){
+					Boolean leito, Integer[] horarioParadas, Boolean refeicaoInclusa){
 	//SUPER
 		super(dataInicial, dataFinal, horaInicial, horaFinal, pontPartida, pontChegada, escalas, preco, marca);
 	//LEITO
 		this.leito = leito;
+	//HORARIO DAS PARADAS	
+		this.horarioParadas = horarioParadas != null ? horarioParadas.clone() : new Integer[0];
 	//NUMERO DE PARADAS
-		if(numParadas >= 0) {this.numParadas = numParadas;}
-			else {throw new IllegalArgumentException("Numero de paradas nao pode ser negativo");}
-	//HORARIO DAS PARADAS
-		this.horarioParadas = horarioParadas != null ? horarioParadas.clone() : new Integer[0];;
+		this.numParadas = horarioParadas.length;
 	//ALMOCO INCLUSO
 		this.refeicaoInclusa = refeicaoInclusa;
 	}
@@ -44,13 +43,9 @@ public class PassagemOnibus extends Itinerario{
 			this.leito = novoLeito;
 		}
 	}
-	public void setNumParadas(Integer novoNumParadas) {
-		if(novoNumParadas != null && novoNumParadas >0) {
-			this.numParadas = novoNumParadas;
-		}
-	}
-	public void setHorarioParadas(Integer[] novoHorarioParadas) {
+	public void setHorarioENumParadas(Integer[] novoHorarioParadas) {
 		this.horarioParadas = novoHorarioParadas != null ? novoHorarioParadas.clone() : new Integer[0] ;
+		this.numParadas = horarioParadas.length;
 	}
 	public void setRefeicaoInclusa(Boolean novaRefeicaoInclusa) {
 		if(novaRefeicaoInclusa != null) {

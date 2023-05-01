@@ -20,10 +20,10 @@ public class Memoria {
 	}
 	public void addPassagemOnibus(LocalDate dataInicial, LocalDate dataFinal, LocalTime horaInicial, 
 				LocalTime horaFinal,String pontPartida, String pontChegada, String[] escalas, Double preco, 
-				String marca, Boolean leito, Integer numParadas, Integer[] horarioParadas, Boolean refeicaoInclusa){
+				String marca, Boolean leito, Integer[] horarioParadas, Boolean refeicaoInclusa){
 		
 		PassagemOnibus novaPO = new PassagemOnibus (dataInicial, dataFinal, horaInicial, horaFinal, 
-				pontPartida, pontChegada, escalas, preco, marca, leito, numParadas, horarioParadas, refeicaoInclusa);
+				pontPartida, pontChegada, escalas, preco, marca, leito, horarioParadas, refeicaoInclusa);
 		if(dataInicial.isAfter(LocalDate.now())|| dataInicial.isEqual(LocalDate.now())) {
 			listaOnibus.add(novaPO);
 }
@@ -80,7 +80,7 @@ public class Memoria {
 	}
 	public void editPassagemOnibus(String id,  LocalDate dataInicial, LocalDate dataFinal,
 				LocalTime horaInicial, LocalTime horaFinal, String pontPartida, String pontChegada, 
-				String[] escalas, Double preco, String marca, Boolean leito, Integer numParadas, 
+				String[] escalas, Double preco, String marca, Boolean leito, 
 				Integer[] horarioParadas, Boolean refeicaoInclusa) {
 		for(PassagemOnibus index : listaOnibus) {
 			if(index.getId().equals(id)) {
@@ -94,8 +94,7 @@ public class Memoria {
 				index.setPreco(preco);
 				index.setMarca(marca);
 				index.setLeito(leito);
-				index.setNumParadas(numParadas);
-				index.setHorarioParadas(horarioParadas);
+				index.setHorarioENumParadas(horarioParadas);
 				index.setRefeicaoInclusa(refeicaoInclusa);
 				if(index.getDataInicial().isAfter(index.getDataFinal())){
 					deletePassagem(false, index.getId());

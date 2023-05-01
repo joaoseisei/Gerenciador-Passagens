@@ -11,7 +11,6 @@ public class Main {
 		Memoria memoria = new Memoria();
 		Scanner scanner = new Scanner(System.in);
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		
 	//ADICIONANDO PASSAGENS AVIAO
 		memoria.addPassagemAviao(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 05), 
 				  LocalTime.of(14, 0), LocalTime.of(18, 0),
@@ -37,25 +36,24 @@ public class Main {
 		memoria.addPassagemOnibus(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 5), 
 				  LocalTime.of(14, 0), LocalTime.of(1, 0),
 				  "SP-Brasil", "DF-Brasil" , new String[] {"SP-Brasil", "GO-BRASIL", "BA-BRASIL"} , 
-				  150.31, "Mercedes", true, 0, new Integer [] {}, true);
+				  150.31, "Mercedes", true, new Integer [] {15}, true);
 		memoria.addPassagemOnibus(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 6), 
 				  LocalTime.of(10, 0), LocalTime.of(5, 0),
 				  "SP-Brasil", "DF-Brasil" , new String[] {"SP-Brasil", "GO-BRASIL", "BA-BRASIL"} , 
-				  150.31, "Mercedes", false, 0, new Integer [] {}, false);
+				  150.31, "Mercedes", false, new Integer [] {1, 6}, false);
 		memoria.addPassagemOnibus(LocalDate.of(2023, 9, 2), LocalDate.of(2023, 9, 3), 
 				  LocalTime.of(1, 0), LocalTime.of(20, 0),
 				  "PB-Brasil", "MG-Brasil" , new String[] {} , 
-				  90.58, "Gol", true, 3, new Integer [] {8, 13, 18}, true);
+				  90.58, "Gol", true, new Integer [] {8, 13, 18}, true);
 		memoria.addPassagemOnibus(LocalDate.of(2023, 10, 10), LocalDate.of(2023, 10, 10), 
 				  LocalTime.of(6, 0), LocalTime.of(18, 0),
 				  "AM-Brasil", "BA-Brasil" , new String[] {} , 
-				  150.18, "OptimusPrime", false, 1, new Integer [] {14}, false);
+				  150.18, "OptimusPrime", false, new Integer [] {14}, false);
 		memoria.addPassagemOnibus(LocalDate.of(2023, 7, 26), LocalDate.of(2023, 7, 26), 
 				  LocalTime.of(14, 0), LocalTime.of(18, 0),
 				  "GO-Brasil", "DF-Brasil" , new String[] {} , 
-				  100.08, "Buson", false, 0, new Integer [] {}, false);
+				  100.08, "Buson", false, new Integer [] {}, false);
 		
-	
 	//LOOP APLICACAO	
 		while(true) {
 			System.out.println("\nBem vindo, ao gerenciador e passagens PAPO, aqui está a lista de comandos:" 
@@ -122,7 +120,7 @@ public class Main {
 					 memoria.editPassagemOnibus(id, LocalDate.of(2025, 5, 05), LocalDate.of(2025, 05, 05), 
 							 					LocalTime.of(11,11), LocalTime.of(22, 22),
 							 					"TESTE1", "TESTE2" , new String[] {"TESTE3", "TESTE4"} , 
-							 					999.99, "TESTE5", true, 2, new Integer [] {14, 18}, true);
+							 					999.99, "TESTE5", true, new Integer [] {14, 18}, true);
 					 System.out.println("Passagem editada com sucesso");
 				 }else {
 					 System.out.println("Opcao invalida :(");
