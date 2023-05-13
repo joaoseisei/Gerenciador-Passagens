@@ -1,8 +1,8 @@
-package principal;
+package Modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class PassagemAviao extends Itinerario{ 
+public class PassagemAviao extends Passagem{ 
 //ATRIBUTOS:
 	private Integer classe;							//CLASSE
 	private Integer pesoBagagem;					//PESO DA BAGAGEM

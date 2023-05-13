@@ -1,7 +1,11 @@
-package principal;
+package View;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
+
+
+import Modelo.Memoria;
+
 import java.time.format.DateTimeFormatter;
 
 public class Main {
@@ -35,7 +39,7 @@ public class Main {
 	//ADICIONANDO PASSAGENS ONIBUS	
 		memoria.addPassagemOnibus(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 5), 
 				  LocalTime.of(14, 0), LocalTime.of(1, 0),
-				  "SP-Brasil", "DF-Brasil" , new String[] {"SP-Brasil", "GO-BRASIL", "BA-BRASIL"} , 
+				  "SP-Brasil", "DF-Brasil" , new String[] {"SP-Brasil", "GO-BRASIL"} , 
 				  150.31, "Mercedes", true, new Integer [] {15}, true);
 		memoria.addPassagemOnibus(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 6), 
 				  LocalTime.of(10, 0), LocalTime.of(5, 0),

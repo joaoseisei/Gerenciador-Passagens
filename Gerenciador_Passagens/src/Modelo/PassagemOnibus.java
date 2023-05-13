@@ -1,9 +1,9 @@
-package principal;
+package Modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 
-public class PassagemOnibus extends Itinerario{
+public class PassagemOnibus extends Passagem{
 //ATRIBUTOS
 	private Boolean leito;							//LEITO
 	private Integer numParadas;						//NUMERO DE PARADAS
@@ -55,13 +55,13 @@ public class PassagemOnibus extends Itinerario{
 //METODO ABSTRATO
 	@Override
 	public Double calculaPreco() {
-		if( (super.getPreco()*2) > 0){
+		if( ((super.getPreco()*2) - (super.getNumEscalas()*15)) > 0){
 			if(leito) {
-				if(refeicaoInclusa) {return Math.round(super.getPreco()*500)/100.0;}
-					else{return Math.round(super.getPreco()*400)/100.0;}
+				if(refeicaoInclusa) {return Math.round((super.getPreco()*500) - (super.getNumEscalas()*15))/100.0;}
+					else{return Math.round((super.getPreco()*400) - (super.getNumEscalas()*15))/100.0;}
 				
-			}else if(refeicaoInclusa && leito == false){return Math.round(super.getPreco()*300)/100.0;}
-				else{return Math.round(super.getPreco()*200)/100.0;}
+			}else if(refeicaoInclusa && leito == false){return Math.round((super.getPreco()*300) - (super.getNumEscalas()*15))/100.0;}
+				else{return Math.round((super.getPreco()*500) - (super.getNumEscalas()*15))/100.0;}
 		}else{
 			return 0.0;
 		}

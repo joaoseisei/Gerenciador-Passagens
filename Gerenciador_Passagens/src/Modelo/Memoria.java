@@ -1,4 +1,4 @@
-package principal;
+package Modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -54,12 +54,14 @@ public class Memoria {
 		for(PassagemAviao index : listaAviao) {
 			//passando linha por linha da listagem
 			if(index.getId().equals(id)) {
-				index.setDataInicial(dataInicial);
-				index.setDataFinal(dataFinal);
-				index.setHoraInicial(horaInicial);
-				index.setHoraFinal(horaFinal);
-				index.setPontPartida(pontPartida);
-				index.setPontChegada(pontChegada);
+			//CRUD ITINERARIO
+				index.getItinerario().setDataInicial(dataInicial);
+				index.getItinerario().setDataFinal(dataFinal);
+				index.getItinerario().setHoraInicial(horaInicial);
+				index.getItinerario().setHoraFinal(horaFinal);
+				index.getItinerario().setPontPartida(pontPartida);
+				index.getItinerario().setPontChegada(pontChegada);
+			//CRUD PASSAGEM
 				index.setEscalasENumEscalas(escalas);
 				index.setPreco(preco);
 				index.setMarca(marca);
@@ -67,10 +69,12 @@ public class Memoria {
 				index.setPesoBagagem(pesoBagagem);
 				index.setTipoVoo(tipoVoo);
 				index.setAlturaVoo(alturaVoo);
-				if(index.getDataInicial().isAfter(index.getDataFinal())){
+			//VERIFICADOR DE DATAS
+				if(index.getItinerario().getDataInicial().isAfter(index.getItinerario().getDataFinal())){
 					deletePassagem(true, index.getId());
 					throw new IllegalArgumentException("CONFLITO DE DATA (DIA), DELETANDO PASSAGEM");
-				}else if(index.getDataInicial().equals(index.getDataFinal()) && index.getHoraInicial().isAfter(index.getHoraFinal())) {
+				}else if(index.getItinerario().getDataInicial().equals(index.getItinerario().getDataFinal()) &&
+						index.getItinerario().getHoraInicial().isAfter(index.getItinerario().getHoraFinal())) {
 					deletePassagem(true, index.getId());
 					throw new IllegalArgumentException("CONFLITO DE DATA (HORA), DELETANDO PASSAGEM");
 				}break;					// parando o for, pois ja achou o index correspondente do id
@@ -84,22 +88,26 @@ public class Memoria {
 				Integer[] horarioParadas, Boolean refeicaoInclusa) {
 		for(PassagemOnibus index : listaOnibus) {
 			if(index.getId().equals(id)) {
-				index.setDataInicial(dataInicial);
-				index.setDataFinal(dataFinal);
-				index.setHoraInicial(horaInicial);
-				index.setHoraFinal(horaFinal);
-				index.setPontPartida(pontPartida);
-				index.setPontChegada(pontChegada);
+			//CRUD ITINERARIO
+				index.getItinerario().setDataInicial(dataInicial);
+				index.getItinerario().setDataFinal(dataFinal);
+				index.getItinerario().setHoraInicial(horaInicial);
+				index.getItinerario().setHoraFinal(horaFinal);
+				index.getItinerario().setPontPartida(pontPartida);
+				index.getItinerario().setPontChegada(pontChegada);
+			//CRUD PASSAGEM
 				index.setEscalasENumEscalas(escalas);
 				index.setPreco(preco);
 				index.setMarca(marca);
 				index.setLeito(leito);
 				index.setHorarioENumParadas(horarioParadas);
 				index.setRefeicaoInclusa(refeicaoInclusa);
-				if(index.getDataInicial().isAfter(index.getDataFinal())){
+			//VERIFICADOR DATAS
+				if(index.getItinerario().getDataInicial().isAfter(index.getItinerario().getDataFinal())){
 					deletePassagem(false, index.getId());
 					throw new IllegalArgumentException("ERRO DE DATAS, DELETANDO PASSAGEM");
-				}else if(index.getDataInicial().equals(index.getDataFinal()) && index.getHoraInicial().isAfter(index.getHoraFinal())) {
+				}else if(index.getItinerario().getDataInicial().equals(index.getItinerario().getDataFinal()) && 
+						index.getItinerario().getHoraInicial().isAfter(index.getItinerario().getHoraFinal())) {
 					deletePassagem(true, index.getId());
 					throw new IllegalArgumentException("CONFLITO DE DATA (HORA), DELETANDO PASSAGEM");
 				}break;
@@ -123,14 +131,14 @@ public class Memoria {
 		// novo array aonde vou colocar todos os Voos filtrados
 		for (PassagemAviao index : listaAviao) {
 			//passando linha por linha da listagem
-	        if ((dataInicial == null || index.getDataInicial().equals(dataInicial))
+	        if ((dataInicial == null || index.getItinerario().getDataInicial().equals(dataInicial))
 	        		// se o inicio for nulo ou for igual ao parametro da funcao passou
-	        	&& (dataFinal == null || index.getDataFinal().equals(dataFinal))){
+	        	&& (dataFinal == null || index.getItinerario().getDataFinal().equals(dataFinal))){
 	        		// se o fim for nulo ou igual ao parametro da funçao passou
 	        	
-	        	if ((pontPartida == null || index.getPontPartida().equals(pontPartida))
+	        	if ((pontPartida == null || index.getItinerario().getPontPartida().equals(pontPartida))
 	        		// se o local de decolagem for nulo ou igual ao parametro decolagem passou
-	   	        	 && (pontChegada == null || index.getPontChegada().equals(pontChegada))){
+	   	        	 && (pontChegada == null || index.getItinerario().getPontChegada().equals(pontChegada))){
 	        		// se o local de pouso for nulo ou igual ao parametro de pouso passou
 	        		
 	            filtro.add(index); // se passou em tudo adiciona no filtro
@@ -143,11 +151,11 @@ public class Memoria {
 															  String pontPartida, String pontChegada){
 		ArrayList<PassagemOnibus> filtro = new ArrayList<>();
 		for (PassagemOnibus index : listaOnibus) {
-	        if ((dataInicial == null || index.getDataInicial().equals(dataInicial))
-	        	&& (dataFinal == null || index.getDataFinal().equals(dataFinal))){
+	        if ((dataInicial == null || index.getItinerario().getDataInicial().equals(dataInicial))
+	        	&& (dataFinal == null || index.getItinerario().getDataFinal().equals(dataFinal))){
 	        	
-	        	if ((pontPartida == null || index.getPontPartida().equals(pontPartida))
-	   	        	 && (pontChegada == null || index.getPontChegada().equals(pontChegada))){
+	        	if ((pontPartida == null || index.getItinerario().getPontPartida().equals(pontPartida))
+	   	        	 && (pontChegada == null || index.getItinerario().getPontChegada().equals(pontChegada))){
 	        		
 	            filtro.add(index); 
 	        	}
