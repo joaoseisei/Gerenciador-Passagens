@@ -2,10 +2,8 @@ package View;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
-
-
 import Modelo.Memoria;
-
+import Controle.MemoriaConta;
 import java.time.format.DateTimeFormatter;
 
 public class Main {
@@ -13,9 +11,11 @@ public class Main {
 	public static void main(String[] args) {
 	//DEFININDO OBJETOS
 		Memoria memoria = new Memoria();
+		MemoriaConta memoriaConta = new MemoriaConta();
 		Scanner scanner = new Scanner(System.in);
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	//ADICIONANDO PASSAGENS AVIAO
+		memoria.criarItinerario(null, null, null, null, null, null);
 		memoria.addPassagemAviao(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 05), 
 				  LocalTime.of(14, 0), LocalTime.of(18, 0),
 				  "Brasil", "Chile" , new String[] {"SP-Brasil", "BA-Argentina"} , 
@@ -58,8 +58,9 @@ public class Main {
 				  "GO-Brasil", "DF-Brasil" , new String[] {} , 
 				  100.08, "Buson", false, new Integer [] {}, false);
 		
-	//LOOP APLICACAO	
+	//LOOP APLICACAO
 		while(true) {
+			
 			System.out.println("\nBem vindo, ao gerenciador e passagens PAPO, aqui está a lista de comandos:" 
 							 + "\n  ○ PATotal - para pegar todas as passagens de aviao"
 							 + "\n  ○ POTotal - para pegar todas as passagens de onibus"

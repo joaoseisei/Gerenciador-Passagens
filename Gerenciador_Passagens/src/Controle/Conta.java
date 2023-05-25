@@ -2,34 +2,57 @@ package Controle;
 import java.util.Random;
 
 public class Conta {
-//Atributos
+//ATRIBUTOS
 	private String nome;
-	private String senhaCriptografada = "";
+	private String senha;
 	private String idu;
-	private char[] criptografia;
-//Construtor
-	public Conta(String nome, String senha, String novaSenha) {
+	private boolean tipo;
+//CONSTRUTOR
+	public Conta(boolean tipo, String nome, String senha, String novaSenha) {
+	//TIPO
+		this.tipo = tipo;
 	//NOME
 		if(nome != null) {this.nome = nome;}
 			else {throw new IllegalArgumentException("Nome Invalido");}
 	//SENHA
-		if( senha.equals(novaSenha)) {criptografarSenha(senha);}	
+		if( senha.equals(novaSenha)) {
+			this.senha = criptografarSenha(senha);
+			}	
 			else {throw new IllegalArgumentException("Senhas diferentes :(");}
 	//ID DO USUARIO
 		this.idu = String.format(nome + "%07d", new Random().nextInt(100000));
 	}
 //GETTERS
+	public boolean getTipo() {
+		return tipo;
+	}
 	public String getNome() {
 		return nome;
 	}
-	public String getSenhaCriptografada() {
-		return senhaCriptografada;
+	public String getSenha() {
+		return senha;
 	}
-//Criptografia
-	private void criptografarSenha(String senha) {
-		for(int i = criptografia.length - 1 ; i >= 0; i--) {
-			senhaCriptografada += criptografia[i] + "Ç";
-		}
-		senhaCriptografada = senhaCriptografada.substring(0, senhaCriptografada.length()-1);
+//CRIPTOGRAFIA
+	public String criptografarSenha(String senha) {
+		for(int j = 1; j<=10; j++) {
+			String criptografia = "";
+		    String letraI = "";
+		    for (int i = 0; i < senha.length(); i++) {
+		    	char letra = senha.charAt(i);
+		        if (i % 2 == 1) {
+		            letraI += letra + "Ç";
+		        }else{
+		            criptografia += letra + "Ñ";
+		           }
+		     }
+		     criptografia += letraI + criptografia ;
+		     if( j ==10) {
+		    	 senha = "@" + criptografia;
+		     }
+		}return senha;
+	}
+//TOSTRING
+	public String toString() {
+		return "Nome: " + nome + " | ID usuario: " + idu + " | Senha: " + senha + " | Empresa: " + tipo;
 	}
 }

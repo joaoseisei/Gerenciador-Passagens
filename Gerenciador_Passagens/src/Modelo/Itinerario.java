@@ -1,12 +1,14 @@
 package Modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Random;
 
 public class Itinerario {
 //ATRIBUTOS
 	private LocalDate dataInicial, dataFinal;   	 //DATAS
 	private LocalTime horaInicial, horaFinal; 		 //HORAS
 	private String pontPartida, pontChegada;   		 //DECOLAGEM E POUSO
+	private final String idItinerario;				 //ID ITINERARIO
 //CONSTRUTOR
 	public Itinerario(LocalDate dataInicial, LocalDate dataFinal, LocalTime horaInicial, 
 					  LocalTime horaFinal,String pontPartida, String pontChegada) {
@@ -25,6 +27,8 @@ public class Itinerario {
 	//PONTO DE CHEGADA
 		if(pontChegada.equals(pontPartida)) {throw new IllegalArgumentException("Local de decolagem igual ao de pouso");}
 			else {this.pontChegada = pontChegada;}
+	//ID ITINERARIO
+		this.idItinerario = String.format("%07d", new Random().nextInt(100000));
 	}
 //GETTERS
 	public LocalDate getDataInicial() {
@@ -44,6 +48,9 @@ public class Itinerario {
 	}
 	public String getPontChegada() {
 		return pontChegada;
+	}
+	public String getIdItinerario() {
+		return idItinerario;
 	}
 //SETTERS
 	public void setDataInicial(LocalDate novoInicio) {
@@ -78,6 +85,7 @@ public class Itinerario {
 	}
 //ToString
 	public String toString() {
-		return "D:" + dataInicial + " / " + horaInicial + dataFinal + " / " + horaFinal + "|" + pontPartida + pontChegada;
+		return "D:" + dataInicial + " / " + horaInicial + dataFinal + " / " + horaFinal + "|" + pontPartida 
+					+ pontChegada + " | " + idItinerario;
 	}
 }

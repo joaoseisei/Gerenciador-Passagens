@@ -1,10 +1,21 @@
 package Controle;
+import java.util.ArrayList;
+
+import Modelo.*;
 
 public class Usuario extends Conta{
-
-	public Usuario(String nome, String senha, String novaSenha) {
-		super(nome, senha, novaSenha);
-		// TODO Auto-generated constructor stub
+//ATRIBUTOS
+	private ArrayList<PassagemAviao> passagensAviaoF = new ArrayList<>();
+	private ArrayList<PassagemOnibus> passagensOnibusF = new ArrayList<>();
+//CONSTRUTOR
+	public Usuario(boolean tipo, String nome, String senha, String novaSenha) {
+		super(tipo, nome, senha, novaSenha);
 	}
-
+//ADICIONANDO FAVORITOS
+	public void addFavoritoAviao(String id) {
+		//adicionar
+	}
+	public void addFavoritoOnibus(String id) {
+		
+	}
 }
