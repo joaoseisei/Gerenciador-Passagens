@@ -85,7 +85,6 @@ public class Itinerario {
 	}
 //ToString
 	public String toString() {
-		return "D:" + dataInicial + " / " + horaInicial + dataFinal + " / " + horaFinal + "|" + pontPartida 
-					+ pontChegada + " | " + idItinerario;
+		return "D:"+dataInicial+" / "+horaInicial+dataFinal+" / "+horaFinal+"|"+pontPartida+pontChegada;
 	}
 }

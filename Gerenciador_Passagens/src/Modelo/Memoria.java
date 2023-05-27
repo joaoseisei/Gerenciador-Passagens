@@ -8,8 +8,11 @@ public class Memoria {
 	private ArrayList<Itinerario> listaItinerario = new ArrayList<>(); 		//LISTA DE ITINERARIOS
 	private ArrayList<PassagemAviao> listaAviao = new ArrayList<>();		//LISTA PASSAGENS DE AVIAO
 	private ArrayList<PassagemOnibus> listaOnibus = new ArrayList<>();		//LISTA PASSAGENS DE ONIBUS
+	private ArrayList<Admin> listaEmpresa = new ArrayList<>();				//LISTA DE CONTAS EMPRESARIAIS
+	private ArrayList<Usuario> listaUsuario= new ArrayList<>();				//LISTA DE CONTAS PESSOAIS
+//------------------------------ADICIONAR----------------------------------------//
 //ADICIONAR ITINERARIO
-	public void criarItinerario(LocalDate dataInicial, LocalDate dataFinal, LocalTime horaInicial, 
+	public void addItinerario(LocalDate dataInicial, LocalDate dataFinal, LocalTime horaInicial, 
 								LocalTime horaFinal,String pontPartida, String pontChegada) {
 		Itinerario novoItinerario = new Itinerario(dataInicial, dataFinal, horaInicial, 
 							   horaFinal, pontPartida, pontChegada);
@@ -45,13 +48,34 @@ public class Memoria {
 			}
 		}
 	}
+//ADICIONAR CONTA
+	public void addConta(Boolean tipo, String nome, String senha, String novaSenha) {
+		if(tipo) {
+			Admin novaEmpresa = new Admin(tipo ,nome, senha, novaSenha);
+			listaEmpresa.add(novaEmpresa);
+		}else {
+			Usuario novoUsuario = new Usuario(tipo, nome, senha, novaSenha);
+			listaUsuario.add(novoUsuario);
+		}
+	}
+	
+//------------------------------DELETAR------------------------------------------//
+//DELETAR ITINERARIO
+	public void deleteItinerario(String idItinerario) {
+		for(Itinerario index : listaItinerario) {
+			if(idItinerario.equals(index.getIdItinerario())) {
+				listaItinerario.remove(index);
+				break;
+			}	
+		}
+	}
 //DELETAR PASSAGEM
 	public void deletePassagem(Boolean aviao, String id){
 		if (aviao) {
-			for(PassagemAviao index : listaAviao) {	// passando linha por linha da listagem
-				if(index.getId().equals(id)) {		// se o id do index for igual ao parametro id passou
-					listaAviao.remove(index);		// removendo o voo index da lista, tipo o 3 voo da lista...
-					break;							// parando o for, pois ja achou o index correspondente ao id
+			for(PassagemAviao index : listaAviao){	
+				if(index.getId().equals(id)) {		
+					listaAviao.remove(index);		
+					break;							
 				}
 			} 
 		}else {
@@ -63,11 +87,33 @@ public class Memoria {
 		    }
 		}
 	}
+	
+//---------------------------------EDITAR----------------------------------------//
 //EDITAR ITINERARIO
 	public void editItinerario(String idItinerario, LocalDate dataInicial, LocalDate dataFinal, 
 			LocalTime horaInicial, LocalTime horaFinal,String pontPartida, String pontChegada ) {
 		for(Itinerario index : listaItinerario) {
 			if(idItinerario.equals(index.getIdItinerario())) {
+				for(PassagemAviao indexA : listaAviao) {
+					if(index.toString().equals(indexA.getItinerario().toString())) {
+						indexA.getItinerario().setDataInicial(dataInicial);
+						indexA.getItinerario().setDataFinal(dataFinal);
+						indexA.getItinerario().setHoraInicial(horaInicial);
+						indexA.getItinerario().setHoraFinal(horaFinal);
+						indexA.getItinerario().setPontPartida(pontPartida);
+						indexA.getItinerario().setPontChegada(pontChegada);
+					}
+				}
+				for(PassagemOnibus indexB : listaOnibus) {
+					if(index.toString().equals(indexB.getItinerario().toString())) {
+						indexB.getItinerario().setDataInicial(dataInicial);
+						indexB.getItinerario().setDataFinal(dataFinal);
+						indexB.getItinerario().setHoraInicial(horaInicial);
+						indexB.getItinerario().setHoraFinal(horaFinal);
+						indexB.getItinerario().setPontPartida(pontPartida);
+						indexB.getItinerario().setPontChegada(pontChegada);
+					}
+				}
 				index.setDataInicial(dataInicial);
 				index.setDataFinal(dataFinal);
 				index.setHoraInicial(horaInicial);
@@ -75,10 +121,10 @@ public class Memoria {
 				index.setPontPartida(pontPartida);
 				index.setPontChegada(pontChegada);
 				if(index.getDataInicial().isAfter(index.getDataFinal())){
-					throw new IllegalArgumentException("CONFLITO DE DATA (DIA), DELETANDO PASSAGEM");
+					throw new IllegalArgumentException("CONFLITO DE DATA (DIA)");
 				}else if(index.getDataInicial().equals(index.getDataFinal()) &&
 						index.getHoraInicial().isAfter(index.getHoraFinal())) {
-					throw new IllegalArgumentException("CONFLITO DE DATA (HORA), DELETANDO PASSAGEM");
+					throw new IllegalArgumentException("CONFLITO DE DATA (HORA)");
 				}break;	
 			}
 		}
@@ -114,7 +160,7 @@ public class Memoria {
 						index.getItinerario().getHoraInicial().isAfter(index.getItinerario().getHoraFinal())) {
 					deletePassagem(true, index.getId());
 					throw new IllegalArgumentException("CONFLITO DE DATA (HORA), DELETANDO PASSAGEM");
-				}break;					// parando o for, pois ja achou o index correspondente do id
+				}break;					
 			}
 		}
 	}
@@ -151,6 +197,8 @@ public class Memoria {
 			}
 		}
 	}
+	
+//---------------------------------GETTERS--------------------------------------//
 //GETTER DE ITINERARIO
 	public ArrayList<Itinerario> getItinerario(){
 		return new ArrayList<>(listaItinerario);
@@ -163,6 +211,12 @@ public class Memoria {
 	public ArrayList<PassagemOnibus> getListaOnibus (){
 		return new ArrayList<>(listaOnibus);
 	}
+//GETTER DE USUARIO
+	public ArrayList<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
+
+//---------------------------------FILTROS-------------------------------------//
 //FILTRAR PASSAGEM DE AVIAO
 	public ArrayList<PassagemAviao> filtrarPassagemAviao(LocalDate dataInicial, LocalDate dataFinal, 
 															String pontPartida, String pontChegada){
@@ -188,5 +242,42 @@ public class Memoria {
 	        	filtro.add(index); 
 	        }
 		}return filtro;
+	}
+
+//----------------------------------FAZER LOGIN--------------------------------//
+	public String fazerLogin(String nome, String senha, Boolean Empresa) {
+		String resultadoLogin = "r";
+		if(Empresa) {
+			for(Admin index : listaEmpresa) {
+				if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))){
+					resultadoLogin = "EmpresaLogada";
+		
+				}
+			}
+		}else {
+			for(Usuario index : listaUsuario) {
+				if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))){
+					resultadoLogin = "UsuarioLogado";
+				}
+			}
+		}return resultadoLogin;
+	}
+	
+//------------------------------ADICIONAR FAVORITOS----------------------------//
+	public void addFavoritosPA(String idu, String idp){
+		for(Usuario index : listaUsuario) {
+			if(idu.equals(index.getIDU())){
+				for(PassagemAviao indexA : listaAviao) {
+					if(idp.equals(indexA.getId())) {
+						index.addFavoritoAviao(indexA);
+					}
+				}
+				for(PassagemOnibus indexB : listaOnibus) {
+					if(idp.equals(indexB.getId())) {
+						index.addFavoritoOnibus(indexB);
+					}
+				}
+			}
+		}
 	}
 }

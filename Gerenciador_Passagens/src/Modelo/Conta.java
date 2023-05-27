@@ -1,11 +1,11 @@
-package Controle;
+package Modelo;
 import java.util.Random;
 
-public class Conta {
+public abstract class Conta {
 //ATRIBUTOS
 	private String nome;
 	private String senha;
-	private String idu;
+	private final String idu;
 	private boolean tipo;
 //CONSTRUTOR
 	public Conta(boolean tipo, String nome, String senha, String novaSenha) {
@@ -31,6 +31,9 @@ public class Conta {
 	}
 	public String getSenha() {
 		return senha;
+	}
+	public String getIDU() {
+		return idu;
 	}
 //CRIPTOGRAFIA
 	public String criptografarSenha(String senha) {
