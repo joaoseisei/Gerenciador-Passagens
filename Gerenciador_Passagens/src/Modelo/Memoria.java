@@ -8,7 +8,7 @@ public class Memoria {
 	private ArrayList<Itinerario> listaItinerario = new ArrayList<>(); 		//LISTA DE ITINERARIOS
 	private ArrayList<PassagemAviao> listaAviao = new ArrayList<>();		//LISTA PASSAGENS DE AVIAO
 	private ArrayList<PassagemOnibus> listaOnibus = new ArrayList<>();		//LISTA PASSAGENS DE ONIBUS
-	private ArrayList<Admin> listaAdmin = new ArrayList<>();				//LISTA DE CONTAS EMPRESARIAIS
+	private ArrayList<Admin> listaAdmin = new ArrayList<>();				//LISTA DE CONTAS ADMINISTRATIVAS
 	private ArrayList<Usuario> listaUsuario= new ArrayList<>();				//LISTA DE CONTAS PESSOAIS
 //------------------------------ADICIONAR----------------------------------------//
 //ADICIONAR ITINERARIO
@@ -213,7 +213,11 @@ public class Memoria {
 	}
 //GETTER DE USUARIO
 	public ArrayList<Usuario> getListaUsuario() {
-		return listaUsuario;
+		return new ArrayList<>(listaUsuario);
+	}
+//GETTER DE ADMIN
+	public ArrayList<Admin> getListaAdmin(){
+		return new ArrayList<>(listaAdmin);
 	}
 
 //---------------------------------FILTROS-------------------------------------//
@@ -280,11 +284,23 @@ public class Memoria {
 			}
 		}
 	}
-//---------------------------------USER IGUAIS----------------------------------//
+//---------------------------------CONTAS IGUAIS----------------------------------//
 	public boolean verificarUser(String nome, String senha) {
 		boolean resultado = true;
 		//falso para nao existe nenhum usuario com as mesmas caracteristicas
 		for(Usuario index : listaUsuario) {
+			if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))) {
+				resultado = true;
+			}else {
+				resultado = false;
+			}
+		}
+		return resultado;
+	}
+	public boolean verificarAdmin(String nome, String senha) {
+		boolean resultado = true;
+		//falso para nao existe nenhum usuario com as mesmas caracteristicas
+		for(Admin index : listaAdmin) {
 			if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))) {
 				resultado = true;
 			}else {

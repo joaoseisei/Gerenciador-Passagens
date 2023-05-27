@@ -14,12 +14,14 @@ public class Main {
 		if(login.getNome().trim().isEmpty() || login.getSenha().trim().isEmpty()) {
 			throw new IllegalArgumentException("NOME OU SENHA SÃO NULOS");
 		}else {
-			if(memoria.verificarUser(login.getNome(), login.getSenha()) == false || 
-					memoria.getListaUsuario().isEmpty()) {
-				
+			if((memoria.verificarUser(login.getNome(), login.getSenha()) == false || 
+					memoria.getListaUsuario().isEmpty()) && login.getTipo() == false) {
+				memoria.addConta(login.getTipo(), login.getNome(), login.getSenha(), login.getSenha());
+			}else if((memoria.verificarAdmin(login.getNome(), login.getSenha()) == false || 
+					memoria.getListaAdmin().isEmpty()) && login.getTipo() == true){
 				memoria.addConta(login.getTipo(), login.getNome(), login.getSenha(), login.getSenha());
 			}else {
-				throw new IllegalArgumentException("EXISTE UM USUARIO CADASTRADO COM AS MESMAS CREDENCIAIS");
+				throw new IllegalArgumentException("EXISTE UMA CONTA CADASTRADA COM AS MESMAS CREDENCIAIS");
 			}
 		}
 	}
