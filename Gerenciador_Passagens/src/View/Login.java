@@ -1,6 +1,7 @@
 package View;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -18,82 +19,73 @@ import javax.swing.SwingConstants;
 public class Login{
 //ATRIBUTOS
 	private JFrame tela;
+	private JPanel container, inputsContainer, nomeContainer, senhaContainer;
+	private JLabel titulo, nomeLB, senhaLB;
+	private JTextField nomeTF, senhaTF;
+	private Font tituloFont, subtituloFont;
+	private JButton botaoConfirmacao;
+	private GridBagConstraints layout;
 	private String nome;
 	private String senha;
-	private boolean confirmacao;
-	private boolean ocultacao = false;
 //CONSTRUTOR
     public Login() {
-    //TELA
+//-----------------------FONTES--------------------------
+    	tituloFont = new Font("Verdana", Font.BOLD, 70);
+    	subtituloFont = new Font("Verdana", Font.BOLD, 20);
+//------------------------TELA---------------------------
     	tela = new JFrame("Gerenciador de Passagens");
         tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        tela.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    //CONTAINERS
-        JPanel container = new JPanel(new GridBagLayout());
+        tela.setSize(new Dimension(1200,700));
+        //CONTAINERS
+        container = new JPanel(new GridBagLayout());
         tela.setContentPane(container);
-        container.setBackground(Color.lightGray);
-    //TITULO
-        JLabel titulo = new JLabel("Gerenciador de Passagens");
+        container.setBackground(Color.CYAN);
+//-----------------------TITULO---------------------------
+        titulo = new JLabel("Gerenciador de Passagens");
         //COR E ESTILO
-        titulo.setFont(new Font("Verdana", Font.BOLD, 70));
-        titulo.setForeground(Color.BLACK);
+        titulo.setFont(tituloFont);
+        titulo.setForeground(Color.DARK_GRAY);
         //ALINHAMENTO
         titulo.setHorizontalAlignment(SwingConstants.CENTER);
         titulo.setVerticalAlignment(SwingConstants.TOP);
         container.add(titulo);
-    //INPUTS CONTAINER
-        JPanel inputsContainer = new JPanel();
-        inputsContainer.setBackground(Color.GRAY);
+//----------------------INPUTS------------------------
+      //INPUTS CONTAINER
+        inputsContainer = new JPanel();
+        inputsContainer.setBackground(Color.LIGHT_GRAY);
         container.add(inputsContainer);
-        
-   //----------------------INPUTS LOGIN---------------------------
-        //------------------------TITULO-------------------------------
-        JPanel tituloContainer = new JPanel();
-        tituloContainer.setBackground(Color.PINK);
-        JLabel tituloCC = new JLabel("FAZER LOGIN");
-        tituloCC.setFont(new Font("Verdana", Font.BOLD, 50));
-        tituloCC.setForeground(Color.BLACK);
-        tituloContainer.add(tituloCC, BorderLayout.CENTER);
-        inputsContainer.add(tituloContainer);
-        
-      //------------------------NOME---------------------------------
+//----------------------INPUTS LOGIN------------------------ 
+      //NOME
         //CONTAINER
-        JPanel nomeContainer = new JPanel();
+        nomeContainer = new JPanel();
         nomeContainer.setBackground(Color.BLACK);
         //TEXTO NOME
-        JLabel nome = new JLabel("DIGITE O NOME DE USUARIO:");
-        nome.setFont(new Font("Verdana", Font.BOLD, 20));
-        nome.setForeground(Color.ORANGE);
-        nomeContainer.add(nome, BorderLayout.CENTER);
+        nomeLB = new JLabel("DIGITE O NOME DE USUARIO:");
+        nomeLB.setFont(subtituloFont);
+        nomeLB.setForeground(Color.ORANGE);
+        nomeContainer.add(nomeLB, BorderLayout.CENTER);
         //INPUT NOME
-        JTextField nomeTF = new JTextField(50); 
+        nomeTF = new JTextField(50); 
         nomeContainer.add(nomeTF, BorderLayout.CENTER);
         inputsContainer.add(nomeContainer);
         
       //------------------------SENHA--------------------------------
         //CONTAINER
-        JPanel senhaContainer = new JPanel();
+        senhaContainer = new JPanel();
         senhaContainer.setBackground(Color.BLACK);
         //TEXTO SENHA
-        JLabel senha = new JLabel("DIGITE SUA SENHA:");
-        senha.setFont(new Font("Verdana", Font.BOLD, 20));
-        senha.setForeground(Color.ORANGE);
-        senhaContainer.add( senha, BorderLayout.CENTER);
+        senhaLB = new JLabel("DIGITE SUA SENHA:");
+        senhaLB.setFont(subtituloFont);
+        senhaLB.setForeground(Color.ORANGE);
+        senhaContainer.add( senhaLB, BorderLayout.CENTER);
         //INPUT SENHA
-        JTextField senhaTF = new JTextField(50); 
+        senhaTF = new JTextField(50); 
         senhaContainer.add(senhaTF, BorderLayout.CENTER);
         inputsContainer.add(senhaContainer);
       //------------------------CONFIRMACAO---------------------------
         //BOTAO CONFIRMAÇAO
-        JButton confirmacao = new JButton("CONFIRMAR");
-        inputsContainer.add(confirmacao, BorderLayout.SOUTH);
-        confirmacao.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {	
-                setNome(nomeTF.getText());
-                setSenha(senhaTF.getText());
-                setOcultacao(true);
-            }
-        });
+        botaoConfirmacao = new JButton("CONFIRMAR");
+        inputsContainer.add(botaoConfirmacao, BorderLayout.SOUTH);
         
         JPanel imagem = new JPanel();
         ImageIcon imageIcon = new ImageIcon("C:\\\\Users\\\\joaos\\\\Downloads\\\\sherek.JPG");
@@ -101,11 +93,9 @@ public class Login{
         imagem.add(label);
         inputsContainer.add(label, BorderLayout.SOUTH);
         
-  //----------------------INPUTS CRIAR CONTA---------------------------  
+  //----------------------LAYOUT---------------------------  
         
-        
-        
-        GridBagConstraints layout = new GridBagConstraints();
+        layout = new GridBagConstraints();
         layout.gridy = 1;
         layout.weighty = 1;
         layout.fill = GridBagConstraints.BOTH;
@@ -119,11 +109,14 @@ public class Login{
     public String getSenha() {
     	return senha;
     }
-    public boolean getConfirmacao() {
-    	return confirmacao;
+    public JButton getBC() {
+    	return botaoConfirmacao;
     }
-    public boolean getOcultacao() {
-    	return ocultacao;
+    public String getNomeTF() {
+    	return nomeTF.getText();
+    }
+    public String getSenhaTF() {
+    	return senhaTF.getText();
     }
 //SETTERS
     public void setNome(String novoNome) {
@@ -131,9 +124,6 @@ public class Login{
     }
     public void setSenha(String novaSenha) {
     	this.senha = novaSenha;
-    }
-    public void setOcultacao(boolean novaOcultacao) {
-    	this.ocultacao = novaOcultacao;
     }
 //EXIBIR TELA
     public void exibir() {
