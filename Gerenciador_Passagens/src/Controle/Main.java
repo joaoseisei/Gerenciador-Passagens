@@ -4,34 +4,48 @@ import Modelo.Memoria;
 import View.*;
 
 public class Main {
-//METODO MAIN
+//OBJETOS
 	static Login login = new Login();
-	static TelaUsuario telaUser = new TelaUsuario();
 	static Memoria memoria = new Memoria();
-	public static void trocarTela(ActionEvent e) {
-		if(login.getNomeTF().trim().isEmpty() && login.getSenhaTF().trim().isEmpty()) {
-			System.out.println("erro, nome ou senha nulos");
+	static TelaUsuario telaUser = new TelaUsuario();
+	static TelaAdmin telaADM = new TelaAdmin();
+//CRIAR UMA CONTA
+	public static void criarConta(ActionEvent e) {
+		if(login.getNome().trim().isEmpty() || login.getSenha().trim().isEmpty()) {
+			throw new IllegalArgumentException("NOME OU SENHA SÃO NULOS");
 		}else {
-			login.setNome(login.getNomeTF());
-			login.setSenha(login.getSenhaTF());
-			System.out.println(login.getNome() + login.getSenha());
-			login.ocultar();
-			System.out.println("trocando de tela...");
-			telaUser.exibir();
-			memoria.addConta(false, login.getNome(), login.getSenha(), login.getSenha());
-			System.out.println(memoria.getListaUsuario());
+			if(memoria.verificarUser(login.getNome(), login.getSenha()) == false || 
+					memoria.getListaUsuario().isEmpty()) {
+				
+				memoria.addConta(login.getTipo(), login.getNome(), login.getSenha(), login.getSenha());
+			}else {
+				throw new IllegalArgumentException("EXISTE UM USUARIO CADASTRADO COM AS MESMAS CREDENCIAIS");
+			}
 		}
 	}
-	public static String getUsuario() {
-		return memoria.getListaUsuario().toString();
+//FAZER LOGIN
+	public static void fazerLogin() {
+		if(memoria.fazerLogin(login.getNome(), login.getSenha(), login.getTipo()).equals("UsuarioLogado")) {
+			login.ocultar();
+			telaUser.exibir();
+		}else if( memoria.fazerLogin(login.getNome(), login.getSenha(), login.getTipo()).equals("AdminLogado")) {
+			login.ocultar();
+			telaADM.exibir();
+		}
 	}
+//METODO MAIN
 	public static void main(String[] args) {
 		login.exibir();
-		telaUser.ocultar();
-		login.getBC().addActionListener(new ActionListener() {
+		login.getFazerRegistro().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                trocarTela(e);
+                criarConta(e);
             }
         });
+		login.getFazerLogin().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fazerLogin();
+			}
+		});
 	}
+	
 }

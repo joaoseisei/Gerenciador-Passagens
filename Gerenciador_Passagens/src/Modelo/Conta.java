@@ -56,6 +56,6 @@ public abstract class Conta {
 	}
 //TOSTRING
 	public String toString() {
-		return "Nome: " + nome + " | ID usuario: " + idu + " | Senha: " + senha + " | Empresa: " + tipo;
+		return "Nome: " + nome + " | ID usuario: " + idu + " | Senha: " + senha + " | Empresa: " + tipo + "\n";
 	}
 }

@@ -8,7 +8,7 @@ public class Memoria {
 	private ArrayList<Itinerario> listaItinerario = new ArrayList<>(); 		//LISTA DE ITINERARIOS
 	private ArrayList<PassagemAviao> listaAviao = new ArrayList<>();		//LISTA PASSAGENS DE AVIAO
 	private ArrayList<PassagemOnibus> listaOnibus = new ArrayList<>();		//LISTA PASSAGENS DE ONIBUS
-	private ArrayList<Admin> listaEmpresa = new ArrayList<>();				//LISTA DE CONTAS EMPRESARIAIS
+	private ArrayList<Admin> listaAdmin = new ArrayList<>();				//LISTA DE CONTAS EMPRESARIAIS
 	private ArrayList<Usuario> listaUsuario= new ArrayList<>();				//LISTA DE CONTAS PESSOAIS
 //------------------------------ADICIONAR----------------------------------------//
 //ADICIONAR ITINERARIO
@@ -51,8 +51,8 @@ public class Memoria {
 //ADICIONAR CONTA
 	public void addConta(Boolean tipo, String nome, String senha, String novaSenha) {
 		if(tipo) {
-			Admin novaEmpresa = new Admin(tipo ,nome, senha, novaSenha);
-			listaEmpresa.add(novaEmpresa);
+			Admin novoAdmin = new Admin(tipo ,nome, senha, novaSenha);
+			listaAdmin.add(novoAdmin);
 		}else {
 			Usuario novoUsuario = new Usuario(tipo, nome, senha, novaSenha);
 			listaUsuario.add(novoUsuario);
@@ -248,9 +248,9 @@ public class Memoria {
 	public String fazerLogin(String nome, String senha, Boolean Empresa) {
 		String resultadoLogin = "r";
 		if(Empresa) {
-			for(Admin index : listaEmpresa) {
+			for(Admin index : listaAdmin) {
 				if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))){
-					resultadoLogin = "EmpresaLogada";
+					resultadoLogin = "AdminLogado";
 		
 				}
 			}
@@ -279,5 +279,18 @@ public class Memoria {
 				}
 			}
 		}
+	}
+//---------------------------------USER IGUAIS----------------------------------//
+	public boolean verificarUser(String nome, String senha) {
+		boolean resultado = true;
+		//falso para nao existe nenhum usuario com as mesmas caracteristicas
+		for(Usuario index : listaUsuario) {
+			if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))) {
+				resultado = true;
+			}else {
+				resultado = false;
+			}
+		}
+		return resultado;
 	}
 }
