@@ -1,6 +1,5 @@
 package Modelo;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.ArrayList;
 
 public class Memoria {
@@ -250,63 +249,54 @@ public class Memoria {
 
 //----------------------------------FAZER LOGIN--------------------------------//
 	public String fazerLogin(String nome, String senha, Boolean Empresa) {
-		String resultadoLogin = "r";
 		if(Empresa) {
 			for(Admin index : listaAdmin) {
 				if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))){
-					resultadoLogin = "AdminLogado";
-		
+					return "AdminLogado";
 				}
 			}
 		}else {
 			for(Usuario index : listaUsuario) {
 				if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))){
-					resultadoLogin = "UsuarioLogado";
+					return "UsuarioLogado";
 				}
 			}
-		}return resultadoLogin;
+		}return "erro";
+	}
+	public Usuario getUsuarioOBJ(String nome, String senha) {
+		for(Usuario index : listaUsuario) {
+			if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))) {
+				return index;
+			}
+		}return null; //Caso nao tenha um usuario (sempre vai ter, mas precisa dessa coisa)
+	}
+	public Admin getAdminOBJ(String nome, String senha) {
+		for(Admin index : listaAdmin) {
+			if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))) {
+				return index;
+			}
+		}return null;
 	}
 	
-//------------------------------ADICIONAR FAVORITOS----------------------------//
-	public void addFavoritosPA(String idu, String idp){
-		for(Usuario index : listaUsuario) {
-			if(idu.equals(index.getIDU())){
-				for(PassagemAviao indexA : listaAviao) {
-					if(idp.equals(indexA.getId())) {
-						index.addFavoritoAviao(indexA);
-					}
-				}
-				for(PassagemOnibus indexB : listaOnibus) {
-					if(idp.equals(indexB.getId())) {
-						index.addFavoritoOnibus(indexB);
-					}
-				}
-			}
-		}
-	}
 //---------------------------------CONTAS IGUAIS----------------------------------//
 	public boolean verificarUser(String nome, String senha) {
-		boolean resultado = true;
 		//falso para nao existe nenhum usuario com as mesmas caracteristicas
 		for(Usuario index : listaUsuario) {
 			if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))) {
-				resultado = true;
+				return true;
 			}else {
-				resultado = false;
+				return false;
 			}
-		}
-		return resultado;
+		}return true;
 	}
 	public boolean verificarAdmin(String nome, String senha) {
-		boolean resultado = true;
 		//falso para nao existe nenhum usuario com as mesmas caracteristicas
 		for(Admin index : listaAdmin) {
 			if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))) {
-				resultado = true;
+				return true;
 			}else {
-				resultado = false;
+				return false;
 			}
-		}
-		return resultado;
+		}return true;
 	}
 }

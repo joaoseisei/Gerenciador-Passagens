@@ -3,24 +3,21 @@ import java.util.ArrayList;
 
 public class Usuario extends Conta{
 //ATRIBUTOS
-	private ArrayList<PassagemAviao> passagensAviaoF = new ArrayList<>();
-	private ArrayList<PassagemOnibus> passagensOnibusF = new ArrayList<>();
+	private ArrayList<String> listaFavoritos = new ArrayList<>();
 //CONSTRUTOR
 	public Usuario(boolean tipo, String nome, String senha, String novaSenha) {
 		super(tipo, nome, senha, novaSenha);
 	}
 //ADICIONANDO FAVORITOS
-	public void addFavoritoAviao(PassagemAviao passagemFavorita) {
-		passagensAviaoF.add(passagemFavorita);
-	}
-	public void addFavoritoOnibus(PassagemOnibus passagemFavorita) {
-		passagensOnibusF.add(passagemFavorita);
+	public void addFavoritos(String favorito) {
+		listaFavoritos.add(favorito);
 	}
 //GETTER
-	public ArrayList<PassagemAviao> getPassagemAviaoF(){
-		return new ArrayList<>(passagensAviaoF);
+	public ArrayList<String> getFavoritos() {
+		return listaFavoritos;
 	}
-	public ArrayList<PassagemOnibus> getPassagemOnibusF(){
-		return new ArrayList<>(passagensOnibusF);
+//TOSTRING
+	public String toString() {
+		return super.toString() + listaFavoritos.toString(); 
 	}
 }

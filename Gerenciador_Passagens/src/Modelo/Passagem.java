@@ -1,8 +1,6 @@
 package Modelo;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.Random;
+import java.time.*;
+import java.util.*;
 
 public abstract class Passagem {
 //ATRIBUTOS
