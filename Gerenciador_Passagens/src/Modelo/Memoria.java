@@ -32,6 +32,16 @@ public class Memoria {
 			}
 		}
 	}
+	public void addPassagemAviao( LocalDate dataInicial, LocalDate dataFinal, LocalTime horaInicial,
+			LocalTime horaFinal,String pontPartida, String pontChegada, String[] escalas, Double preco, 
+			String marca, Integer classe, Integer pesoBagagem, String tipoVoo, Integer alturaVoo) {
+
+		PassagemAviao novaPA = new PassagemAviao (dataInicial, dataFinal, horaInicial, horaFinal, 
+				pontPartida, pontChegada, escalas, preco, marca, classe, pesoBagagem, tipoVoo, alturaVoo);
+		if(dataInicial.isAfter(LocalDate.now())|| dataInicial.isEqual(LocalDate.now())) {
+			listaAviao.add(novaPA);
+		}
+	}
 //ADICIONAR PASSAGEM ONIBUS
 	public void addPassagemOnibus(String idItinerario, String[] escalas, Double preco, 
 				String marca, Boolean leito, Integer[] horarioParadas, Boolean refeicaoInclusa){
@@ -45,6 +55,16 @@ public class Memoria {
 					listaOnibus.add(novaPO);
 				}break;	
 			}
+		}
+	}
+	public void addPassagemOnibus(LocalDate dataInicial, LocalDate dataFinal, LocalTime horaInicial, 
+			LocalTime horaFinal,String pontPartida, String pontChegada, String[] escalas, Double preco, 
+			String marca, Boolean leito, Integer numParadas, Integer[] horarioParadas, Boolean refeicaoInclusa){
+
+		PassagemOnibus novaPO = new PassagemOnibus (dataInicial, dataFinal, horaInicial, horaFinal, 
+		pontPartida, pontChegada, escalas, preco, marca, leito, horarioParadas, refeicaoInclusa);
+		if(dataInicial.isAfter(LocalDate.now())|| dataInicial.isEqual(LocalDate.now())) {
+			listaOnibus.add(novaPO);
 		}
 	}
 //ADICIONAR CONTA
@@ -220,6 +240,19 @@ public class Memoria {
 	}
 
 //---------------------------------FILTROS-------------------------------------//
+//FILTRAR ITINERARIO
+	public ArrayList<Itinerario> filtrarItinerario(LocalDate dataInicial, LocalDate dataFinal, 
+													String pontPartida, String pontChegada){
+		ArrayList<Itinerario> filtro = new ArrayList<>();
+		for(Itinerario index : listaItinerario) {
+			if ((dataInicial == null || index.getDataInicial().equals(dataInicial))
+			 && (dataFinal == null || index.getDataFinal().equals(dataFinal))
+			 && (pontPartida == null || index.getPontPartida().equals(pontPartida))
+             && (pontChegada == null || index.getPontChegada().equals(pontChegada))) {
+				filtro.add(index);
+			}
+		}return filtro;
+	}
 //FILTRAR PASSAGEM DE AVIAO
 	public ArrayList<PassagemAviao> filtrarPassagemAviao(LocalDate dataInicial, LocalDate dataFinal, 
 															String pontPartida, String pontChegada){

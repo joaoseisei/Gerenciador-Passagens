@@ -1,10 +1,18 @@
 package View;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.*;
-import Modelo.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import Modelo.Usuario;
 
 public class TelaUsuario {
 //ATRIBUTOS
@@ -16,6 +24,7 @@ public class TelaUsuario {
 	private JTextField dataInicial, dataFinal, pontPartida, pontChegada;
 	private JLabel dataInicialLB, dataFinalLB, pontPartidaLB, pontChegadaLB;
 	private JButton confirmacao, visualizarFavoritos;
+	private DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	//-------------USUARIO------------
 	private Usuario usuario;
 //CONSTRUTOR
@@ -132,13 +141,7 @@ public class TelaUsuario {
         //TITULO
         subtituloLB = new JLabel("RESULTADO:");
         passagem.add(subtituloLB);
-        confirmacao.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	addPassagem(usuario, passagem, "teste 1");
-            	addPassagem(usuario, passagem, "teste 2");
-            	container.setViewportView(passagem);
-            }
-        });
+        
         //ADICIONANDO NO CONTAINER
         container.setViewportView(passagem);
         
@@ -148,8 +151,34 @@ public class TelaUsuario {
 	public Usuario getUsuario() {
 		return usuario;
 	}
+	public JButton getConfirmacao() {
+		return confirmacao;
+	}
+	public LocalDate getDataInicial() {
+		if(!dataInicial.getText().isEmpty()) {
+			return LocalDate.parse(dataInicial.getText(), formatador);
+		}else {
+			return null;
+		}
+	}
+	public LocalDate getDataFinal() {
+		if(!dataInicial.getText().isEmpty()) {
+			return LocalDate.parse(dataFinal.getText(), formatador);
+		}else {
+			return null;
+		}
+	}
+	public String getPontPartida() {
+		return pontPartida.getText();
+	}
+	public String getPontChegada() {
+		return pontChegada.getText();
+	}
+	public JPanel getContainerPassagem() {
+		return passagem;
+	}
 //ADICIONAR PASSAGEM	
-	public static void addPassagem(Usuario user, JPanel container, String informacao) {
+ 	public void addPassagem(Usuario user, JPanel container, String informacao) {
 		JPanel caixa = new JPanel();
 		JLabel conteudo = new JLabel(informacao);
 		JButton favorito = new JButton("♥");
@@ -177,19 +206,24 @@ public class TelaUsuario {
 		caixa.add(conteudo);
 		container.add(caixa);
 	}
+//RESETAR FILTRO
+ 	public void resetFiltro(JPanel container) {
+ 		container.removeAll();
+ 		subtituloLB = new JLabel("RESULTADO:");
+ 		container.add(subtituloLB);
+ 	}
 //ADICIONAR FAVORITO	
 	public static void addFavorito(Usuario user, String informacao) {
 		user.addFavoritos(informacao);
 	}
-	public JButton getConfirmacao() {
-		return confirmacao;
-	}
 //EXIBIR TELA
-    public void exibir() {
+//EXIBIR TELA
+	public void exibir() {
     	tela.setVisible(true);
     }
 //OCULTAR TELA
-    public void ocultar() {
+//OCULAR TELA
+	public void ocultar() {
     	tela.setVisible(false);
     }
 }

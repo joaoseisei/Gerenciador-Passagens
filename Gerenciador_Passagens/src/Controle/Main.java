@@ -1,7 +1,13 @@
 package Controle;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import Modelo.Memoria;
-import View.*;
+import View.Login;
+import View.TelaAdmin;
+import View.TelaUsuario;
 
 public class Main {
 //OBJETOS
@@ -29,14 +35,58 @@ public class Main {
 			login.ocultar();
 			TelaUsuario telaUser = new TelaUsuario(memoria.getUsuarioOBJ(login.getNome(), login.getSenha()));
 			telaUser.exibir();
+			telaUser.getConfirmacao().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				telaUser.resetFiltro(telaUser.getContainerPassagem());
+            	for(int i = 0; i < memoria.filtrarPassagemAviao(telaUser.getDataInicial(), 
+            	telaUser.getDataFinal(),telaUser.getPontPartida(), telaUser.getPontChegada()).size(); i++) {
+       
+            		telaUser.addPassagem(memoria.getUsuarioOBJ(login.getNome(),login.getSenha()), //usuario
+            				telaUser.getContainerPassagem(), 									  //JPainel
+                			memoria.filtrarPassagemAviao(telaUser.getDataInicial(), telaUser.getDataFinal(),
+    						telaUser.getPontPartida(), telaUser.getPontChegada()).get(i).toString());
+            	}
+            	for(int i = 0; i < memoria.filtrarPassagemOnibus(telaUser.getDataInicial(), 
+            	telaUser.getDataFinal(),telaUser.getPontPartida(), telaUser.getPontChegada()).size(); i++) {
+            		
+            		telaUser.addPassagem(memoria.getUsuarioOBJ(login.getNome(),login.getSenha()), //usuario
+							 telaUser.getContainerPassagem(), 									  //JPainel
+							 memoria.filtrarPassagemOnibus(telaUser.getDataInicial(), telaUser.getDataFinal(),
+						     telaUser.getPontPartida(), telaUser.getPontChegada()).get(i).toString());
+            		}
+            	for(int i = 0; i < memoria.filtrarItinerario(telaUser.getDataInicial(), 
+            	telaUser.getDataFinal(),telaUser.getPontPartida(), telaUser.getPontChegada()).size(); i++) {
+            		telaUser.addPassagem(memoria.getUsuarioOBJ(login.getNome(),login.getSenha()), //usuario
+            				telaUser.getContainerPassagem(), 									  //JPainel
+                			memoria.filtrarItinerario(telaUser.getDataInicial(), telaUser.getDataFinal(),
+    						telaUser.getPontPartida(), telaUser.getPontChegada()).get(i).toString());
+            		
+            		}
+            	telaUser.addPassagem(memoria.getUsuarioOBJ(login.getNome(),login.getSenha()), //usuario
+            				telaUser.getContainerPassagem(), 								  //JPainel
+                			memoria.getItinerario().toString());
+            	System.out.println(memoria.getItinerario());
+				}
+			});
 		}else if( memoria.fazerLogin(login.getNome(), login.getSenha(), login.getTipo()).equals("AdminLogado")) {
 			login.ocultar();
 			TelaAdmin telaADM = new TelaAdmin(memoria.getAdminOBJ(login.getNome(), login.getSenha()));
 			telaADM.exibir();
 		}
 	}
+//FILTRAR PASSAGENS
+	public static void filtrarPassagens() {
+		
+	}
 //METODO MAIN
 	public static void main(String[] args) {
+	//CRIANDO PASSAGENS DE TESTE
+		memoria.addItinerario(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 05), 
+						  	LocalTime.of(14, 0), LocalTime.of(18, 0),
+						  	"Brasil", "Chile" );
+		memoria.addItinerario(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 05), 
+						  	LocalTime.of(14, 0), LocalTime.of(18, 0),
+						  	"Brasil", "Chile" );
 		login.exibir();
 	//BOTAO FAZER REGISTRO
 		login.getFazerRegistro().addActionListener(new ActionListener() {
@@ -49,6 +99,7 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				fazerLogin();
 			}
-		});
+		});	
+		
 	}	
 }
