@@ -3,8 +3,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
-import Modelo.Memoria;
+import Modelo.*;
 import View.Login;
 import View.TelaAdmin;
 import View.TelaUsuario;
@@ -13,6 +14,7 @@ public class Main {
 //OBJETOS
 	static Login login = new Login();
 	static Memoria memoria = new Memoria();
+	static DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 //CRIAR UMA CONTA
 	public static void criarConta() {
 		if(login.getNome().trim().isEmpty() || login.getSenha().trim().isEmpty()) {
@@ -36,36 +38,21 @@ public class Main {
 			TelaUsuario telaUser = new TelaUsuario(memoria.getUsuarioOBJ(login.getNome(), login.getSenha()));
 			telaUser.exibir();
 			telaUser.getConfirmacao().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				telaUser.resetFiltro(telaUser.getContainerPassagem());
-            	for(int i = 0; i < memoria.filtrarPassagemAviao(telaUser.getDataInicial(), 
-            	telaUser.getDataFinal(),telaUser.getPontPartida(), telaUser.getPontChegada()).size(); i++) {
-       
-            		telaUser.addPassagem(memoria.getUsuarioOBJ(login.getNome(),login.getSenha()), //usuario
-            				telaUser.getContainerPassagem(), 									  //JPainel
-                			memoria.filtrarPassagemAviao(telaUser.getDataInicial(), telaUser.getDataFinal(),
-    						telaUser.getPontPartida(), telaUser.getPontChegada()).get(i).toString());
-            	}
-            	for(int i = 0; i < memoria.filtrarPassagemOnibus(telaUser.getDataInicial(), 
-            	telaUser.getDataFinal(),telaUser.getPontPartida(), telaUser.getPontChegada()).size(); i++) {
-            		
-            		telaUser.addPassagem(memoria.getUsuarioOBJ(login.getNome(),login.getSenha()), //usuario
-							 telaUser.getContainerPassagem(), 									  //JPainel
-							 memoria.filtrarPassagemOnibus(telaUser.getDataInicial(), telaUser.getDataFinal(),
-						     telaUser.getPontPartida(), telaUser.getPontChegada()).get(i).toString());
-            		}
-            	for(int i = 0; i < memoria.filtrarItinerario(telaUser.getDataInicial(), 
-            	telaUser.getDataFinal(),telaUser.getPontPartida(), telaUser.getPontChegada()).size(); i++) {
-            		telaUser.addPassagem(memoria.getUsuarioOBJ(login.getNome(),login.getSenha()), //usuario
-            				telaUser.getContainerPassagem(), 									  //JPainel
-                			memoria.filtrarItinerario(telaUser.getDataInicial(), telaUser.getDataFinal(),
-    						telaUser.getPontPartida(), telaUser.getPontChegada()).get(i).toString());
-            		
-            		}
-            	telaUser.addPassagem(memoria.getUsuarioOBJ(login.getNome(),login.getSenha()), //usuario
-            				telaUser.getContainerPassagem(), 								  //JPainel
-                			memoria.getItinerario().toString());
-            	System.out.println(memoria.getItinerario());
+				public void actionPerformed(ActionEvent e) {
+					telaUser.resetFiltro(telaUser.getContainerPassagem());
+					LocalDate inicio = telaUser.getDataInicial();
+					LocalDate fim = telaUser.getDataFinal();
+					String pontPartida = telaUser.getPontPartida();
+					String pontChegada = telaUser.getPontChegada();
+					for (Itinerario index : memoria.filtrarItinerario(inicio, fim, pontPartida, pontChegada)) {
+						telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index.toString());
+					}
+					for (PassagemAviao index : memoria.filtrarPassagemAviao(inicio, fim, pontPartida, pontChegada)) {
+						telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index.toString());
+					}
+					for (PassagemOnibus index : memoria.filtrarPassagemOnibus(inicio, fim, pontPartida, pontChegada)) {
+						telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index.toString());
+					}
 				}
 			});
 		}else if( memoria.fazerLogin(login.getNome(), login.getSenha(), login.getTipo()).equals("AdminLogado")) {
@@ -84,9 +71,25 @@ public class Main {
 		memoria.addItinerario(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 05), 
 						  	LocalTime.of(14, 0), LocalTime.of(18, 0),
 						  	"Brasil", "Chile" );
-		memoria.addItinerario(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 05), 
+		memoria.addItinerario(LocalDate.of(2023, 12, 06), LocalDate.of(2023, 12, 07), 
 						  	LocalTime.of(14, 0), LocalTime.of(18, 0),
 						  	"Brasil", "Chile" );
+		memoria.addPassagemAviao(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 05), 
+				  LocalTime.of(14, 0), LocalTime.of(18, 0),
+				  "Brasil", "Chile" , new String[] {"SP-Brasil", "BA-Argentina"} , 
+				  700.08, "Gol", 3 , 10, "Comercial", 1000);
+		memoria.addPassagemAviao(LocalDate.of(2023, 7, 04), LocalDate.of(2023, 7, 04), 
+				  LocalTime.of(10, 0), LocalTime.of(15, 0),
+				  "PB-Brasil", "DF-Brasil" , new String[] {} , 
+				  300.38, "Azul", 2 , 20, "Comercial", 900);
+		memoria.addPassagemOnibus(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 5), 
+				  LocalTime.of(14, 0), LocalTime.of(1, 0),
+				  "SP-Brasil", "DF-Brasil" , new String[] {"SP-Brasil", "GO-BRASIL", "BA-BRASIL"} , 
+				  150.31, "Mercedes", true, 0, new Integer [] {}, true);
+		memoria.addPassagemOnibus(LocalDate.of(2023, 7, 26), LocalDate.of(2023, 7, 26), 
+				  LocalTime.of(14, 0), LocalTime.of(18, 0),
+				  "GO-Brasil", "DF-Brasil" , new String[] {} , 
+				  100.08, "Buson", false, 0, new Integer [] {}, false);
 		login.exibir();
 	//BOTAO FAZER REGISTRO
 		login.getFazerRegistro().addActionListener(new ActionListener() {

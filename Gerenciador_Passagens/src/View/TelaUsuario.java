@@ -24,7 +24,7 @@ public class TelaUsuario {
 	private JTextField dataInicial, dataFinal, pontPartida, pontChegada;
 	private JLabel dataInicialLB, dataFinalLB, pontPartidaLB, pontChegadaLB;
 	private JButton confirmacao, visualizarFavoritos;
-	private DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	//-------------USUARIO------------
 	private Usuario usuario;
 //CONSTRUTOR
@@ -155,24 +155,32 @@ public class TelaUsuario {
 		return confirmacao;
 	}
 	public LocalDate getDataInicial() {
-		if(!dataInicial.getText().isEmpty()) {
-			return LocalDate.parse(dataInicial.getText(), formatador);
-		}else {
+		if(dataInicial == null ||dataInicial.getText().isEmpty()) {
 			return null;
+		}else {
+			return LocalDate.parse(dataInicial.getText(), formatador);
 		}
 	}
 	public LocalDate getDataFinal() {
-		if(!dataInicial.getText().isEmpty()) {
-			return LocalDate.parse(dataFinal.getText(), formatador);
-		}else {
+		if(dataFinal == null ||dataFinal.getText().isEmpty()) {
 			return null;
+		}else {
+			return LocalDate.parse(dataFinal.getText(), formatador);
 		}
 	}
 	public String getPontPartida() {
-		return pontPartida.getText();
+		if(pontPartida.getText().isEmpty()) {
+			return null;
+		}else {
+			return pontPartida.getText();
+		}
 	}
 	public String getPontChegada() {
-		return pontChegada.getText();
+		if(pontChegada.getText().isEmpty()) {
+			return null;
+		}else {
+			return pontChegada.getText();
+		}
 	}
 	public JPanel getContainerPassagem() {
 		return passagem;
@@ -205,6 +213,7 @@ public class TelaUsuario {
 		caixa.add(favorito);
 		caixa.add(conteudo);
 		container.add(caixa);
+		this.container.setViewportView(passagem);
 	}
 //RESETAR FILTRO
  	public void resetFiltro(JPanel container) {
