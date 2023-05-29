@@ -15,7 +15,18 @@ public class Memoria {
 								LocalTime horaFinal,String pontPartida, String pontChegada) {
 		Itinerario novoItinerario = new Itinerario(dataInicial, dataFinal, horaInicial, 
 							   horaFinal, pontPartida, pontChegada);
-		listaItinerario.add(novoItinerario);
+		if(listaItinerario.isEmpty()) {
+			listaItinerario.add(novoItinerario);
+		}else {
+			int i = 0;
+			for(Itinerario index : listaItinerario) {
+				if(index.toString().equals(novoItinerario.toString())) {
+					i++;
+				}
+			}if(i ==0 ) {
+				listaItinerario.add(novoItinerario);
+			}
+		}
 	}
 //ADICIONAR PASSAGEM AVIAO
 	public void addPassagemAviao( String idItinerario, String[] escalas, Double preco, 
@@ -40,6 +51,7 @@ public class Memoria {
 				pontPartida, pontChegada, escalas, preco, marca, classe, pesoBagagem, tipoVoo, alturaVoo);
 		if(dataInicial.isAfter(LocalDate.now())|| dataInicial.isEqual(LocalDate.now())) {
 			listaAviao.add(novaPA);
+			addItinerario(dataInicial, dataFinal, horaInicial, horaFinal, pontPartida, pontChegada);
 		}
 	}
 //ADICIONAR PASSAGEM ONIBUS
@@ -65,6 +77,7 @@ public class Memoria {
 		pontPartida, pontChegada, escalas, preco, marca, leito, horarioParadas, refeicaoInclusa);
 		if(dataInicial.isAfter(LocalDate.now())|| dataInicial.isEqual(LocalDate.now())) {
 			listaOnibus.add(novaPO);
+			addItinerario(dataInicial, dataFinal, horaInicial, horaFinal, pontPartida, pontChegada);
 		}
 	}
 //ADICIONAR CONTA

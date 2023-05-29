@@ -226,11 +226,9 @@ public class TelaUsuario {
 		user.addFavoritos(informacao);
 	}
 //EXIBIR TELA
-//EXIBIR TELA
 	public void exibir() {
     	tela.setVisible(true);
     }
-//OCULTAR TELA
 //OCULAR TELA
 	public void ocultar() {
     	tela.setVisible(false);
