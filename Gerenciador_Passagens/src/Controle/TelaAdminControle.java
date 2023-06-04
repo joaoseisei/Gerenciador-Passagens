@@ -1,7 +1,11 @@
 package Controle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import Modelo.*;
 import View.TelaAdmin;
 
@@ -15,7 +19,8 @@ public class TelaAdminControle {
 		this.telaAdmin = telaAdmin;
 	}
 //-----------------------------------ADICIONAR--------------------------------------------	
-	public void addItinerario(LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,LocalTime horaFinal,String pontPartida, String pontChegada){
+	public void addItinerario(LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,LocalTime horaFinal,
+	String pontPartida, String pontChegada){
 		ArrayList<Itinerario> novaListaItinerario = new ArrayList<>(memoria.getListaItinerario());
 		Itinerario novoItinerario = new Itinerario(dataInicial,dataFinal,horaInicial,horaFinal,pontPartida,pontChegada);
 		if(novaListaItinerario.isEmpty() || novaListaItinerario.stream().noneMatch
@@ -27,7 +32,9 @@ public class TelaAdminControle {
 		// Caso a lista nao seja vazia, eu uso o stream para verificar elemento por elemento e uso o noneMatch para
 		// colocar uma condição, no caso se os ToString forem iguais, pois neles tem todas as informaçoes de itinerario.
 	}	
-	public void addPassagemAviao(LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,LocalTime horaFinal,String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,Integer classe,Integer pesoBagagem,String tipoVoo,Integer alturaVoo){
+	public void addPassagemAviao(LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,LocalTime horaFinal,
+	String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,Integer classe,Integer pesoBagagem,
+	String tipoVoo,Integer alturaVoo){
 		ArrayList<PassagemAviao> novaListaAviao = new ArrayList<>(memoria.getListaAviao());
 		PassagemAviao novaPA = new PassagemAviao (dataInicial,dataFinal,horaInicial,horaFinal,pontPartida,pontChegada,escalas,preco,marca,classe,pesoBagagem,tipoVoo,alturaVoo);
 		if(dataInicial.isAfter(LocalDate.now()) || dataInicial.isEqual(LocalDate.now())){	
@@ -37,7 +44,9 @@ public class TelaAdminControle {
 		}
 		
 	}
-	public void addPassagemOnibus(LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,LocalTime horaFinal,String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,Boolean leito,Integer numParadas,String[] horarioParadas,Boolean refeicaoInclusa){
+	public void addPassagemOnibus(LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,LocalTime horaFinal,
+	String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,Boolean leito,String[] horarioParadas,
+	Boolean refeicaoInclusa){
 		ArrayList<PassagemOnibus> novaListaOnibus = new ArrayList<>(memoria.getListaOnibus());
 		PassagemOnibus novaPO = new PassagemOnibus (dataInicial,dataFinal,horaInicial,horaFinal,pontPartida,pontChegada,escalas,preco,marca,leito,horarioParadas,refeicaoInclusa);
 		if(dataInicial.isAfter(LocalDate.now())||dataInicial.isEqual(LocalDate.now())){
@@ -64,7 +73,8 @@ public class TelaAdminControle {
 		}
 	}
 //-------------------------------------EDITAR---------------------------------------------		
-	public void editItinerario(String idItinerario,LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,LocalTime horaFinal,String pontPartida,String pontChegada){
+	public void editItinerario(String idItinerario,LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,
+	LocalTime horaFinal,String pontPartida,String pontChegada){
 		ArrayList<Itinerario> novaListaItinerario = new ArrayList<>(memoria.getListaItinerario());
 		ArrayList<PassagemAviao> novaListaAviao = new ArrayList<>(memoria.getListaAviao());
 		ArrayList<PassagemOnibus> novaListaOnibus = new ArrayList<>(memoria.getListaOnibus());
@@ -113,7 +123,9 @@ public class TelaAdminControle {
 		memoria.setListaAviao(novaListaAviao);
 		memoria.setListaOnibus(novaListaOnibus);
 	}
-	public void editPassagemAviao(String id,LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,LocalTime horaFinal,String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,Integer classe,Integer pesoBagagem,String tipoVoo,Integer alturaVoo){
+	public void editPassagemAviao(String id,LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,
+	LocalTime horaFinal,String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,
+	Integer classe,Integer pesoBagagem,String tipoVoo,Integer alturaVoo){
 		ArrayList<PassagemAviao> novaListaAviao = new ArrayList<>(memoria.getListaAviao());
 		for(PassagemAviao index : novaListaAviao) {
 			//passando linha por linha da listagem
@@ -146,7 +158,9 @@ public class TelaAdminControle {
 		}
 		memoria.setListaAviao(novaListaAviao);
 	}
-	public void editPassagemOnibus(String id,LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,LocalTime horaFinal,String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,Boolean leito,String[] horarioParadas,Boolean refeicaoInclusa){
+	public void editPassagemOnibus(String id,LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,
+	LocalTime horaFinal,String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,
+	Boolean leito,String[] horarioParadas,Boolean refeicaoInclusa){
 		ArrayList<PassagemOnibus> novaListaOnibus = new ArrayList<>(memoria.getListaOnibus());
 		for(PassagemOnibus index : novaListaOnibus) {
 			if(index.getId().equals(id)) {
@@ -176,5 +190,119 @@ public class TelaAdminControle {
 			}
 		}
 		memoria.setListaOnibus(novaListaOnibus);
+	}
+//-------------------------------------JAVAX----------------------------------------------
+	public void atualizar(){
+    	telaAdmin.getPassagem().removeAll();
+    	JLabel dados = new JLabel("RESULTADO:    / " + "     Mudanças feitas:     " + telaAdmin.getAdmin().getMudancaFeita());
+    	telaAdmin.getPassagem().add(dados);
+    	JPanel caixa = new JPanel();
+    	for(int i = 0; i < memoria.getListaItinerario().size(); i++){
+    		JLabel conteudo = new JLabel(memoria.getListaItinerario().get(i).toString());
+    		caixa.add(conteudo);
+    		telaAdmin.getPassagem().add(caixa);
+    		telaAdmin.getContainer().setViewportView(telaAdmin.getPassagem());
+    	}
+    	for(int i = 0; i < memoria.getListaAviao().size(); i++){
+    		JLabel conteudo = new JLabel(memoria.getListaAviao().get(i).toString() +"| ID: "+ memoria.getListaAviao().get(i).getId());
+    		caixa.add(conteudo);
+    		telaAdmin.getPassagem().add(caixa);
+    		telaAdmin.getContainer().setViewportView(telaAdmin.getPassagem());
+    	}
+    	for(int i = 0; i < memoria.getListaOnibus().size(); i++){
+    		JLabel conteudo = new JLabel(memoria.getListaOnibus().get(i).toString());
+    		caixa.add(conteudo);
+    		telaAdmin.getPassagem().add(caixa);
+    		telaAdmin.getContainer().setViewportView(telaAdmin.getPassagem());
+    	}
+    	
+    }
+//-------------------------------------BOTOES---------------------------------------------
+	public void criarButton() {
+		telaAdmin.getCriarIt().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                telaAdmin.getAdmin().addMudanca();
+                addItinerario(telaAdmin.getDataInicial(), telaAdmin.getDataFinal(), 
+                telaAdmin.getHoraInicial(), telaAdmin.getHoraFinal(), telaAdmin.getPontPartida(),
+                telaAdmin.getPontChegada());
+            }
+        });
+		telaAdmin.getCriarPA().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	telaAdmin.getAdmin().addMudanca();
+            	addPassagemAviao(telaAdmin.getDataInicial(), telaAdmin.getDataFinal(), 
+            	telaAdmin.getHoraInicial(), telaAdmin.getHoraFinal(), telaAdmin.getPontPartida(), 
+            	telaAdmin.getPontChegada(),telaAdmin.getEscalas(), telaAdmin.getPreco(), 
+            	telaAdmin.getMarca(), telaAdmin.getClasse(), telaAdmin.getPesoBagagem(),
+            	telaAdmin.getTipoVoo(), telaAdmin.getAlturaVoo());
+            }
+        });
+		telaAdmin.getCriarPO().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	telaAdmin.getAdmin().addMudanca();
+            	addPassagemOnibus(telaAdmin.getDataInicial(), telaAdmin.getDataFinal(), 
+            	telaAdmin.getHoraInicial(), telaAdmin.getHoraFinal(), telaAdmin.getPontPartida(),
+            	telaAdmin.getPontChegada(),telaAdmin.getEscalas(), telaAdmin.getPreco(), 
+            	telaAdmin.getMarca(), telaAdmin.getLeito(), telaAdmin.getHorarioParadas(), 
+            	telaAdmin.getRefeicaoInclusa());
+            }
+        });
+	}
+	public void editarButton() {
+		telaAdmin.getEditarIt().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	telaAdmin.getAdmin().addMudanca();
+            	editItinerario(telaAdmin.getIdItinerairo(), telaAdmin.getDataInicial(), 
+            	telaAdmin.getDataFinal(), telaAdmin.getHoraInicial(), telaAdmin.getHoraFinal(),
+            	telaAdmin.getPontPartida(), telaAdmin.getPontChegada());
+            }
+        });
+		telaAdmin.getEditarPA().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	telaAdmin.getAdmin().addMudanca();
+            	editPassagemAviao(telaAdmin.getIdItinerairo(),telaAdmin.getDataInicial(), telaAdmin.getDataFinal(), 
+                telaAdmin.getHoraInicial(), telaAdmin.getHoraFinal(), telaAdmin.getPontPartida(), 
+                telaAdmin.getPontChegada(),telaAdmin.getEscalas(), telaAdmin.getPreco(), 
+                telaAdmin.getMarca(), telaAdmin.getClasse(), telaAdmin.getPesoBagagem(),
+                telaAdmin.getTipoVoo(), telaAdmin.getAlturaVoo());
+            }
+        });
+		telaAdmin.getEditarPO().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	telaAdmin.getAdmin().addMudanca();
+            	editPassagemOnibus(telaAdmin.getIdPassagem(), telaAdmin.getDataInicial(), telaAdmin.getDataFinal(), 
+                telaAdmin.getHoraInicial(), telaAdmin.getHoraFinal(), telaAdmin.getPontPartida(),
+                telaAdmin.getPontChegada(),telaAdmin.getEscalas(), telaAdmin.getPreco(), 
+                telaAdmin.getMarca(), telaAdmin.getLeito(), telaAdmin.getHorarioParadas(), 
+                telaAdmin.getRefeicaoInclusa());
+            }
+        });
+	}
+	public void excluirButton() {
+		telaAdmin.getExcluirIt().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	telaAdmin.getAdmin().addMudanca();
+            	deleteItinerario(telaAdmin.getIdItinerairo());
+            }
+        });
+		telaAdmin.getExcluirPA().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	telaAdmin.getAdmin().addMudanca();
+            	deletePassagem(true, telaAdmin.getIdPassagem());
+            }
+        });
+		telaAdmin.getExcluirPO().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	telaAdmin.getAdmin().addMudanca();
+            	deletePassagem(false, telaAdmin.getIdPassagem());
+            }
+        });
+	}
+	public void atualizarButton() {
+		telaAdmin.getAtualizar().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	atualizar();
+            }
+        });
 	}
 }

@@ -18,7 +18,8 @@ public abstract class Passagem {
     //LISTA ESCALAS
     	this.escalas = escalas != null ? escalas.clone() : new String[0];// se o array for nulo ele retorna um array vazio
 	//NUMERO DE ESCALAS
-		this.numEscalas = escalas.length;
+    	if(escalas != null) {this.numEscalas = escalas.length;}
+    		else { this.numEscalas = 0;}
 	//PRECO
     	if(preco > 0) {this.preco = preco;}
     		else {throw new IllegalArgumentException("Preço não pode ser negativo");}
@@ -49,7 +50,8 @@ public abstract class Passagem {
 //SETTERS
 	public void setEscalasENumEscalas(String[] novaEscala) {
 		this.escalas = novaEscala != null ? novaEscala.clone() : new String[0] ;	// Nao retorna array nulo, sim um vazio
-		this.numEscalas = escalas.length; 											// Atualiza o numero de escalas automaticamente
+		if(novaEscala != null) {this.numEscalas = novaEscala.length;}
+			else { this.numEscalas = 0;}									
 	}
 	public void setPreco(Double novoPreco) {
 		if(novoPreco != null && novoPreco > 0) {

@@ -19,7 +19,8 @@ public class PassagemOnibus extends Passagem{
 	//HORARIO DAS PARADAS	
 		this.horarioParadas = horarioParadas != null ? horarioParadas.clone() : new String[0];
 	//NUMERO DE PARADAS
-		this.numParadas = horarioParadas.length;
+		if(horarioParadas == null) {this.numParadas = 0;}
+			else {this.numParadas = horarioParadas.length;}
 	//ALMOCO INCLUSO
 		this.refeicaoInclusa = refeicaoInclusa;
 	}
@@ -44,7 +45,8 @@ public class PassagemOnibus extends Passagem{
 	}
 	public void setHorarioENumParadas(String[] novoHorarioParadas) {
 		this.horarioParadas = novoHorarioParadas != null ? novoHorarioParadas.clone() : new String[0] ;
-		this.numParadas = horarioParadas.length;
+		if(novoHorarioParadas == null) {this.numParadas = 0;}
+			else {this.numParadas = novoHorarioParadas.length;}
 	}
 	public void setRefeicaoInclusa(Boolean novaRefeicaoInclusa) {
 		if(novaRefeicaoInclusa != null) {

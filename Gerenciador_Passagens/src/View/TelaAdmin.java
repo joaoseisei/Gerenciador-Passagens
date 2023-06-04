@@ -268,7 +268,7 @@ public class TelaAdmin {
 		passagem = new JPanel();
         passagem.setLayout(new BoxLayout(passagem, BoxLayout.Y_AXIS));
         //TITULO
-        dadosAdm = new JLabel("RESULTADO:    / " + "     Mudanças feitas: " ); //+ admin.getmudancas());
+        dadosAdm = new JLabel("RESULTADO:    / " + "     Mudanças feitas:     " + admin.getMudancaFeita());
         passagem.add(dadosAdm);
         
         //ADICIONANDO NO CONTAINER
@@ -277,8 +277,15 @@ public class TelaAdmin {
         painel.add(container);
 	}
 //GETTERS
-	public Admin getUsuario() {
+	public Admin getAdmin() {
 		return admin;
+	}
+//--------------------JAVAX-------------------------------------
+	public JScrollPane getContainer() {
+		return container;
+	}
+	public JPanel getPassagem() {
+		return passagem;
 	}
 //------------------ITINERARIO----------------------------------
 	public LocalDate getDataInicial(){
@@ -310,14 +317,14 @@ public class TelaAdmin {
 		}
 	}
 	public String getPontPartida(){
-		if(pontPartida.getText().isEmpty()) {
+		if(pontPartida == null || pontPartida.getText().isEmpty()) {
 			return null;
 		}else {
 			return pontPartida.getText();
 		}
 	}
 	public String getPontChegada(){
-		if(pontChegada.getText().isEmpty()) {
+		if(pontChegada == null || pontChegada.getText().isEmpty()) {
 			return null;
 		}else {
 			return pontChegada.getText();
@@ -325,44 +332,44 @@ public class TelaAdmin {
 	}
 //-------------------ARRAYS-------------------------------------
 	public String[] getEscalas() {
-		if(escalas.getText().isEmpty()) {
+		if(escalas == null || escalas.getText().isEmpty()) {
 			return null;
 		}else {
 			return escalas.getText().split(",");
 		}
 	}
 	public String[] getHorarioParadas() {
-		if(horarioParadas.getText().isEmpty()) {
-			return null;
+		if(horarioParadas == null || horarioParadas.getText().isEmpty()) {
+			return new String[0];
 		}else {
 			return horarioParadas.getText().split(",");
 		}
 	}
 //------------------NUMEROS-------------------------------------
 	public Integer getClasse() {
-		if(!escalas.getText().isEmpty() && Integer.parseInt(classe.getText()) <=3 && 
-				Integer.parseInt(classe.getText()) >=1) {
+		if(classe != null && Integer.parseInt(classe.getText()) <=3 && 
+		Integer.parseInt(classe.getText()) >=1) {
 			return Integer.parseInt(classe.getText());
 		}else {
 			return null;
 		}
 	}
 	public Integer getPesoBagagem() {
-		if(pesoBagagem.getText().isEmpty()) {
+		if(pesoBagagem == null || pesoBagagem.getText().isEmpty()) {
 			return null;
 		}else {
 			return Integer.parseInt(pesoBagagem.getText());
 		}
 	}
 	public Integer getAlturaVoo() {
-		if(alturaVoo.getText().isEmpty()) {
+		if(alturaVoo == null || alturaVoo.getText().isEmpty()) {
 			return null;
 		}else {
 			return Integer.parseInt(alturaVoo.getText());
 		}
 	}
 	public Double getPreco() {
-		if(preco.getText().isEmpty()) {
+		if(preco == null || preco.getText().isEmpty()) {
 			return null;
 		}else {
 			return Double.parseDouble(preco.getText());
@@ -370,28 +377,28 @@ public class TelaAdmin {
 	}
 //-----------------STRINGS--------------------------------------
 	public String getMarca() {
-		if(marca.getText().isEmpty()) {
+		if(marca == null || marca.getText().isEmpty()) {
 			return null;
 		}else {
 			return marca.getText();
 		}
 	}
 	public String getTipoVoo() {
-		if(tipoVoo.getText().isEmpty()) {
+		if(tipoVoo == null || tipoVoo.getText().isEmpty()) {
 			return null;
 		}else {
 			return tipoVoo.getText();
 		}
 	}
 	public String getIdItinerairo() {
-		if(idItinerario.getText().isEmpty()) {
+		if(idItinerario == null || idItinerario.getText().isEmpty()) {
 			return null;
 		}else {
 			return idItinerario.getText();
 		}
 	}
 	public String getIdPassagem() {
-		if(id.getText().isEmpty()) {
+		if(id == null || id.getText().isEmpty()) {
 			return null;
 		}else {
 			return id.getText();
@@ -426,13 +433,13 @@ public class TelaAdmin {
 	public JButton getEditarPO() {
 		return editarPO;
 	}
-	public JButton excluirIt() {
+	public JButton getExcluirIt() {
 		return excluirIt;
 	}
-	public JButton excluirPA() {
+	public JButton getExcluirPA() {
 		return excluirPA;
 	}
-	public JButton excluirPO() {
+	public JButton getExcluirPO() {
 		return excluirPO;
 	}
 //AUTOMATIZAR FORMATAÇAO

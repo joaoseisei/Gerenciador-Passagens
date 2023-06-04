@@ -2,7 +2,7 @@ package Modelo;
 
 public class Admin extends Conta{
 //ATRIBUTOS
-	private Integer mudancaFeita;
+	private Integer mudancaFeita = 0;
 //CONSTRUTOR
 	public Admin(boolean tipo, String nome, String senha, String novaSenha) {
 		super(tipo, nome, senha, novaSenha);

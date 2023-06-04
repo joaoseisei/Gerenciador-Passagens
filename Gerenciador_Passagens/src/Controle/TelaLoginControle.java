@@ -92,8 +92,12 @@ public class TelaLoginControle {
 		}else if(verificacaoLogin(login.getNome(), login.getSenha(), login.getTipo()).equals("AdminLogado")) {
 			login.ocultar();
 			TelaAdmin telaAdmin = new TelaAdmin(memoria.getAdminOBJ(login.getNome(), login.getSenha()));
-			TelaAdminControle taControle = new TelaAdminControle(memoria);
+			TelaAdminControle taControle = new TelaAdminControle(memoria, telaAdmin);
 			telaAdmin.exibir();
+			taControle.criarButton();
+			taControle.editarButton();
+			taControle.excluirButton();
+			taControle.atualizarButton();
 		}
 	}
 //------------------------BOTOES-------------------------
