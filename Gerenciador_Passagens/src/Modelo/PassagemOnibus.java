@@ -6,18 +6,18 @@ public class PassagemOnibus extends Passagem{
 //ATRIBUTOS
 	private Boolean leito;							//LEITO
 	private Integer numParadas;						//NUMERO DE PARADAS
-	private Integer[] horarioParadas;				//HORARIO DAS PARADAS
+	private String[] horarioParadas;				//HORARIO DAS PARADAS
 	private Boolean refeicaoInclusa;				//ALMOCO INCLUSO
 //CONSTRUTOR
 	public PassagemOnibus(LocalDate dataInicial, LocalDate dataFinal, LocalTime horaInicial, LocalTime horaFinal,
 					String pontPartida, String pontChegada, String[] escalas, Double preco, String marca, 
-					Boolean leito, Integer[] horarioParadas, Boolean refeicaoInclusa){
+					Boolean leito, String[] horarioParadas, Boolean refeicaoInclusa){
 	//SUPER
 		super(dataInicial, dataFinal, horaInicial, horaFinal, pontPartida, pontChegada, escalas, preco, marca);
 	//LEITO
 		this.leito = leito;
 	//HORARIO DAS PARADAS	
-		this.horarioParadas = horarioParadas != null ? horarioParadas.clone() : new Integer[0];
+		this.horarioParadas = horarioParadas != null ? horarioParadas.clone() : new String[0];
 	//NUMERO DE PARADAS
 		this.numParadas = horarioParadas.length;
 	//ALMOCO INCLUSO
@@ -30,7 +30,7 @@ public class PassagemOnibus extends Passagem{
 	public Integer getNumParadas() {
 		return numParadas;
 	}
-	public Integer[] getHorarioParadas() {
+	public String[] getHorarioParadas() {
 		return horarioParadas;
 	}
 	public Boolean getRefeicaoInclusa() {
@@ -42,8 +42,8 @@ public class PassagemOnibus extends Passagem{
 			this.leito = novoLeito;
 		}
 	}
-	public void setHorarioENumParadas(Integer[] novoHorarioParadas) {
-		this.horarioParadas = novoHorarioParadas != null ? novoHorarioParadas.clone() : new Integer[0] ;
+	public void setHorarioENumParadas(String[] novoHorarioParadas) {
+		this.horarioParadas = novoHorarioParadas != null ? novoHorarioParadas.clone() : new String[0] ;
 		this.numParadas = horarioParadas.length;
 	}
 	public void setRefeicaoInclusa(Boolean novaRefeicaoInclusa) {

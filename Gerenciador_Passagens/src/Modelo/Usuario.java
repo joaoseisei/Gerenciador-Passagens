@@ -18,6 +18,6 @@ public class Usuario extends Conta{
 	}
 //TOSTRING
 	public String toString() {
-		return super.toString() + listaFavoritos.toString(); 
+		return super.toString() + "Favoritos : " + listaFavoritos.toString(); 
 	}
 }

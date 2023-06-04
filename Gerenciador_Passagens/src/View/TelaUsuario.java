@@ -1,17 +1,8 @@
 package View;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 import Modelo.Usuario;
 
 public class TelaUsuario {
@@ -64,16 +55,7 @@ public class TelaUsuario {
 		favoritoPainel.setLayout(new BoxLayout(favoritoPainel, BoxLayout.Y_AXIS));
 		visualizarFavoritos = new JButton("VISUALIZAR FAVORITOS");
 		favoritoPainel.add(visualizarFavoritos);
-		visualizarFavoritos.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	favoritoPainel.removeAll();
-            	favoritoPainel.add(visualizarFavoritos);
-            	for(int i = 0; i < usuario.getFavoritos().size(); i++) {
-            		addPassagem(usuario, favoritoPainel, usuario.getFavoritos().get(i).toString());
-            		favorito.setViewportView(favoritoPainel);
-            	}
-            }
-        });
+//BOTAO
 		favorito.setViewportView(favoritoPainel);
 		//ADICIONANDO FAVORITOS AO PAINEL
 		painel.add(favorito);
@@ -127,6 +109,7 @@ public class TelaUsuario {
 		confirmacao = new JButton("FILTRAR");
 		confirmacao.setBackground(Color.lightGray);
 		confirmacao.setBounds(940, 85, 90, 70);
+//BOTAO
 		painel.add(confirmacao);
 	//ADICIONANDO FILTRO
 		painel.add(filtro);
@@ -147,83 +130,63 @@ public class TelaUsuario {
         
 		painel.add(container);
 	}
-//GETTERS
-	public Usuario getUsuario() {
+//-----------USUARIO--------------
+	public Usuario getUsuario(){
 		return usuario;
 	}
-	public JButton getConfirmacao() {
+//-----------BOTOES---------------
+	public JButton getConfirmacao(){
 		return confirmacao;
 	}
-	public LocalDate getDataInicial() {
+	public JButton getVisualizarFavoritos(){
+		return visualizarFavoritos;
+	}
+//-----------INPUTS---------------
+	public LocalDate getDataInicial(){
 		if(dataInicial == null ||dataInicial.getText().isEmpty()) {
 			return null;
 		}else {
 			return LocalDate.parse(dataInicial.getText(), formatador);
 		}
 	}
-	public LocalDate getDataFinal() {
+	public LocalDate getDataFinal(){
 		if(dataFinal == null ||dataFinal.getText().isEmpty()) {
 			return null;
 		}else {
 			return LocalDate.parse(dataFinal.getText(), formatador);
 		}
 	}
-	public String getPontPartida() {
+	public String getPontPartida(){
 		if(pontPartida.getText().isEmpty()) {
 			return null;
 		}else {
 			return pontPartida.getText();
 		}
 	}
-	public String getPontChegada() {
+	public String getPontChegada(){
 		if(pontChegada.getText().isEmpty()) {
 			return null;
 		}else {
 			return pontChegada.getText();
 		}
 	}
-	public JPanel getContainerPassagem() {
+//-----------JPANEL---------------
+	public JPanel getContainerPassagem(){
 		return passagem;
 	}
-//ADICIONAR PASSAGEM	
- 	public void addPassagem(Usuario user, JPanel container, String informacao) {
-		JPanel caixa = new JPanel();
-		JLabel conteudo = new JLabel(informacao);
-		JButton favorito = new JButton("♥");
-		caixa.setBackground(Color.WHITE);
-		favorito.setBackground(Color.pink);
-		favorito.setBounds(0, 0, 20, 20);
-		favorito.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(!user.getFavoritos().isEmpty() || user.getFavoritos() != null) {
-					int i = 0;
-			        for (String index : user.getFavoritos()) {
-			            if (index.equals(informacao)) {
-			                i++;
-			            }
-			        }
-			        if (i == 0) {
-			            user.addFavoritos(informacao);
-			        }
-				}else {
-					addFavorito(user, informacao);
-				}
-			}
-		});
-		caixa.add(favorito);
-		caixa.add(conteudo);
-		container.add(caixa);
-		this.container.setViewportView(passagem);
+	public JPanel getFavoritoPainel(){
+		return favoritoPainel;
 	}
-//RESETAR FILTRO
- 	public void resetFiltro(JPanel container) {
- 		container.removeAll();
- 		subtituloLB = new JLabel("RESULTADO:");
- 		container.add(subtituloLB);
- 	}
-//ADICIONAR FAVORITO	
-	public static void addFavorito(Usuario user, String informacao) {
-		user.addFavoritos(informacao);
+//-----------JLABEL--------------
+	public JLabel getSubtituloLB(){
+		return subtituloLB;
+	}
+//---------JSCROLLPANE------------
+	public JScrollPane getContainer(){
+		return container;
+	}
+	public JScrollPane getFavorito(){
+		return favorito;
 	}
 //EXIBIR TELA
 	public void exibir() {
