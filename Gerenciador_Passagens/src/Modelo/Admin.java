@@ -4,8 +4,8 @@ public class Admin extends Conta{
 //ATRIBUTOS
 	private Integer mudancaFeita = 0;
 //CONSTRUTOR
-	public Admin(boolean tipo, String nome, String senha, String novaSenha) {
-		super(tipo, nome, senha, novaSenha);
+	public Admin(boolean tipo, String nome, String senha) {
+		super(tipo, nome, senha);
 	}
 //GETTERS
 	public Integer getMudancaFeita() {

@@ -14,7 +14,7 @@ public class Main {
 		tlControle.fazerLoginButton();
 		
 		
-		tlControle.addConta(true, "adm", "adm", "adm");
+		tlControle.addConta(true, "adm", "adm");
 		TelaAdmin telaAdmin = new TelaAdmin(memoria.getAdminOBJ("adm", "adm"));
 		TelaAdminControle taControle = new TelaAdminControle(memoria, telaAdmin);
 		taControle.addItinerario(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 05), 

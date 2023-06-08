@@ -42,15 +42,15 @@ public class TelaLoginControle {
 		}return false;
 	}
 //----------------------CRIACAO DE CONTA------------------------
-	public void addConta(Boolean tipo, String nome, String senha, String novaSenha){
+	public void addConta(Boolean tipo, String nome, String senha){
 		ArrayList<Admin> novaListaAdmin = new ArrayList<>(memoria.getListaAdmin());
 		ArrayList<Usuario> novaListaUsuario = new ArrayList<>(memoria.getListaUsuario());
 		if(tipo){
-			Admin novoAdmin = new Admin(tipo ,nome, senha, novaSenha);
+			Admin novoAdmin = new Admin(tipo ,nome, senha);
 			novaListaAdmin.add(novoAdmin);
 			memoria.setListaAdmin(novaListaAdmin);	
 		}else{
-			Usuario novoUsuario = new Usuario(tipo, nome, senha, novaSenha);
+			Usuario novoUsuario = new Usuario(tipo, nome, senha);
 			novaListaUsuario.add(novoUsuario);
 			memoria.setListaUsuario(novaListaUsuario);
 		}
@@ -63,10 +63,10 @@ public class TelaLoginControle {
 					memoria.getListaUsuario().isEmpty()) && login.getTipo() == false){
 				//Se a lista de Usuarios esta vazia Ou o verificarUserRegistro for falso
 				//E o tipo for falso (nao é adm) adicionamos esse usuario na memoria com addConta
-				addConta(login.getTipo(), login.getNome(), login.getSenha(), login.getSenha());
+				addConta(login.getTipo(), login.getNome(), login.getSenha());
 			}else if((verificarAdminRegistro(login.getNome(), login.getSenha()) == false || 
 					memoria.getListaAdmin().isEmpty()) && login.getTipo() == true){
-				addConta(login.getTipo(), login.getNome(), login.getSenha(), login.getSenha());
+				addConta(login.getTipo(), login.getNome(), login.getSenha());
 			}else{
 				JOptionPane.showMessageDialog(null, "EXISTE UMA CONTA CADASTRADA COM AS MESMAS CREDENCIAIS", 
 				"ERRO", JOptionPane.ERROR_MESSAGE);

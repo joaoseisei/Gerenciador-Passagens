@@ -8,17 +8,14 @@ public class Conta {
 	private boolean tipo;
 	private final String idu;
 //CONSTRUTOR
-	public Conta(boolean tipo, String nome, String senha, String novaSenha) {
+	public Conta(boolean tipo, String nome, String senha) {
 	//TIPO
 		this.tipo = tipo;
 	//NOME
 		if(nome != null) {this.nome = nome;}
 			else {throw new IllegalArgumentException("Nome Invalido");}
 	//SENHA
-		if( senha.equals(novaSenha)) {
-			this.senha = criptografarSenha(senha);
-			}	
-			else {throw new IllegalArgumentException("Senhas diferentes :(");}
+		this.senha = criptografarSenha(senha);
 	//ID DO USUARIO
 		this.idu = String.format(nome + "%07d", new Random().nextInt(100000));
 	}
