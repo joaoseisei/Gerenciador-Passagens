@@ -75,7 +75,6 @@ public class PassagemAviao extends Passagem{
         return super.toString()
 	//TOSTRING AVIAO
                 + "\n  Tipo: Avião" + " | Marca: " + getMarca() + " (AVIÃO)" + " | Classe: " + classe + "°" + " | Preço: R$" + calculaPreco()
-                + "\n  Peso da Bagagem: " + pesoBagagem +"kg" + " | Tipo do Voo: " + tipoVoo + " | Altura do Voo: " + alturaVoo + " Metros"
-				+ "} \n ";
+                + "\n  Peso da Bagagem: " + pesoBagagem +"kg" + " | Tipo do Voo: " + tipoVoo + " | Altura do Voo: " + alturaVoo + " Metros";
     }
 }

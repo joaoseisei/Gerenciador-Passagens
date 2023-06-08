@@ -37,8 +37,7 @@ public class Memoria {
 				return index;
 			}
 		}return null; 
-	}
-	
+	}	
 //SETTERS
 	public void setListaItinerario(ArrayList<Itinerario> novaListaItinerario){
 		this.listaItinerario = novaListaItinerario;
@@ -55,4 +54,6 @@ public class Memoria {
 	public void setListaUsuario(ArrayList<Usuario> novaListaUsuario){
 		this.listaUsuario = novaListaUsuario;
 	}
+	
+	
 }

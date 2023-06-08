@@ -12,7 +12,6 @@ public class Login {
 	private JPasswordField senha;
 	private Font fonteInputs;
 	private JCheckBox tipo;
-	
 //CONSTRUTOR
 	public Login() {
 	//-------------FONTES----------------------------

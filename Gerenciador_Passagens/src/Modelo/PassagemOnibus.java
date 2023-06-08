@@ -74,7 +74,7 @@ public class PassagemOnibus extends Passagem{
 	    return super.toString()
 	//TOSTRING ONIBUS
 	    		+ "\n  Tipo: Onibus" + " | Marca: " + getMarca() + " (ÔNIBUS)" + " | Onibus leito: " + leito + " | Preço: " + calculaPreco()  
-				+ "\n  Numero de paradas: "+ numParadas + " | Horario das Paradas: " + Arrays.toString(horarioParadas) + " | Refeicao Inclusa: " + refeicaoInclusa
-				+"} \n ";
+				+ "\n  Numero de paradas: "+ numParadas + " | Horario das Paradas: " + Arrays.toString(horarioParadas) + " | Refeicao Inclusa: " + refeicaoInclusa;
+
 	 }
 }

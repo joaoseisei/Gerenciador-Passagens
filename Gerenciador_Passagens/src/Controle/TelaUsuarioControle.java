@@ -1,6 +1,7 @@
 package Controle;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -80,23 +81,35 @@ public class TelaUsuarioControle {
  	}
 	public void addPassagem(Usuario user, JPanel container, String informacao) {
 		JPanel caixa = new JPanel();
-		JLabel conteudo = new JLabel(informacao);
+		String[] linhas = informacao.split("\n"); 
+    	caixa.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        for (String linha : linhas) {
+            JLabel conteudo = new JLabel(linha);
+            caixa.add(conteudo);
+        }
 		JButton favorito = new JButton("♥");
-		caixa.setBackground(Color.WHITE);
 		favorito.setBackground(Color.pink);
 		favorito.setBounds(0, 0, 20, 20);
 		favorito.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if((!user.getFavoritos().isEmpty() || user.getFavoritos() != null) && 
-					user.getFavoritos().stream().noneMatch(index -> index.equals(informacao))) {
-			        user.addFavoritos(informacao);  
-				}else{
+				if(!user.getFavoritos().isEmpty() || user.getFavoritos() != null) {
+					int i = 0;
+			        for (String index : user.getFavoritos()) {
+			            if (index.equals(informacao)) {
+			                i++;
+			            }
+			        }
+			        if (i == 0) {
+			            user.addFavoritos(informacao);
+			        }
+				}else {
 					addFavorito(user, informacao);
 				}
 			}
 		});
 		caixa.add(favorito);
-		caixa.add(conteudo);
+		caixa.setPreferredSize(new Dimension(500, 100));
+		caixa.setLayout(new BoxLayout(caixa, BoxLayout.Y_AXIS));
 		container.add(caixa);
 		telaUser.getContainer().setViewportView(telaUser.getContainerPassagem());
 	}
@@ -119,7 +132,6 @@ public class TelaUsuarioControle {
 	public void atualizarFavoritosButton() {
 		telaUser.getVisualizarFavoritos().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("Favoritos atualizados");
             	atualizarFavoritos();
             }
         });

@@ -1,11 +1,11 @@
 package Controle;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import Modelo.*;
 import View.TelaAdmin;
 
@@ -58,8 +58,26 @@ public class TelaAdminControle {
 //------------------------------------DELETAR---------------------------------------------	
 	public void deleteItinerario(String idItinerario){
 		ArrayList<Itinerario> novaListaItinerario = new ArrayList<>(memoria.getListaItinerario());
+		ArrayList<PassagemAviao> novaListaAviao = new ArrayList<>(memoria.getListaAviao());
+		ArrayList<PassagemOnibus> novaListaOnibus = new ArrayList<>(memoria.getListaOnibus());
+		for(Itinerario index: novaListaItinerario) {
+			if(index.getIdItinerario().equals(idItinerario)){
+				for(PassagemAviao indexA : novaListaAviao) {
+					if(indexA.getItinerario().toString().equals(index.toString())) {
+						novaListaAviao.remove(indexA);
+					}
+				}
+				for(PassagemOnibus indexB : novaListaOnibus) {
+					if(indexB.getItinerario().toString().equals(index.toString())) {
+						novaListaOnibus.remove(indexB);
+					}
+				}
+			}
+		}
 		novaListaItinerario.removeIf(index -> index.getIdItinerario().equals(idItinerario));
 		memoria.setListaItinerario(novaListaItinerario); 
+		memoria.setListaAviao(novaListaAviao);
+		memoria.setListaOnibus(novaListaOnibus);
 	}
 	public void deletePassagem(Boolean aviao, String id){
 		ArrayList<PassagemAviao> novaListaAviao = new ArrayList<>(memoria.getListaAviao());
@@ -192,28 +210,31 @@ public class TelaAdminControle {
 		memoria.setListaOnibus(novaListaOnibus);
 	}
 //-------------------------------------JAVAX----------------------------------------------
-	public void atualizar(){
-    	telaAdmin.getPassagem().removeAll();
-    	JLabel dados = new JLabel("RESULTADO:    / " + "     Mudanças feitas:     " + telaAdmin.getAdmin().getMudancaFeita());
-    	telaAdmin.getPassagem().add(dados);
+	public void addInformacao(String informacao) {
     	JPanel caixa = new JPanel();
-    	for(int i = 0; i < memoria.getListaItinerario().size(); i++){
-    		JLabel conteudo = new JLabel(memoria.getListaItinerario().get(i).toString());
-    		caixa.add(conteudo);
-    		telaAdmin.getPassagem().add(caixa);
-    		telaAdmin.getContainer().setViewportView(telaAdmin.getPassagem());
+    	String[] linhas = informacao.split("\n"); 
+    	caixa.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        for (String linha : linhas) {
+            JLabel conteudo = new JLabel(linha);
+            caixa.add(conteudo);
+        }
+		caixa.setPreferredSize(new Dimension(500, 100));
+		caixa.setLayout(new BoxLayout(caixa, BoxLayout.Y_AXIS));
+		telaAdmin.getConteudo().add(caixa);
+		telaAdmin.getContainer().setViewportView(telaAdmin.getConteudo());
+	}
+	public void atualizar(){
+    	telaAdmin.getConteudo().removeAll();
+    	JLabel dados = new JLabel("Mudanças feitas:     " + telaAdmin.getAdmin().getMudancaFeita());
+    	telaAdmin.getConteudo().add(dados);
+    	for(Itinerario index : memoria.getListaItinerario()) {
+    		addInformacao(index.toString() +"\n  ID: "+ index.getIdItinerario());
     	}
-    	for(int i = 0; i < memoria.getListaAviao().size(); i++){
-    		JLabel conteudo = new JLabel(memoria.getListaAviao().get(i).toString() +"| ID: "+ memoria.getListaAviao().get(i).getId());
-    		caixa.add(conteudo);
-    		telaAdmin.getPassagem().add(caixa);
-    		telaAdmin.getContainer().setViewportView(telaAdmin.getPassagem());
+    	for(PassagemAviao index : memoria.getListaAviao()) {
+    		addInformacao(index.toString());
     	}
-    	for(int i = 0; i < memoria.getListaOnibus().size(); i++){
-    		JLabel conteudo = new JLabel(memoria.getListaOnibus().get(i).toString());
-    		caixa.add(conteudo);
-    		telaAdmin.getPassagem().add(caixa);
-    		telaAdmin.getContainer().setViewportView(telaAdmin.getPassagem());
+    	for(PassagemOnibus index : memoria.getListaOnibus()) {
+    		addInformacao(index.toString());
     	}
     	
     }
@@ -260,7 +281,7 @@ public class TelaAdminControle {
 		telaAdmin.getEditarPA().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	telaAdmin.getAdmin().addMudanca();
-            	editPassagemAviao(telaAdmin.getIdItinerairo(),telaAdmin.getDataInicial(), telaAdmin.getDataFinal(), 
+            	editPassagemAviao(telaAdmin.getIdPassagem(),telaAdmin.getDataInicial(), telaAdmin.getDataFinal(), 
                 telaAdmin.getHoraInicial(), telaAdmin.getHoraFinal(), telaAdmin.getPontPartida(), 
                 telaAdmin.getPontChegada(),telaAdmin.getEscalas(), telaAdmin.getPreco(), 
                 telaAdmin.getMarca(), telaAdmin.getClasse(), telaAdmin.getPesoBagagem(),

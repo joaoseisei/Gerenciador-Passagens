@@ -9,13 +9,13 @@ import Modelo.Admin;
 public class TelaAdmin {
 //ATRIBUTOS
 	private JFrame tela;
-	private JPanel painel, configuracao, passagem;
+	private JPanel painel, configuracao, conteudo;
 	private JLabel userLB, dataInicialLB, horaInicialLB, pontPartidaLB, dataFinalLB, horaFinalLB, pontChegadaLB, idLB, 
 	idItinerarioLB, precoLB, marcaLB, classeLB, tipoVooLB, pesoBagagemLB, alturaVooLB, escalasLB, horarioParadasLB, dadosAdm;
-	private JTextField dataInicial, horaInicial, pontPartida, dataFinal, horaFinal, pontChegada, id, idItinerario,
+	private JTextField dataInicial, horaInicial, pontPartida, dataFinal, horaFinal, pontChegada, idPassagem, idItinerario,
 	preco, marca, classe, tipoVoo, pesoBagagem, alturaVoo, escalas, horarioParadas;
-	private Font nomeFont, inputsFont;
-	private JCheckBox leito, refeicaoInclusa;
+	private Font titulo, inputsFont;
+	private JCheckBox leito, refeicaoInclusa;	
 	private JButton criarIt, criarPA, criarPO, editarIt, editarPA, editarPO, excluirIt, excluirPA, excluirPO, atualizar;
 	private JScrollPane container;
 	DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -27,11 +27,11 @@ public class TelaAdmin {
 	//PUXANDO O ADMIN
 		this.admin = admin;
 	//-------------FONTES-----------------------------
-		nomeFont = new Font("Verdana", Font.BOLD, 20);
+		titulo = new Font("Verdana", Font.BOLD, 20);
 		inputsFont = new Font("Verdana", Font.BOLD, 16);
 	//--------------TELA------------------------------	
 		tela = new JFrame("PAPO-ADMIN" +" | "+ admin.getIDU());
-		tela.setSize(1000, 700);
+		tela.setSize(1200, 700);
 		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	//-------------PAINEL-----------------------------	
 		painel = new JPanel();
@@ -44,74 +44,43 @@ public class TelaAdmin {
 		configuracao.setBounds(0, 0, 550, 700);
 		configuracao.setBackground(Color.DARK_GRAY);
 		userLB = new JLabel("PAINEL DE CONTROLE - " + admin.getNome());
-		userLB.setFont(nomeFont);
+		userLB.setFont(titulo);
 		userLB.setForeground(Color.WHITE);
 		userLB.setBounds(10, 5, 500, 35);
 
 	//---------------INPUTS---------------------------
 		dataInicialLB = new JLabel("Data inicial:");
-		formatacao(dataInicialLB);
-		dataInicialLB.setBounds(10, 65, 100, 20);
-		
+		formatacao(dataInicialLB, 10, 65, 100, 20);
 		dataFinalLB = new JLabel("Data Final:");
-		formatacao(dataFinalLB);
-		dataFinalLB.setBounds(280, 65, 100, 20);
-		
+		formatacao(dataFinalLB, 280, 65, 100, 20);
 		pontPartidaLB = new JLabel("Entrada:");
-		formatacao(pontPartidaLB);
-		pontPartidaLB.setBounds(10, 105, 150, 20);
-		
+		formatacao(pontPartidaLB, 10, 105, 150, 20);
 		pontChegadaLB = new JLabel("Chegada:");
-		formatacao(pontChegadaLB);
-		pontChegadaLB.setBounds(280, 105, 150, 20);
-		
+		formatacao(pontChegadaLB, 280, 105, 150, 20);
 		horaInicialLB = new JLabel("Hora Ini.:");
-		formatacao(horaInicialLB);
-		horaInicialLB.setBounds(10, 145, 150, 20);
-		
+		formatacao(horaInicialLB, 10, 145, 150, 20);
 		horaFinalLB = new JLabel("Hora Fin.:");
-		formatacao(horaFinalLB);
-		horaFinalLB.setBounds(280, 145, 150, 20);
-		
+		formatacao(horaFinalLB, 280, 145, 150, 20);
 		idLB = new JLabel("ID Passagem:");
-		formatacao(idLB);
-		idLB.setBounds(10, 185, 150, 20);
-		
+		formatacao(idLB, 10, 185, 150, 20);
 		idItinerarioLB = new JLabel("ID Itinerario:");
-		formatacao(idItinerarioLB);
-		idItinerarioLB.setBounds(10, 225, 150, 20);
-		
+		formatacao(idItinerarioLB, 10, 225, 150, 20);
 		precoLB = new JLabel("Preco:");
-		formatacao(precoLB);
-		precoLB.setBounds(10, 265, 150, 20);
-		
+		formatacao(precoLB, 10, 265, 150, 20);
 		marcaLB = new JLabel("Marca:");
-		formatacao(marcaLB);
-		marcaLB.setBounds(280, 265, 150, 20);
-		
+		formatacao(marcaLB, 280, 265, 150, 20);
 		classeLB = new JLabel("Classe:");
-		formatacao(classeLB);
-		classeLB.setBounds(10, 305, 150, 20);
-		
+		formatacao(classeLB, 10, 305, 150, 20);
 		tipoVooLB = new JLabel("Tipo Voo:");
-		formatacao(tipoVooLB);
-		tipoVooLB.setBounds(280, 305, 150, 20);
-		
+		formatacao(tipoVooLB, 280, 305, 150, 20);
 		pesoBagagemLB = new JLabel("Pesso BG:");
-		formatacao(pesoBagagemLB);
-		pesoBagagemLB.setBounds(10, 345, 150, 20);
-		
+		formatacao(pesoBagagemLB, 10, 345, 150, 20);
 		alturaVooLB = new JLabel("Alt Voo:");
-		formatacao(alturaVooLB);
-		alturaVooLB.setBounds(280, 345, 150, 20);
-		
+		formatacao(alturaVooLB, 280, 345, 150, 20);
 		escalasLB = new JLabel("Escalas:");
-		formatacao(escalasLB);
-		escalasLB.setBounds(10, 385, 150, 20);
-		
+		formatacao(escalasLB, 10, 385, 150, 20);
 		horarioParadasLB = new JLabel("Horario Paradas:");
-		formatacao(horarioParadasLB);
-		horarioParadasLB.setBounds(10, 425, 150, 20);
+		formatacao(horarioParadasLB, 10, 425, 150, 20);
 		
 		painel.add(dataInicialLB);
 		painel.add(dataFinalLB);
@@ -148,8 +117,8 @@ public class TelaAdmin {
 		horaFinal = new JTextField(20);
 		horaFinal.setBounds(380, 140, 150, 30);
 		
-		id = new JTextField(20);
-		id.setBounds(160, 180, 350, 30);
+		idPassagem = new JTextField(20);
+		idPassagem.setBounds(160, 180, 350, 30);
 		
 		idItinerario = new JTextField(20);
 		idItinerario.setBounds(160, 220, 350, 30);
@@ -184,7 +153,7 @@ public class TelaAdmin {
 		painel.add(pontChegada);
 		painel.add(horaInicial);
 		painel.add(horaFinal);
-		painel.add(id);
+		painel.add(idPassagem);
 		painel.add(idItinerario);
 		painel.add(preco);
 		painel.add(marca);
@@ -255,24 +224,25 @@ public class TelaAdmin {
 		painel.add(userLB);
 		painel.add(configuracao);
 	//---------------CONTAINER---------------------------
+		//Botao atualizar
 		atualizar = new JButton("ATUALIZAR");
 		atualizar.setBackground(Color.gray);
-		atualizar.setBounds(690, 30, 170, 30);
+		atualizar.setBounds(730, 30, 170, 30);
 		painel.add(atualizar);
-		
+		//Container com as passagens
 		container = new JScrollPane();
-		container.setBounds(570, 70, 400, 580);
+		container.setBounds(570, 70, 595, 580);
 		container.setBackground(Color.GRAY);
-		container.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		//PAINEL DE PASSAGEM
-		passagem = new JPanel();
-        passagem.setLayout(new BoxLayout(passagem, BoxLayout.Y_AXIS));
+		//Painel de conteudos
+		conteudo = new JPanel();
+		conteudo.setLayout(new BoxLayout(conteudo, BoxLayout.Y_AXIS));
         //TITULO
-        dadosAdm = new JLabel("RESULTADO:    / " + "     Mudanças feitas:     " + admin.getMudancaFeita());
-        passagem.add(dadosAdm);
+        dadosAdm = new JLabel("Mudanças feitas:     " + admin.getMudancaFeita());
+        dadosAdm.setAlignmentX(Component.LEFT_ALIGNMENT); 
+        conteudo.add(dadosAdm);
         
         //ADICIONANDO NO CONTAINER
-        container.setViewportView(passagem);
+        container.setViewportView(conteudo);
         
         painel.add(container);
 	}
@@ -284,8 +254,8 @@ public class TelaAdmin {
 	public JScrollPane getContainer() {
 		return container;
 	}
-	public JPanel getPassagem() {
-		return passagem;
+	public JPanel getConteudo() {
+		return conteudo;
 	}
 //------------------ITINERARIO----------------------------------
 	public LocalDate getDataInicial(){
@@ -347,11 +317,10 @@ public class TelaAdmin {
 	}
 //------------------NUMEROS-------------------------------------
 	public Integer getClasse() {
-		if(classe != null && Integer.parseInt(classe.getText()) <=3 && 
-		Integer.parseInt(classe.getText()) >=1) {
-			return Integer.parseInt(classe.getText());
-		}else {
+		if(classe == null || classe.getText().isEmpty()) {
 			return null;
+		}else{
+			return Integer.parseInt(classe.getText());
 		}
 	}
 	public Integer getPesoBagagem() {
@@ -398,10 +367,10 @@ public class TelaAdmin {
 		}
 	}
 	public String getIdPassagem() {
-		if(id == null || id.getText().isEmpty()) {
+		if(idPassagem == null || idPassagem.getText().isEmpty()) {
 			return null;
 		}else {
-			return id.getText();
+			return idPassagem.getText();
 		}
 	}
 //-----------------BOOLEAN--------------------------------------
@@ -443,9 +412,10 @@ public class TelaAdmin {
 		return excluirPO;
 	}
 //AUTOMATIZAR FORMATAÇAO
-	public void formatacao(JLabel linha) {
+	public void formatacao(JLabel linha,int x,int y,int xw,int yh) {
 		linha.setFont(inputsFont);
 		linha.setForeground(Color.WHITE);
+		linha.setBounds(x, y, xw, yh);
 	}
 //EXIBIR TELA
 	public void exibir() {

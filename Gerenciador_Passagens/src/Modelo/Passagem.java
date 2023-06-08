@@ -67,7 +67,7 @@ public abstract class Passagem {
 	public abstract Double calculaPreco();
 //TOSTRING
 	public String toString() {
-		return "\n {Data de Partida: " + itinerario.getDataInicial() + " / " + itinerario.getHoraInicial()+ 
+		return "  Data de Partida: " + itinerario.getDataInicial() + " / " + itinerario.getHoraInicial()+ 
 					" | Data de Chegada: " + itinerario.getDataFinal() + " / " + itinerario.getHoraFinal() +
 			   "\n  Local de Partida: " + itinerario.getPontPartida() + " | Local de Chegada: " + 
 					itinerario.getPontChegada() + " | Id da Passagem: " + id + 

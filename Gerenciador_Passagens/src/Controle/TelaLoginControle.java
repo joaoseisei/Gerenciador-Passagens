@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import Modelo.Admin;
 import Modelo.Memoria;
 import Modelo.Usuario;
@@ -20,14 +22,19 @@ public class TelaLoginControle {
 		this.login = login;
 	}
 //-------------------------VERIFICACAO---------------------------
-	public boolean verificarUser(String nome, String senha) {
+	
+	//Aqui verificamos se existe uma conta cadastrada com essas credenciais
+	
+	public boolean verificarUserRegistro(String nome, String senha) {
 		for(Usuario index : memoria.getListaUsuario()) {
 			if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))){
 				return true;
 			}
-		}return false;
+		}//Vai passar objeto por objeto da listaUsuario e se algum objeto for igual vai 
+		 //retornar true, e se nao tiver nenhum retornará falso.
+		return false;
 	}
-	public boolean verificarAdmin(String nome, String senha) {
+	public boolean verificarAdminRegistro(String nome, String senha) {
 		for(Admin index : memoria.getListaAdmin()) {
 			if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))){
 				return true;
@@ -35,31 +42,34 @@ public class TelaLoginControle {
 		}return false;
 	}
 //----------------------CRIACAO DE CONTA------------------------
-	public void addConta(Boolean tipo, String nome, String senha, String novaSenha) {
+	public void addConta(Boolean tipo, String nome, String senha, String novaSenha){
 		ArrayList<Admin> novaListaAdmin = new ArrayList<>(memoria.getListaAdmin());
 		ArrayList<Usuario> novaListaUsuario = new ArrayList<>(memoria.getListaUsuario());
 		if(tipo){
 			Admin novoAdmin = new Admin(tipo ,nome, senha, novaSenha);
 			novaListaAdmin.add(novoAdmin);
 			memoria.setListaAdmin(novaListaAdmin);	
-		}else {
+		}else{
 			Usuario novoUsuario = new Usuario(tipo, nome, senha, novaSenha);
 			novaListaUsuario.add(novoUsuario);
 			memoria.setListaUsuario(novaListaUsuario);
 		}
 	}
 	public void criarConta() {
-		if(login.getNome().trim().isEmpty() || login.getSenha().trim().isEmpty()) {
+		if(login.getNome().trim().isEmpty() || login.getSenha().trim().isEmpty()){
 			throw new IllegalArgumentException("NOME OU SENHA SÃO NULOS");
-		}else {
-			if((verificarUser(login.getNome(), login.getSenha()) == false || 
-					memoria.getListaUsuario().isEmpty()) && login.getTipo() == false) {
+		}else{// as linhas nao estão nulas entao é possivel trabalhar com dados
+			if((verificarUserRegistro(login.getNome(), login.getSenha()) == false || 
+					memoria.getListaUsuario().isEmpty()) && login.getTipo() == false){
+				//Se a lista de Usuarios esta vazia Ou o verificarUserRegistro for falso
+				//E o tipo for falso (nao é adm) adicionamos esse usuario na memoria com addConta
 				addConta(login.getTipo(), login.getNome(), login.getSenha(), login.getSenha());
-			}else if((verificarAdmin(login.getNome(), login.getSenha()) == false || 
+			}else if((verificarAdminRegistro(login.getNome(), login.getSenha()) == false || 
 					memoria.getListaAdmin().isEmpty()) && login.getTipo() == true){
 				addConta(login.getTipo(), login.getNome(), login.getSenha(), login.getSenha());
-			}else {
-				throw new IllegalArgumentException("EXISTE UMA CONTA CADASTRADA COM AS MESMAS CREDENCIAIS");
+			}else{
+				JOptionPane.showMessageDialog(null, "EXISTE UMA CONTA CADASTRADA COM AS MESMAS CREDENCIAIS", 
+				"ERRO", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
@@ -77,7 +87,8 @@ public class TelaLoginControle {
 					return "UsuarioLogado";
 				}
 			}
-		}return "erro";
+		}
+		return "erro";
 	}
 	public void fazerLogin(){
 		if(verificacaoLogin(login.getNome(), login.getSenha(), login.getTipo()).equals("UsuarioLogado")) {
