@@ -115,15 +115,14 @@ public class TelaLoginControle {
 	public void criarContaButton() {
 		login.getFazerRegistro().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("Registro criado");
                 criarConta();
+                System.out.println(memoria.getListaUsuario());
             }
         });
 	}
 	public void fazerLoginButton() {
 		login.getFazerLogin().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Login feito");
 				fazerLogin();
 			}
 		});	
