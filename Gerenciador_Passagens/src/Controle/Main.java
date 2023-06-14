@@ -7,11 +7,11 @@ import View.*;
 public class Main {	
 	public static void main(String[] args) {
 		Memoria memoria = new Memoria();
-		Login login = new Login();
-		TelaLoginControle tlControle = new TelaLoginControle(memoria, login);
-		login.exibir();
-		tlControle.criarContaButton();
-		tlControle.fazerLoginButton();
+		TelaLogin telaLogin = new TelaLogin();
+		TelaLoginControle tlControle = new TelaLoginControle(memoria, telaLogin);
+		telaLogin.exibir();
+		tlControle.TLControler();
+		
 		
 		
 		tlControle.addConta(true, "adm", "adm");

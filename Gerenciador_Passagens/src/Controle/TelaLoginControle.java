@@ -1,25 +1,21 @@
 package Controle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
 import Modelo.Admin;
 import Modelo.Memoria;
 import Modelo.Usuario;
-import View.Login;
-import View.TelaAdmin;
-import View.TelaUsuario;
+import View.*;
 
 public class TelaLoginControle {
 //ATRIBUTOS
 	private Memoria memoria;
-	private Login login;
+	private TelaLogin telaLogin;
 //CONSTRUTOR
-	public TelaLoginControle(Memoria memoria, Login login) {
+	public TelaLoginControle(Memoria memoria, TelaLogin telaLogin) {
 		this.memoria = memoria;
-		this.login = login;
+		this.telaLogin = telaLogin;
 	}
 //-------------------------VERIFICACAO---------------------------
 	
@@ -56,17 +52,18 @@ public class TelaLoginControle {
 		}
 	}
 	public void criarConta() {
-		if(login.getNome().trim().isEmpty() || login.getSenha().trim().isEmpty()){
-			throw new IllegalArgumentException("NOME OU SENHA SÃO NULOS");
+		if(telaLogin.getNome().trim().isEmpty() || telaLogin.getSenha().trim().isEmpty()){
+			JOptionPane.showMessageDialog(null, "INPUTS NULOS", 
+					"ERRO", JOptionPane.ERROR_MESSAGE);
 		}else{// as linhas nao estão nulas entao é possivel trabalhar com dados
-			if((verificarUserRegistro(login.getNome(), login.getSenha()) == false || 
-					memoria.getListaUsuario().isEmpty()) && login.getTipo() == false){
+			if((verificarUserRegistro(telaLogin.getNome(), telaLogin.getSenha()) == false || memoria.getListaUsuario().isEmpty())
+			&& telaLogin.getSenha().equals(telaLogin.getNovaSenha()) && telaLogin.getTipo() == false){
 				//Se a lista de Usuarios esta vazia Ou o verificarUserRegistro for falso
 				//E o tipo for falso (nao é adm) adicionamos esse usuario na memoria com addConta
-				addConta(login.getTipo(), login.getNome(), login.getSenha());
-			}else if((verificarAdminRegistro(login.getNome(), login.getSenha()) == false || 
-					memoria.getListaAdmin().isEmpty()) && login.getTipo() == true){
-				addConta(login.getTipo(), login.getNome(), login.getSenha());
+				addConta(telaLogin.getTipo(), telaLogin.getNome(), telaLogin.getSenha());
+			}else if((verificarAdminRegistro(telaLogin.getNome(), telaLogin.getSenha()) == false || memoria.getListaAdmin().isEmpty())
+			&& telaLogin.getSenha().equals(telaLogin.getNovaSenha()) && telaLogin.getTipo() == true){
+				addConta(telaLogin.getTipo(), telaLogin.getNome(), telaLogin.getSenha());
 			}else{
 				JOptionPane.showMessageDialog(null, "EXISTE UMA CONTA CADASTRADA COM AS MESMAS CREDENCIAIS", 
 				"ERRO", JOptionPane.ERROR_MESSAGE);
@@ -91,18 +88,18 @@ public class TelaLoginControle {
 		return "erro";
 	}
 	public void fazerLogin(){
-		if(verificacaoLogin(login.getNome(), login.getSenha(), login.getTipo()).equals("UsuarioLogado")) {
-			login.ocultar();
+		if(verificacaoLogin(telaLogin.getNome(), telaLogin.getSenha(), telaLogin.getTipo()).equals("UsuarioLogado")) {
+			telaLogin.ocultar();
 			//DEFININDO A PROXIMA TELA E COLOCANDO AS FUNCIONALIDADES QUE ELA VAI TER 
-			TelaUsuario telaUser = new TelaUsuario(memoria.getUsuarioOBJ(login.getNome(), login.getSenha()));
+			TelaUsuario telaUser = new TelaUsuario(memoria.getUsuarioOBJ(telaLogin.getNome(), telaLogin.getSenha()));
 			TelaUsuarioControle tuControle = new TelaUsuarioControle(memoria, telaUser);
 			telaUser.exibir();
 			tuControle.filtrarButton();
 			tuControle.atualizarFavoritosButton();
 			
-		}else if(verificacaoLogin(login.getNome(), login.getSenha(), login.getTipo()).equals("AdminLogado")) {
-			login.ocultar();
-			TelaAdmin telaAdmin = new TelaAdmin(memoria.getAdminOBJ(login.getNome(), login.getSenha()));
+		}else if(verificacaoLogin(telaLogin.getNome(), telaLogin.getSenha(), telaLogin.getTipo()).equals("AdminLogado")) {
+			telaLogin.ocultar();
+			TelaAdmin telaAdmin = new TelaAdmin(memoria.getAdminOBJ(telaLogin.getNome(), telaLogin.getSenha()));
 			TelaAdminControle taControle = new TelaAdminControle(memoria, telaAdmin);
 			telaAdmin.exibir();
 			taControle.criarButton();
@@ -112,19 +109,16 @@ public class TelaLoginControle {
 		}
 	}
 //------------------------BOTOES-------------------------
-	public void criarContaButton() {
-		login.getFazerRegistro().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                criarConta();
-                System.out.println(memoria.getListaUsuario());
-            }
-        });
-	}
-	public void fazerLoginButton() {
-		login.getFazerLogin().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				fazerLogin();
+	public void TLControler() {
+		telaLogin.getConfirmacao().addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(telaLogin.getLogando()) {
+					fazerLogin();
+				}else{
+					criarConta();
+				}
 			}
-		});	
+		});
 	}
+	
 }
