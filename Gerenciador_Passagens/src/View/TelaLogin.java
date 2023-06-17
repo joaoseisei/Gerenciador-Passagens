@@ -9,11 +9,12 @@ public class TelaLogin{
 	private JFrame tela;
 	private JPanel painel, container, conteudoContainer, controle, conteudoControle, registro, conteudoRegistro, 
 	login, conteudoLogin, confirmacao, conteudoConfirmacao;
-	private JTextField nome, senha, novaSenha;
-	private JLabel tituloLBE, tituloLBD, registroLB, loginLB, tituloLB, confirmacaoLB;
+	private JTextField nome;
+	private JPasswordField senha, novaSenha;
+	private JLabel tituloLBE, tituloLBD, registroLB, loginLB, tituloLB, confirmacaoLB, tipoSeletor;
 	private JTextPane informacaoD, informacaoE;
-	private JCheckBox tipo;
 	private boolean logando = true;
+	private boolean tipo = false;
 //CONSTRUTOR
 	public TelaLogin() {
 	//--------------TELA------------------------------
@@ -34,7 +35,7 @@ public class TelaLogin{
 			conteudoControle = new JPanel();
 			conteudoControle.setBounds(20, 20, 800, 400);
 			conteudoControle.setBackground(new Color(145, 84, 234 ));
-			arredondarBordas(controle, conteudoControle, 100);
+			Animator.arredondarBordas(controle, conteudoControle, 100);
 			conteudoControle.setLayout(null);
 		//------------------ESQUERDA--------------------
 			//------------TEXTO CONTAINER---------------
@@ -58,7 +59,7 @@ public class TelaLogin{
 				conteudoRegistro = new JPanel();
 				conteudoRegistro.setBounds(10, 7, 180, 40);
 				conteudoRegistro.setBackground(Color.DARK_GRAY);
-				arredondarBordas(registro, conteudoRegistro, 30);
+				Animator.arredondarBordas(registro, conteudoRegistro, 30);
 				conteudoRegistro.setLayout(null);
 				//-------------TEXTO------------------
 					registroLB= new JLabel("REGISTRAR-SE");
@@ -89,7 +90,7 @@ public class TelaLogin{
 				conteudoLogin = new JPanel();
 				conteudoLogin.setBounds(10, 7, 180, 40);
 				conteudoLogin.setBackground(Color.DARK_GRAY);
-				arredondarBordas(login, conteudoLogin, 30);
+				Animator.arredondarBordas(login, conteudoLogin, 30);
 				conteudoLogin.setLayout(null);
 				//-------------TEXTO------------------
 					loginLB= new JLabel("LOGAR-SE");
@@ -105,7 +106,7 @@ public class TelaLogin{
 		//----------CONTEUDO CONTAINER------------------
 			conteudoContainer = new JPanel();
 			conteudoContainer.setBounds(70, 70, 400, 400);
-			arredondarBordas(container, conteudoContainer, 100);
+			Animator.arredondarBordas(container, conteudoContainer, 100);
 			//Na funcao arredondar bordas eu chamo 2 paneis, um servirá como borda arredondada,
 			//e o outro será o painel principal com conteudos, no caso o conteudo container é onde colocarei
 			//todos os inputs, e por ultimo recebe como parametro o raio da borda arredondada
@@ -118,16 +119,17 @@ public class TelaLogin{
 		conteudoContainer.add(tituloLB);
 	//---------------INPUTS------------------------------
 		nome = new JTextField();
-		conteudoContainer.add(jssTextField(nome, 20, 70, 300, 50, "Username"));
+		conteudoContainer.add(Animator.jssTextField(nome, 20, 70, 300, 50, "Username"));
 		//Basicamente eu to pegando um textfield comum e passando a JSSTEXTFIELD para deixar mais elegante
-		senha = new JTextField();
-		conteudoContainer.add(jssTextField(senha, 20, 150, 300, 50, "Password"));
-		novaSenha = new JTextField();
+		senha = new JPasswordField();
+		conteudoContainer.add(Animator.jssTextField(senha, 20, 150, 300, 50, "Password"));
+		novaSenha = new JPasswordField();
 	//------------------TIPO---------------------------
-		tipo = new JCheckBox();
-		tipo.setBackground(Color.black);
-		tipo.setBounds(0, 0, 60, 30);
-		painel.add(tipo);
+		tipoSeletor = new JLabel("XD");
+		tipoSeletor.setFont(new Font("Tahoma", Font.BOLD, 20));
+		tipoSeletor.setBounds(770, 370, 60, 30);
+		tipoSeletor.addMouseListener(new MouseAdapter(){public void mouseClicked(MouseEvent e){selecionarTipo();}});
+		conteudoControle.add(tipoSeletor);
 	//----------------BOTAO-----------------------------
 		confirmacao = new JPanel();
 		confirmacao.setLayout(null);
@@ -136,7 +138,7 @@ public class TelaLogin{
 			conteudoConfirmacao = new JPanel();
 			conteudoConfirmacao.setBounds(10, 7, 180, 40);
 			conteudoConfirmacao.setBackground(Color.DARK_GRAY);
-			arredondarBordas(confirmacao, conteudoConfirmacao, 30);
+			Animator.arredondarBordas(confirmacao, conteudoConfirmacao, 30);
 			conteudoConfirmacao.setLayout(null);
 			//-------------TEXTO------------------
 				confirmacaoLB= new JLabel("LOGAR");
@@ -156,26 +158,47 @@ public class TelaLogin{
 	public boolean getLogando() {
 		return logando;
 	}
+	public boolean getTipo() {
+		return tipo;
+	}
 	public String getNome() {
+		if(nome.getText().equals("Username")) {
+			return null;
+		}
 		return nome.getText();
 	}
 	public String getSenha() {
-		return senha.getText();
+		if(String.valueOf(senha.getPassword()).equals("Password")) {
+			return null;
+		}else {
+			return  String.valueOf(senha.getPassword());
+		}
 	}
 	public String getNovaSenha() {
-		return novaSenha.getText();
+		if(String.valueOf(novaSenha.getPassword()).equals("Password")) {
+			return null;
+		}else {
+			return String.valueOf(novaSenha.getPassword());
+		}
 	}
 	public JPanel getConfirmacao() {
 		return confirmacao;
 	}
-	public boolean getTipo() {
-		return tipo.isSelected();
+//SELECIONAR TIPO
+	public void selecionarTipo() {
+		if(tipo) {
+			tipo = false;
+			tipoSeletor.setForeground(Color.DARK_GRAY);
+		}else {
+			tipo = true;
+			tipoSeletor.setForeground(Color.RED);
+		}
 	}
 //REGISTRO
 	public void registro() {
 		//ANIMACAO
         new Thread(() -> {
-            try {moverHorizontal(200, container, 2, 500, 500, 1, 95, 100);}
+            try {Animator.moverHorizontal(container, 1, 95, 305, 2);}
             	catch(InterruptedException y) {}
             //É necessario criar um Thread para a animacao funcionar corretamente, pois ele
             //irá desencadear o loop que existe um Thread.sleep para deixar a animacao mais suave
@@ -183,17 +206,16 @@ public class TelaLogin{
         //FUNCOES
         painel.setBackground(new Color(191, 191, 191));
         tituloLB.setText("Registro");
-        conteudoContainer.add(jssTextField(novaSenha, 20, 230, 300, 50, "Confirm Password"));
+        conteudoContainer.add(Animator.jssTextField(novaSenha, 20, 230, 300, 50, "Password"));
         confirmacaoLB.setText("REGISTRAR");
         confirmacaoLB.setBounds(40, 2, 130, 30);
         logando = false;
-        tipo.setBackground(Color.LIGHT_GRAY);
 	}
 //LOGIN
 	public void login() {
 		//ANIMACAO
         new Thread(() -> {
-            try {moverHorizontal(200, container, -2, 500, 500, 1, 480, 100);}
+            try {Animator.moverHorizontal(container, 1, 405, 235, -2);}
             	catch(InterruptedException y) {}
             //É necessario criar um Thread para a animacao funcionar corretamente, pois ele
             //irá desencadear o loop que existe um Thread.sleep para deixar a animacao mais suave
@@ -201,28 +223,10 @@ public class TelaLogin{
         //FUNCOES
         painel.setBackground(Color.BLACK);
         tituloLB.setText("Login");
-        conteudoContainer.remove(jssTextField(novaSenha, 20, 230, 300, 50, "Confirm Password"));
+        conteudoContainer.remove(Animator.jssTextField(novaSenha, 20, 230, 300, 50, "Confirm Password"));
         confirmacaoLB.setText("LOGAR");
         confirmacaoLB.setBounds(60, 2, 130, 30);
         logando = true;
-        tipo.setBackground(Color.black);
-	}
-//ANIMACOES
-	public void moverHorizontal(int interacoes, JPanel painel, int escala, int altura, int largura, 
-									int tempo, int inicio, int posicaoY) throws InterruptedException {
-		Animator.moverHorizontal(interacoes, painel, escala, altura, largura, tempo, inicio, posicaoY);
-	}
-	public void moverVertical(int interacoes, JPanel painel, int escala, int altura, int largura, 
-									int tempo, int inicio, int posicaoX) throws InterruptedException {
-		Animator.moverVertical(interacoes, painel, escala, altura, largura, tempo, inicio, posicaoX);
-	}
-//ARREDONDAR BORDAS
-	public void arredondarBordas(JPanel container, JPanel painel, int raio){
-		Animator.arredondarBordas(container, painel, raio);
-	}
-//JSS TEXTFIELD
-	public JTextField jssTextField(JTextField input,int posicaoX,int posicaoY,int largura,int altura,String mensagem){
-		return Animator.jssTextField(input, posicaoX, posicaoY, largura, altura, mensagem);
 	}
 //EXIBIR TELA
     public void exibir() {

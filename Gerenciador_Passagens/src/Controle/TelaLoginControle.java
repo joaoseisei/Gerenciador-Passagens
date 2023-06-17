@@ -52,9 +52,9 @@ public class TelaLoginControle {
 		}
 	}
 	public void criarConta() {
-		if(telaLogin.getNome().trim().isEmpty() || telaLogin.getSenha().trim().isEmpty()){
-			JOptionPane.showMessageDialog(null, "INPUTS NULOS", 
-					"ERRO", JOptionPane.ERROR_MESSAGE);
+		if(telaLogin.getNome() == null || telaLogin.getSenha() == null || telaLogin.getNovaSenha() == null 
+		   || telaLogin.getNome().trim().isEmpty() || telaLogin.getSenha().trim().isEmpty() || telaLogin.getNovaSenha().trim().isEmpty()){
+			JOptionPane.showMessageDialog(null, "INPUTS NULOS","ERRO", JOptionPane.ERROR_MESSAGE);
 		}else{// as linhas nao estão nulas entao é possivel trabalhar com dados
 			if((verificarUserRegistro(telaLogin.getNome(), telaLogin.getSenha()) == false || memoria.getListaUsuario().isEmpty())
 			&& telaLogin.getSenha().equals(telaLogin.getNovaSenha()) && telaLogin.getTipo() == false){
@@ -120,5 +120,4 @@ public class TelaLoginControle {
 			}
 		});
 	}
-	
 }
