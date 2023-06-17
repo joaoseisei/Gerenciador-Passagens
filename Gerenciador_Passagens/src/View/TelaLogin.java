@@ -49,10 +49,11 @@ public class TelaLogin{
 			informacaoD.setFont(new Font("Tahoma", Font.BOLD, 25));
 			informacaoD.setOpaque(false);
 			informacaoD.setEditable(false);
+			informacaoD.setFocusable(false);
 			informacaoD.setBounds(500, 120, 500, 200);
 			conteudoControle.add(informacaoD);
 			//---------------BOTAO--------------------
-			registro = new JPanel();
+			registro = new JPanel();	
 			registro.setLayout(null);
 			registro.setBounds(530, 300, 200, 50);
 				//----------CONTEUDO BOTAO-----------
@@ -80,6 +81,7 @@ public class TelaLogin{
 			informacaoE.setFont(new Font("Tahoma", Font.BOLD, 25));
 			informacaoE.setOpaque(false);
 			informacaoE.setEditable(false);
+			informacaoE.setFocusable(false);
 			informacaoE.setBounds(40, 120, 500, 200);
 			conteudoControle.add(informacaoE);
 			//---------------BOTAO--------------------
