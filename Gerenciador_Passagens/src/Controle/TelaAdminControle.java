@@ -5,8 +5,16 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import javax.swing.*;
-import Modelo.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import Modelo.Itinerario;
+import Modelo.Memoria;
+import Modelo.PassagemAviao;
+import Modelo.PassagemOnibus;
 import View.TelaAdmin;
 
 public class TelaAdminControle {
@@ -36,7 +44,8 @@ public class TelaAdminControle {
 	String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,Integer classe,Integer pesoBagagem,
 	String tipoVoo,Integer alturaVoo){
 		ArrayList<PassagemAviao> novaListaAviao = new ArrayList<>(memoria.getListaAviao());
-		PassagemAviao novaPA = new PassagemAviao (dataInicial,dataFinal,horaInicial,horaFinal,pontPartida,pontChegada,escalas,preco,marca,classe,pesoBagagem,tipoVoo,alturaVoo);
+		Itinerario itinerarioPA = new Itinerario(dataInicial,dataFinal,horaInicial,horaFinal,pontPartida,pontChegada);
+		PassagemAviao novaPA = new PassagemAviao(itinerarioPA,escalas,preco,marca,classe,pesoBagagem,tipoVoo,alturaVoo);
 		if(dataInicial.isAfter(LocalDate.now()) || dataInicial.isEqual(LocalDate.now())){	
 			novaListaAviao.add(novaPA);
 			addItinerario(dataInicial, dataFinal, horaInicial, horaFinal, pontPartida, pontChegada);
@@ -48,7 +57,8 @@ public class TelaAdminControle {
 	String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,Boolean leito,String[] horarioParadas,
 	Boolean refeicaoInclusa){
 		ArrayList<PassagemOnibus> novaListaOnibus = new ArrayList<>(memoria.getListaOnibus());
-		PassagemOnibus novaPO = new PassagemOnibus (dataInicial,dataFinal,horaInicial,horaFinal,pontPartida,pontChegada,escalas,preco,marca,leito,horarioParadas,refeicaoInclusa);
+		Itinerario itinerarioPO = new Itinerario(dataInicial,dataFinal,horaInicial,horaFinal,pontPartida,pontChegada);
+		PassagemOnibus novaPO = new PassagemOnibus (itinerarioPO,escalas,preco,marca,leito,horarioParadas,refeicaoInclusa);
 		if(dataInicial.isAfter(LocalDate.now())||dataInicial.isEqual(LocalDate.now())){
 			novaListaOnibus.add(novaPO);
 			addItinerario(dataInicial, dataFinal, horaInicial, horaFinal, pontPartida, pontChegada);
@@ -227,8 +237,8 @@ public class TelaAdminControle {
     	telaAdmin.getConteudo().removeAll();
     	JLabel dados = new JLabel("Mudanças feitas:     " + telaAdmin.getAdmin().getMudancaFeita());
     	telaAdmin.getConteudo().add(dados);
-    	for(Itinerario index : memoria.getListaItinerario()) {
-    		addInformacao(index.toString() +"\n  ID: "+ index.getIdItinerario());
+    	for(int i = 0; i < memoria.getListaItinerario().size(); i++){
+    		addInformacao(memoria.getListaItinerario().get(i).toString()+" | ID: "+ memoria.getListaItinerario().get(i).getIdItinerario());
     	}
     	for(PassagemAviao index : memoria.getListaAviao()) {
     		addInformacao(index.toString());

@@ -27,7 +27,7 @@ public class TelaUsuario {
 		tituloFont = new Font("Verdana", Font.BOLD, 35);
 		inputsFont = new Font("Verdana", Font.BOLD, 16);
 	//--------------TELA------------------------------
-		tela = new JFrame("PAPO-USUARIO" +" | "+ usuario.getIDU());
+		tela = new JFrame("PAPO-USUARIO");
 		tela.setSize(1100, 700);
 		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	//-------------PAINEL-----------------------------

@@ -1,6 +1,11 @@
-	package Modelo;
+package Modelo;
 import java.util.ArrayList;
-
+/**
+ * A classe memoria é responsavel por armazenar todos os dados do projeto em ArrayLists.
+ * 
+ * @author joaoseisei
+ *
+ */
 public class Memoria {
 //ATRIBUTOS
 	private ArrayList<Itinerario> listaItinerario = new ArrayList<>(); 		
@@ -24,6 +29,12 @@ public class Memoria {
 	public ArrayList<Usuario> getListaUsuario(){
 		return new ArrayList<>(listaUsuario);
 	}
+	/**
+	 * O método getAdminOBJ é responsável por buscar um admin na lista de admin e retornar o objeto dele
+	 * @param nome Nome do admin a ser buscado.
+	 * @param senha Senha do admin a ser buscado.
+	 * @return Retorna o objeto admin encontrado e se nao encontrar nenhum correspondente retorna null.
+	 */
 	public Admin getAdminOBJ(String nome, String senha) {
 		for(Admin index : listaAdmin) {
 			if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))) {
@@ -31,6 +42,12 @@ public class Memoria {
 			}
 		}return null;
 	}
+	/**
+	 * O método getUsuarioOBJ é responsável por buscar um usuario na lista de usuarios e retornar o objeto dele.
+	 * @param nome Nome do usuário a ser buscado.
+	 * @param senha Senha do usuário a ser buscado.
+	 * @return Retorna o objeto usuário encontrado se não encontrar nenhum correspondente retorna null.
+	 */
 	public Usuario getUsuarioOBJ(String nome, String senha) {
 		for(Usuario index : listaUsuario) {
 			if(index.getNome().equals(nome) && index.getSenha().equals(index.criptografarSenha(senha))) {
@@ -54,6 +71,4 @@ public class Memoria {
 	public void setListaUsuario(ArrayList<Usuario> novaListaUsuario){
 		this.listaUsuario = novaListaUsuario;
 	}
-	
-	
 }

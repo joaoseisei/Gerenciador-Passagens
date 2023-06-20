@@ -30,7 +30,7 @@ public class TelaAdmin {
 		titulo = new Font("Verdana", Font.BOLD, 20);
 		inputsFont = new Font("Verdana", Font.BOLD, 16);
 	//--------------TELA------------------------------	
-		tela = new JFrame("PAPO-ADMIN" +" | "+ admin.getIDU());
+		tela = new JFrame("PAPO-ADMIN");
 		tela.setSize(1200, 700);
 		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	//-------------PAINEL-----------------------------	

@@ -6,20 +6,51 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import javax.swing.*;
-import Modelo.*;
-import View.TelaUsuario;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import Modelo.Itinerario;
+import Modelo.Memoria;
+import Modelo.PassagemAviao;
+import Modelo.PassagemOnibus;
+import Modelo.Usuario;
+import View.TelaUsuario;
+/**
+ * 
+ * 
+ * @author joaoseisei
+ *
+ */
 public class TelaUsuarioControle {
 //ATRIBUTOS
 	private Memoria memoria;
 	private TelaUsuario telaUser;
 //CONSTRUTOR
+	/**
+	 * Esse construtor é responsável por vincular a TelaUsuario e a Memoria na classe, para poder
+	 * utilizar banco de dados e botoẽs.
+	 * @param memoria
+	 * @param telaUser
+	 */
 	public TelaUsuarioControle(Memoria memoria,TelaUsuario telaUser) {
 		this.memoria = memoria;
 		this.telaUser = telaUser;
 	}
 //-----------------------------FILTRAR--------------------------------
+	/**
+	 * Esse método é responsável por filtrar o ArrayList de itinerário com base nos 4 parâmetros abaixo, 
+	 * caso o valor colocado for null ele passará no filtro, caso for diferente de null ele verificará se o
+	 * index é igual ao valor escolhido com base no .equals.
+	 * @param dataInicial
+	 * @param dataFinal
+	 * @param pontPartida
+	 * @param pontChegada
+	 * @return Retorna um ArrayList de Strins com os itinerários filtrados com os parâmetros escolhidos.
+	 */
 	public ArrayList<String> filtrarItinerario(LocalDate dataInicial,LocalDate dataFinal,String pontPartida,String pontChegada){
 		ArrayList<String> filtro = new ArrayList<>();
 		for(Itinerario index : memoria.getListaItinerario()) {
@@ -31,6 +62,16 @@ public class TelaUsuarioControle {
 			}
 		}return filtro;
 	}
+	/**
+	 * Esse método é responsável por filtrar o ArrayList de passagem de avião com base nos 4 parâmetros abaixo, 
+	 * caso o valor colocado for null ele passará no filtro, caso for diferente de null ele verificará se o
+	 * index é igual ao valor escolhido com base no .equals.
+	 * @param dataInicial
+	 * @param dataFinal
+	 * @param pontPartida
+	 * @param pontChegada
+	 * @return Retorna um ArrayList de Strins com as passagens de aviões filtradas com os parâmetros escolhidos.
+	 */
 	public ArrayList<String> filtrarPassagemAviao(LocalDate dataInicial,LocalDate dataFinal,String pontPartida,String pontChegada){
 		ArrayList<String> filtro = new ArrayList<>();
 		for (PassagemAviao index : memoria.getListaAviao()) {
@@ -42,6 +83,16 @@ public class TelaUsuarioControle {
 			} 
 		}return filtro;
 	}
+	/**
+	 * Esse método é responsável por filtrar o ArrayList de passagem de ônibus com base nos 4 parâmetros abaixo, 
+	 * caso o valor colocado for null ele passará no filtro, caso for diferente de null ele verificará se o
+	 * index é igual ao valor escolhido com base no .equals.
+	 * @param dataInicial
+	 * @param dataFinal
+	 * @param pontPartida
+	 * @param pontChegada
+	 * @return Retorna um ArrayList de Strins com as passagens de ônibus filtrados com os parâmetros escolhidos.
+	 */
 	public ArrayList<String> filtrarPassagemOnibus(LocalDate dataInicial,LocalDate dataFinal,String pontPartida,String pontChegada){
 		ArrayList<String> filtro = new ArrayList<>();
 		for (PassagemOnibus index : memoria.getListaOnibus()) {
@@ -53,22 +104,24 @@ public class TelaUsuarioControle {
 			}
 		}return filtro;
 	}
-	
+	/**
+	 * 
+	 */
 	public void filtrar() {
 		resetFiltro(telaUser.getContainerPassagem(), telaUser.getSubtituloLB());
 		LocalDate inicio = telaUser.getDataInicial();
 		LocalDate fim = telaUser.getDataFinal();
 		String pontPartida = telaUser.getPontPartida();
 		String pontChegada = telaUser.getPontChegada();
-		//if(filtrar itinerario)
+		
 		for(String index : filtrarItinerario(inicio, fim, pontPartida, pontChegada)) {
 			addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
 		}
-		//if(filtrar pa)
+		
 		for(String index : filtrarPassagemAviao(inicio, fim, pontPartida, pontChegada)) {
 			addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
 		}
-		//if(filtrar po)
+
 		for(String index : filtrarPassagemOnibus(inicio, fim, pontPartida, pontChegada)) {
 			addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
 		}
@@ -139,7 +192,6 @@ public class TelaUsuarioControle {
 	public void filtrarButton() {
 		telaUser.getConfirmacao().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("Filtro atualizado");
                 filtrar();
             }
         });

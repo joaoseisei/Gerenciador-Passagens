@@ -1,6 +1,11 @@
 package Modelo;
-import java.time.*;
-
+/**
+ * A classe passagemAviao é herdada da classe passagens, que por sua vez tem um itinerario. Sendo assim, 
+ * nessa classe temos todos os itens a cima mais 4 atributos que definem uma passagem de avião.
+ * 
+ * @author joaoseisei
+ *
+ */
 public class PassagemAviao extends Passagem{ 
 //ATRIBUTOS:
 	private Integer classe;							//CLASSE
@@ -8,22 +13,32 @@ public class PassagemAviao extends Passagem{
 	private String tipoVoo;							//TIPO DE VOO
 	private Integer alturaVoo;						//ALTURA DO VOO
 //CONSTRUTOR	
-    public PassagemAviao(LocalDate dataInicial, LocalDate dataFinal, LocalTime horaInicial, LocalTime horaFinal,
-					String pontPartida, String pontChegada, String[] escalas, Double preco, String marca, 
-					Integer classe, Integer pesoBagagem, String tipoVoo, Integer alturaVoo){
+	/**
+	 * Esse construtor é responsável por adicionar todos os atributos de uma passagem de avião, isso ocorre
+	 * pois é importante criar uma passagem de avião com todos as informações definidas. Além disso existem
+	 * verificações como só permitir a classe de 1 a 3, não permitir peso de bagagem negativo e colocar altura
+	 * de voo mínima como 200 metros, essas verificações são feitas usando setters dentro do construtor.
+	 * @param itinerario
+	 * @param escalas
+	 * @param preco
+	 * @param marca
+	 * @param classe
+	 * @param pesoBagagem
+	 * @param tipoVoo
+	 * @param alturaVoo
+	 */
+    public PassagemAviao(Itinerario itinerario,String[] escalas,Double preco,String marca, 
+						Integer classe,Integer pesoBagagem,String tipoVoo,Integer alturaVoo){
 	//SUPER
-		super(dataInicial, dataFinal, horaInicial, horaFinal, pontPartida, pontChegada,  escalas, preco, marca);
+		super(itinerario, escalas, preco, marca);
 	//CLASSE
-		if(classe >=1 && classe <= 3) {this.classe = classe;}
-			else {throw new IllegalArgumentException("Tipo de classe nao suportada (1, 2, 3)");}
+		setClasse(classe);
 	//PESO DA BAGAGEM
-		if(pesoBagagem >= 0) {this.pesoBagagem = pesoBagagem;}
-			else {throw new IllegalArgumentException("O peso da Bagagem nao pode ser negativo");}
+		setPesoBagagem(pesoBagagem);
 	//TIPO DO VOO
 		this.tipoVoo = tipoVoo;
 	//ALTURA DO VOO
-		if(alturaVoo > 200) {this.alturaVoo = alturaVoo;}
-			else {throw new IllegalArgumentException("Aviao nao pode voar tao baixo, aumente a altura");}
+		setAlturaVoo(alturaVoo);
 	}
 //GETTERS
     public Integer getClasse() {
@@ -40,9 +55,7 @@ public class PassagemAviao extends Passagem{
     }
 //SETTERS
     public void setClasse(Integer novaClasse) {
-    	if(novaClasse != null) {
-    		this.classe = novaClasse;
-    	}
+    	if(novaClasse != null) this.classe = novaClasse;
     }
     public void setPesoBagagem(Integer novoPesoBagagem) {
     	if(novoPesoBagagem != null && novoPesoBagagem >= 0 && novoPesoBagagem <= 100) {
@@ -50,19 +63,20 @@ public class PassagemAviao extends Passagem{
     	}
     }
     public void setTipoVoo(String novoTipoVoo) {
-    	if(novoTipoVoo != null) {
-    		this.tipoVoo = novoTipoVoo;
-    	}
+    	if(novoTipoVoo != null) this.tipoVoo = novoTipoVoo;
     }
     public void setAlturaVoo(Integer novaAlturaVoo) {
-    	if(novaAlturaVoo != null && novaAlturaVoo > 200) {
-    		this.alturaVoo = novaAlturaVoo;
-    	}
+    	if(novaAlturaVoo != null && novaAlturaVoo > 200) this.alturaVoo = novaAlturaVoo;
     }
 //METODO ABSTRATO 
+    /**
+     * Esse método é herdado da classe passagem e é modificado para calcular o preço de acordo com o peso da bagagem,
+     * número de escalas e classe, esse método nunca irá retornar algo menor que 0.00.
+     * @return retornará o preco calculado de acordo com a passagem de avião.
+     */
     @Override
     public Double calculaPreco() {
-		if(  (((super.getPreco()*3) + (pesoBagagem*5) - (super.getNumEscalas()*20)) * (classe-4) * (-1))  > 0){
+		if( (((super.getPreco()*3) + (pesoBagagem*5) - (super.getNumEscalas()*20)) * (classe-4) * (-1))  > 0){
 			return Math.round(((super.getPreco()*3) + (pesoBagagem*5) - (super.getNumEscalas()*20)) * (classe-4) * (-100.0))/100.0;
 		}else{
 			return 0.00;

@@ -2,7 +2,12 @@ package Modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Random;
-
+/**
+ * A classe itinerario teŕa todas as informações que compoẽ um itinerário e um id único.
+ * 
+ * @author joaoseisei
+ *
+ */
 public class Itinerario {
 //ATRIBUTOS
 	private LocalDate dataInicial, dataFinal;   	 //DATAS
@@ -10,6 +15,18 @@ public class Itinerario {
 	private String pontPartida, pontChegada;   		 //DECOLAGEM E POUSO
 	private final String idItinerario;				 //ID ITINERARIO
 //CONSTRUTOR
+	/**
+	 * O construtor de Iterário recebe todos os atributos necessários para a criação do mesmo,
+	 * pois é importante não criar um objeto dele com informações pendentes, também existe uma verificação
+	 * para impedir datas iniciais posteriores as finais. Além disso é randomizado um id aleatório 
+	 * para todo itinerário criado.
+	 * @param dataInicial
+	 * @param dataFinal
+	 * @param horaInicial
+	 * @param horaFinal
+	 * @param pontPartida
+	 * @param pontChegada
+	 */
 	public Itinerario(LocalDate dataInicial, LocalDate dataFinal, LocalTime horaInicial, 
 					  LocalTime horaFinal,String pontPartida, String pontChegada) {
 	//DATA INICIAL
@@ -25,8 +42,7 @@ public class Itinerario {
     //PONTO DE PARTIDA
 		this.pontPartida = pontPartida;
 	//PONTO DE CHEGADA
-		if(pontChegada.equals(pontPartida)) {throw new IllegalArgumentException("Local de decolagem igual ao de pouso");}
-			else {this.pontChegada = pontChegada;}
+		setPontChegada(pontChegada);
 	//ID ITINERARIO
 		this.idItinerario = String.format("%07d", new Random().nextInt(100000));
 	}
@@ -54,37 +70,25 @@ public class Itinerario {
 	}
 //SETTERS
 	public void setDataInicial(LocalDate novoInicio) {
-		if(novoInicio != null) {
-			this.dataInicial = novoInicio;
-		}
+		if(novoInicio != null) this.dataInicial = novoInicio;
 	}
 	public void setDataFinal(LocalDate novoFinal) {
-		if(novoFinal != null) {
-			this.dataFinal = novoFinal;
-		}
+		if(novoFinal != null) this.dataFinal = novoFinal;
 	}
 	public void setHoraInicial(LocalTime novaHoraInicial) {
-		if(novaHoraInicial != null) {
-			this.horaInicial = novaHoraInicial;
-		}
+		if(novaHoraInicial != null) this.horaInicial = novaHoraInicial;
 	}
 	public void setHoraFinal(LocalTime novaHoraFinal) {
-		if(novaHoraFinal != null) {
-			this.horaFinal = novaHoraFinal;
-		}
+		if(novaHoraFinal != null) this.horaFinal = novaHoraFinal;
 	}
 	public void setPontPartida(String novoPontPartida) {
-		if(novoPontPartida != null && novoPontPartida != pontChegada) {
-			this.pontPartida = novoPontPartida;
-		}
+		if(novoPontPartida != null && novoPontPartida != pontChegada) this.pontPartida = novoPontPartida;
 	}
 	public void setPontChegada(String novoPontChegada) {
-		if(novoPontChegada != null && novoPontChegada != pontPartida) {
-			this.pontChegada = novoPontChegada;
-		}
+		if(novoPontChegada != null && novoPontChegada != pontPartida) this.pontChegada = novoPontChegada;
 	}
-//ToString
+//TOSTRING
 	public String toString() {
-		return "  Itinerario: "+dataInicial+" / "+horaInicial+" | "+dataFinal+" / "+horaFinal+" | "+pontPartida+" | "+pontChegada;
+		return "ITINERARIO:"+dataInicial+" / "+horaInicial+" | "+dataFinal+" / "+horaFinal+" | \n |"+pontPartida+" | "+pontChegada;
 	}
 }
