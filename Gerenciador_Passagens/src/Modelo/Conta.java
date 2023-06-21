@@ -31,8 +31,8 @@ public abstract class Conta {
 	//TIPO
 		this.tipo = tipo;
 	//NOME
-		if(nome != null) {this.nome = nome;}
-			else {throw new IllegalArgumentException("Nome Invalido");}
+		if(nome != null) this.nome = nome;
+			else throw new IllegalArgumentException("Nome Invalido");
 	//SENHA
 		this.senha = criptografarSenha(senha);	
 	}
@@ -61,7 +61,8 @@ public abstract class Conta {
 			return Arrays.toString(senhaHash);
 		} catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
 			e.printStackTrace();
-		}return null;
+			return criptografarSenha(senha);
+		}
 	}
 //TOSTRING
 	public String toString() {

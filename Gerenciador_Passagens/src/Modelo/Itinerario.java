@@ -32,13 +32,13 @@ public class Itinerario {
 	//DATA INICIAL
     	this.dataInicial = dataInicial;
     //DATA FINAL
-    	if(dataFinal.isAfter(dataInicial) || dataFinal.equals(dataInicial)) {this.dataFinal = dataFinal;}
-    		else {throw new IllegalArgumentException("Data final é anterior a inicial");}
+    	if(dataFinal.isAfter(dataInicial) || dataFinal.equals(dataInicial)) this.dataFinal = dataFinal;
+    		else throw new IllegalArgumentException("Data final é anterior a inicial");
     //HORA INICIAL
     	this.horaInicial = horaInicial;
     //HORA FINAL
-    	if(dataFinal.isAfter(dataInicial) || dataFinal.equals(dataInicial) && horaFinal.isAfter(horaInicial)) {this.horaFinal = horaFinal;}
-    		else {throw new IllegalArgumentException("Data final é anterior a inicial");}
+    	if(dataFinal.isAfter(dataInicial) || dataFinal.equals(dataInicial) && horaFinal.isAfter(horaInicial)) this.horaFinal = horaFinal;
+    		else throw new IllegalArgumentException("Data final é anterior a inicial");
     //PONTO DE PARTIDA
 		this.pontPartida = pontPartida;
 	//PONTO DE CHEGADA

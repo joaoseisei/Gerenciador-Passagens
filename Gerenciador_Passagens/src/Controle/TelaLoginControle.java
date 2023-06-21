@@ -1,13 +1,15 @@
 package Controle;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
+
 import Modelo.Admin;
 import Modelo.Memoria;
 import Modelo.Usuario;
 import View.*;
-
 /**
  * A classe telaLoginControle é responsável por gerenciar o acesso as telas "TelaAdmin" e "TelaUsuario',
  * através do controle de Admin e Usuario no banco de dados "memoria".

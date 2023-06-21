@@ -77,11 +77,16 @@ public class PassagemOnibus extends Passagem{
 	public Double calculaPreco() {
 		if( ((super.getPreco()*2) - (super.getNumEscalas()*15)) > 0){
 			if(leito) {
-				if(refeicaoInclusa) return Math.round((super.getPreco()*500) - (super.getNumEscalas()*15))/100.0;
-						else return Math.round((super.getPreco()*400) - (super.getNumEscalas()*15))/100.0;
-				
-			}else if(refeicaoInclusa && leito == false)return Math.round((super.getPreco()*300) - (super.getNumEscalas()*15))/100.0;
-				else return Math.round((super.getPreco()*500) - (super.getNumEscalas()*15))/100.0;
+				if(refeicaoInclusa) {
+					return Math.round((super.getPreco()*500) - (super.getNumEscalas()*15))/100.0;
+				}else {
+					return Math.round((super.getPreco()*400) - (super.getNumEscalas()*15))/100.0;
+				}
+			}else if(refeicaoInclusa && leito == false) {
+				return Math.round((super.getPreco()*300) - (super.getNumEscalas()*15))/100.0;
+			}else {
+				return Math.round((super.getPreco()*500) - (super.getNumEscalas()*15))/100.0;
+			}
 		}else{
 			return 0.0;
 		}

@@ -5,19 +5,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 public class Animator {
-//ANIMACOES
+//ANIMACAO
 	public static void moverHorizontal(JPanel painel,int tempo,int inicio,int fim, int escala)throws InterruptedException {
 		int interacoes = Math.abs(fim - inicio);
 		for(int i = 0; i < interacoes ; i++) {
 			Thread.sleep(tempo);
 			painel.setBounds((i*escala) + inicio, painel.getLocation().y, painel.getWidth(), painel.getHeight());
-		}
-	}
-	public static void moverVertical(int interacoes, JPanel painel, int escala, int altura, int largura, 
-										int tempo, int inicio, int posicaoX) throws InterruptedException {
-		for(int i = 0; i < interacoes; i++) {
-			Thread.sleep(tempo);
-			painel.setBounds(posicaoX, (i * escala) + inicio, largura, altura);
 		}
 	}
 //ARREDONDAR BORDAS
