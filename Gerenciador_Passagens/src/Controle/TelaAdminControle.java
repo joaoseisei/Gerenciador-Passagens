@@ -13,17 +13,38 @@ import Modelo.PassagemAviao;
 import Modelo.PassagemOnibus;
 
 import View.TelaAdmin;
-
+/** 
+ * 
+ * 
+ * @author joaoseisei
+ * @since 2023
+ * @version V1.1
+ */
 public class TelaAdminControle {
 //ATRIBUTOS
 	private Memoria memoria;
 	private TelaAdmin telaAdmin;
 //CONSTRUTOR
+	/**
+	 * 
+	 * 
+	 * @param memoria
+	 * @param telaAdmin
+	 */
 	public TelaAdminControle(Memoria memoria, TelaAdmin telaAdmin){
 		this.memoria = memoria;
 		this.telaAdmin = telaAdmin;
 	}
 //-----------------------------------ADICIONAR--------------------------------------------	
+	/**
+	 * 
+	 * @param dataInicial
+	 * @param dataFinal
+	 * @param horaInicial
+	 * @param horaFinal
+	 * @param pontPartida
+	 * @param pontChegada
+	 */
 	public void addItinerario(LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,LocalTime horaFinal,
 	String pontPartida, String pontChegada){
 		ArrayList<Itinerario> novaListaItinerario = new ArrayList<>(memoria.getListaItinerario());
@@ -37,6 +58,22 @@ public class TelaAdminControle {
 		// Caso a lista nao seja vazia, eu uso o stream para verificar elemento por elemento e uso o noneMatch para
 		// colocar uma condição, no caso se os ToString forem iguais, pois neles tem todas as informaçoes de itinerario.
 	}	
+	/**
+	 * 
+	 * @param dataInicial
+	 * @param dataFinal
+	 * @param horaInicial
+	 * @param horaFinal
+	 * @param pontPartida
+	 * @param pontChegada
+	 * @param escalas
+	 * @param preco
+	 * @param marca
+	 * @param classe
+	 * @param pesoBagagem
+	 * @param tipoVoo
+	 * @param alturaVoo
+	 */
 	public void addPassagemAviao(LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,LocalTime horaFinal,
 	String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,Integer classe,Integer pesoBagagem,
 	String tipoVoo,Integer alturaVoo){
@@ -50,6 +87,21 @@ public class TelaAdminControle {
 		}
 		
 	}
+	/**
+	 * 
+	 * @param dataInicial
+	 * @param dataFinal
+	 * @param horaInicial
+	 * @param horaFinal
+	 * @param pontPartida
+	 * @param pontChegada
+	 * @param escalas
+	 * @param preco
+	 * @param marca
+	 * @param leito
+	 * @param horarioParadas
+	 * @param refeicaoInclusa
+	 */
 	public void addPassagemOnibus(LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,LocalTime horaFinal,
 	String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,Boolean leito,String[] horarioParadas,
 	Boolean refeicaoInclusa){
@@ -63,6 +115,10 @@ public class TelaAdminControle {
 		}
 	}
 //------------------------------------DELETAR---------------------------------------------	
+	/**
+	 * 
+	 * @param idItinerario
+	 */
 	public void deleteItinerario(String idItinerario){
 		ArrayList<Itinerario> novaListaItinerario = new ArrayList<>(memoria.getListaItinerario());
 		ArrayList<PassagemAviao> novaListaAviao = new ArrayList<>(memoria.getListaAviao());
@@ -86,6 +142,11 @@ public class TelaAdminControle {
 		memoria.setListaAviao(novaListaAviao);
 		memoria.setListaOnibus(novaListaOnibus);
 	}
+	/**
+	 * 
+	 * @param aviao
+	 * @param id
+	 */
 	public void deletePassagem(Boolean aviao, String id){
 		ArrayList<PassagemAviao> novaListaAviao = new ArrayList<>(memoria.getListaAviao());
 		ArrayList<PassagemOnibus> novaListaOnibus = new ArrayList<>(memoria.getListaOnibus());
@@ -98,6 +159,16 @@ public class TelaAdminControle {
 		}
 	}
 //-------------------------------------EDITAR---------------------------------------------		
+	/**
+	 * 
+	 * @param idItinerario
+	 * @param dataInicial
+	 * @param dataFinal
+	 * @param horaInicial
+	 * @param horaFinal
+	 * @param pontPartida
+	 * @param pontChegada
+	 */
 	public void editItinerario(String idItinerario,LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,
 	LocalTime horaFinal,String pontPartida,String pontChegada){
 		ArrayList<Itinerario> novaListaItinerario = new ArrayList<>(memoria.getListaItinerario());
@@ -148,6 +219,23 @@ public class TelaAdminControle {
 		memoria.setListaAviao(novaListaAviao);
 		memoria.setListaOnibus(novaListaOnibus);
 	}
+	/**
+	 * 
+	 * @param id
+	 * @param dataInicial
+	 * @param dataFinal
+	 * @param horaInicial
+	 * @param horaFinal
+	 * @param pontPartida
+	 * @param pontChegada
+	 * @param escalas
+	 * @param preco
+	 * @param marca
+	 * @param classe
+	 * @param pesoBagagem
+	 * @param tipoVoo
+	 * @param alturaVoo
+	 */
 	public void editPassagemAviao(String id,LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,
 	LocalTime horaFinal,String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,
 	Integer classe,Integer pesoBagagem,String tipoVoo,Integer alturaVoo){
@@ -183,6 +271,22 @@ public class TelaAdminControle {
 		}
 		memoria.setListaAviao(novaListaAviao);
 	}
+	/**
+	 * 
+	 * @param id
+	 * @param dataInicial
+	 * @param dataFinal
+	 * @param horaInicial
+	 * @param horaFinal
+	 * @param pontPartida
+	 * @param pontChegada
+	 * @param escalas
+	 * @param preco
+	 * @param marca
+	 * @param leito
+	 * @param horarioParadas
+	 * @param refeicaoInclusa
+	 */
 	public void editPassagemOnibus(String id,LocalDate dataInicial,LocalDate dataFinal,LocalTime horaInicial,
 	LocalTime horaFinal,String pontPartida,String pontChegada,String[] escalas,Double preco,String marca,
 	Boolean leito,String[] horarioParadas,Boolean refeicaoInclusa){
@@ -216,6 +320,9 @@ public class TelaAdminControle {
 		}
 		memoria.setListaOnibus(novaListaOnibus);
 	}
+	/**
+	 * 
+	 */
 	public void atualizar(){
     	telaAdmin.resetar();
     	for(int i = 0; i < memoria.getListaItinerario().size(); i++){
@@ -227,9 +334,11 @@ public class TelaAdminControle {
     	for(PassagemOnibus index : memoria.getListaOnibus()) {
     		telaAdmin.addInformacao(index.toString());
     	}
-    	
     }
 //-------------------------------------BOTOES---------------------------------------------
+	/**
+	 * 
+	 */
 	public void criarButton() {
 		telaAdmin.getCriarIt().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -260,6 +369,9 @@ public class TelaAdminControle {
             }
         });
 	}
+	/**
+	 * 
+	 */
 	public void editarButton() {
 		telaAdmin.getEditarIt().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -290,6 +402,9 @@ public class TelaAdminControle {
             }
         });
 	}
+	/**
+	 * 
+	 */
 	public void excluirButton() {
 		telaAdmin.getExcluirIt().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -310,6 +425,9 @@ public class TelaAdminControle {
             }
         });
 	}
+	/**
+	 * 
+	 */
 	public void atualizarButton() {
 		telaAdmin.getAtualizar().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
