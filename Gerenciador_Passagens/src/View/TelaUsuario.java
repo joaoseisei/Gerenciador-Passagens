@@ -54,7 +54,7 @@ public class TelaUsuario {
 	private Usuario usuario;
 //CONSTRUTOR
 	/**
-	 * O contrutor de TelaUsuário recebe como parametro um Usuário, isso é para que cada TelaUsuario se adapte ao usuário,
+	 * O contrutor de TelaUsuario recebe como parametro um Usuário, isso é para que cada TelaUsuario se adapte ao usuário,
 	 * além disso basicamente é colocado todo o conteudo da interface gráfica quando a classe é criada
 	 * para sempre que instancia-la aparecer a interface gráfica.
 	 * 
@@ -381,7 +381,7 @@ public class TelaUsuario {
 		container.setViewportView(passagem);
 	}
 	/**
-	 * Esse método é responsável por resetar todo o conteúdo de um container e adicionar uma labem com a mesagem "resultado:",
+	 * Esse método é responsável por resetar todo o conteúdo de um container e adicionar uma label com a mesagem "resultado:",
 	 * isso é utilizado para resetar o container sempre que for filtrar algo.
 	 * 
 	 * @param container

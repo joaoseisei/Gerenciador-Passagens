@@ -1,17 +1,11 @@
 package Controle;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import Modelo.Itinerario;
 import Modelo.Memoria;
@@ -222,32 +216,16 @@ public class TelaAdminControle {
 		}
 		memoria.setListaOnibus(novaListaOnibus);
 	}
-//-------------------------------------JAVAX----------------------------------------------
-	public void addInformacao(String informacao) {
-    	JPanel caixa = new JPanel();
-    	String[] linhas = informacao.split("\n"); 
-    	caixa.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        for (String linha : linhas) {
-            JLabel conteudo = new JLabel(linha);
-            caixa.add(conteudo);
-        }
-		caixa.setPreferredSize(new Dimension(500, 100));
-		caixa.setLayout(new BoxLayout(caixa, BoxLayout.Y_AXIS));
-		telaAdmin.getConteudo().add(caixa);
-		telaAdmin.getContainer().setViewportView(telaAdmin.getConteudo());
-	}
 	public void atualizar(){
-    	telaAdmin.getConteudo().removeAll();
-    	JLabel dados = new JLabel("Mudanças feitas:     " + telaAdmin.getAdmin().getMudancaFeita());
-    	telaAdmin.getConteudo().add(dados);
+    	telaAdmin.resetar();
     	for(int i = 0; i < memoria.getListaItinerario().size(); i++){
-    		addInformacao(memoria.getListaItinerario().get(i).toString()+" | ID: "+ memoria.getListaItinerario().get(i).getIdItinerario());
+    		telaAdmin.addInformacao(memoria.getListaItinerario().get(i).toString()+" | ID: "+ memoria.getListaItinerario().get(i).getIdItinerario());
     	}
     	for(PassagemAviao index : memoria.getListaAviao()) {
-    		addInformacao(index.toString());
+    		telaAdmin.addInformacao(index.toString());
     	}
     	for(PassagemOnibus index : memoria.getListaOnibus()) {
-    		addInformacao(index.toString());
+    		telaAdmin.addInformacao(index.toString());
     	}
     	
     }

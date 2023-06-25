@@ -150,6 +150,10 @@ public class TelaLoginControle {
 			
 			telaUser.getSair().addMouseListener(
 				new MouseAdapter(){
+					/**
+					 * Detecta o clique do mouse do botão Confirmação.
+					 * @param e Recebe como parametro o evento do clique do mouse
+					 */
 					public void mouseClicked(MouseEvent e){
 						telaUser.ocultar();
 						telaLogin.exibir();

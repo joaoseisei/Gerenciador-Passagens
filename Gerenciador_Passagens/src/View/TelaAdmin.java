@@ -2,12 +2,14 @@ package View;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,6 +21,7 @@ import javax.swing.JTextField;
 
 import Modelo.Admin;
 /**
+ * A classe TelaAdmin é responsavel por exibir todo o painel de login utilizando o swing do java, em forma de interface gráfica.
  * 
  * @author joaoseisei
  * @since 2023
@@ -41,6 +44,13 @@ public class TelaAdmin {
 	//-------------ADMIN------------
 	private Admin admin;
 //CONSTRUTOR
+	/**
+	 * O contrutor de TelaAdmin recebe como parametro um Admin, isso é para que cada TelaAdmin se adapte ao admin,
+	 * além disso basicamente é colocado todo o conteudo da interface gráfica quando a classe é criada
+	 * para sempre que instancia-la aparecer a interface gráfica.
+	 * 
+	 * @param admin Admin responsável pela tela. 
+	 */
 	public TelaAdmin(Admin admin) {
 	//PUXANDO O ADMIN
 		this.admin = admin;
@@ -51,6 +61,7 @@ public class TelaAdmin {
 		tela = new JFrame("PAPO-ADMIN");
 		tela.setSize(1200, 700);
 		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		tela.setLocationRelativeTo(null);
 	//-------------PAINEL-----------------------------	
 		painel = new JPanel();
 		painel.setBackground(Color.LIGHT_GRAY);
@@ -430,16 +441,61 @@ public class TelaAdmin {
 		return excluirPO;
 	}
 //AUTOMATIZAR FORMATAÇAO
+	/**
+	 * Esse método é responsável por formatar o Labels, é utilizado para economizar tempo na hora de formatar
+	 * as mensagens.
+	 * 
+	 * @param linha Label a ser tratada.
+	 * @param x Posição no eixo X.
+	 * @param y Posição no eixo Y.
+	 * @param xw Largura.
+	 * @param yh Altura.
+	 */
 	public void formatacao(JLabel linha,int x,int y,int xw,int yh) {
 		linha.setFont(inputsFont);
 		linha.setForeground(Color.WHITE);
 		linha.setBounds(x, y, xw, yh);
 	}
+//ADICIONAR INFORMACAO
+	/**
+	 * Esse método é responsável por adicionar informações no painel, separando cada quebra de linha em labels diferentes.
+	 * 
+	 * @param informacao Informação a ser adicionada
+	 */
+	public void addInformacao(String informacao) {
+    	JPanel caixa = new JPanel();
+    	String[] linhas = informacao.split("\n"); 
+    	caixa.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        for (String linha : linhas) {
+            JLabel conteudo = new JLabel(linha);
+            caixa.add(conteudo);
+        }
+		caixa.setPreferredSize(new Dimension(500, 100));
+		caixa.setLayout(new BoxLayout(caixa, BoxLayout.Y_AXIS));
+		conteudo.add(caixa);
+		container.setViewportView(conteudo);
+	}
+//RESETAR
+	/**
+	 * Esse método é responsável por resetar todo o conteúdo de um container e adicionar uma label com as mudanças feitas,
+	 * isso é utilizado para resetar o container sempre que for atualizar o painel.
+	 */
+	public void resetar(){
+    	conteudo.removeAll();
+    	JLabel dados = new JLabel("Mudanças feitas:     " + admin.getMudancaFeita());
+    	conteudo.add(dados);
+    }
 //EXIBIR TELA
+	/**
+	 * Esse método é responsável por exibir a tela, sempre que ele for chamado a tela que é o JFrame que é a tela ficará visivel.
+	 */
 	public void exibir() {
 	    tela.setVisible(true);
 	}
 //OCULTAR TELA
+	/**
+	 * Esse método é responsável por ocultar a tela, sempre que ele for chamado a tela que é o JFrame que é a tela ficará oculto.
+	 */
 	public void ocultar() {
 	    tela.setVisible(false);
 	}
