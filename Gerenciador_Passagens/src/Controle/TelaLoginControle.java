@@ -15,6 +15,8 @@ import View.*;
  * através do controle de Admin e Usuario no banco de dados "memoria".
  * 
  * @author joaoseisei
+ * @since 2023
+ * @version V2.1
  *
  */
 public class TelaLoginControle {
@@ -146,12 +148,14 @@ public class TelaLoginControle {
 			tuControle.filtrarButton();
 			tuControle.filtrarFavoritos();
 			
-			telaUser.getSair().addMouseListener(new MouseAdapter() {
-	            public void mouseClicked(MouseEvent e){
-	            	telaUser.ocultar();
-	            	telaLogin.exibir();
-	            }
-	        });
+			telaUser.getSair().addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+						telaUser.ocultar();
+						telaLogin.exibir();
+					}
+				}
+			);
 			
 		}else if(verificacaoLogin(nome,senha,tipo).equals("AdminLogado")){
 			telaLogin.ocultar();
@@ -168,19 +172,22 @@ public class TelaLoginControle {
 //------------------------BOTOES-------------------------
 	/**
 	 * Essa função é responsavel por gerenciar o clique do botão de confirmação de login e cadastro de conta.
+	 * Além disso, a função MouseCliked é chamada e ela executa 2 funções a de criar conta e fazer login e o
+	 * que irá diferenciar se o usuario está logando ou criando conta é o boolean "Logando", 
+	 * isso é util para o mesmo botao ter 2 funcionalidades diferentes. 
 	 */
 	public void TLControler() {
-		telaLogin.getConfirmacao().addMouseListener(new MouseAdapter() {
-			/**
-			 * Na função MouseCliked é chamado 2 funções a de criar conta e fazer login e o
-			 * que irá diferenciar se o usuario está logando ou criando conta é o boolean "Logando", 
-			 * isso é util para o mesmo botao ter 2 funcionalidades diferentes. 
-			 * @param e Recebe como parametro o evento do clique do mouse
-			 */
-			public void mouseClicked(MouseEvent e){
-				if(telaLogin.getLogando())fazerLogin(telaLogin.getNome(),telaLogin.getSenha(),telaLogin.getTipo());
-				else criarConta(telaLogin.getNome(),telaLogin.getSenha(),telaLogin.getNovaSenha(),telaLogin.getTipo());	
-			}
-		});
+		telaLogin.getConfirmacao().addMouseListener(
+			new MouseAdapter() {
+				/**
+				 * Detecta o clique do mouse do botão Confirmação.
+				 * @param e Recebe como parametro o evento do clique do mouse
+				 */
+				public void mouseClicked(MouseEvent e){
+					if(telaLogin.getLogando())fazerLogin(telaLogin.getNome(),telaLogin.getSenha(),telaLogin.getTipo());
+					else criarConta(telaLogin.getNome(),telaLogin.getSenha(),telaLogin.getNovaSenha(),telaLogin.getTipo());	
+				}
+			}	
+		);
 	}
 }

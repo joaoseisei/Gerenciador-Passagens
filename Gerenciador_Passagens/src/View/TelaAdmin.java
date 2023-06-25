@@ -1,11 +1,29 @@
 package View;
-import java.awt.*;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import javax.swing.*;
-import Modelo.Admin;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+
+import Modelo.Admin;
+/**
+ * 
+ * @author joaoseisei
+ * @since 2023
+ * @version V1.1
+ */
 public class TelaAdmin {
 //ATRIBUTOS
 	private JFrame tela;

@@ -4,7 +4,8 @@ package Modelo;
  * nessa classe temos todos os itens a cima mais 4 atributos que definem uma passagem de avião.
  * 
  * @author joaoseisei
- *
+ * @since 2023
+ * @version V1.2
  */
 public class PassagemAviao extends Passagem{ 
 //ATRIBUTOS:

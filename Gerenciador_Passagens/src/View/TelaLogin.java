@@ -1,9 +1,24 @@
 package View;
-import java.awt.*;
+
+import java.awt.Color;
+import java.awt.Font;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.*;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+/**
+ * A classe TelaLogin é responsavel por exibir todo o painel de login utilizando o swing do java, em forma de interface gráfica.
+ * 
+ * @author joaoseisei
+ * @since 2023
+ * @version V1.1
+ */
 public class TelaLogin{
 //ATRIBUTOS
 	private JFrame tela;
@@ -16,6 +31,10 @@ public class TelaLogin{
 	private boolean logando = true;
 	private boolean tipo = false;
 //CONSTRUTOR
+	/**
+	 * O contrutor de TelaLogin não recebe parametros, ele basicamente só coloca todo o conteudo da interface grafica quando a classe é criada
+	 * para sempre que instancia-la aparecer a interface gráfica.
+	 */
 	public TelaLogin() {
 	//--------------TELA------------------------------
 		tela = new JFrame("PAPO");
@@ -187,6 +206,10 @@ public class TelaLogin{
 		return confirmacao;
 	}
 //SELECIONAR TIPO
+	/**
+	 * Esse método é responsável por definir o tipo de conta que irá se registrar (Usuario ou Admin), além disso ele define a cor para saber 
+	 * qual está selecionado 
+	 */
 	public void selecionarTipo() {
 		if(tipo) {
 			tipo = false;
@@ -197,6 +220,10 @@ public class TelaLogin{
 		}
 	}
 //REGISTRO
+	/**
+	 * Esse método é responsável por movimentar a tela para a área de registro, e define o logando como false, para saber que o usuário está registrando,
+	 * além disso cria uma nova Thread para fazer a animação de movimentação da dela e adiciona um novo JTextField para confirmação de senha.
+	 */
 	public void registro() {
 		//ANIMACAO
         new Thread(() -> {
@@ -214,6 +241,10 @@ public class TelaLogin{
         logando = false;
 	}
 //LOGIN
+	/**
+	 * Esse método é responsável por movimentar a tela para a área de login, e define o logando como true, para saber que o usuário está logando,
+	 * além disso cria uma nova Thread para fazer a animação de movimentação da dela.
+	 */
 	public void login() {
 		//ANIMACAO
         new Thread(() -> {
@@ -225,16 +256,22 @@ public class TelaLogin{
         //FUNCOES
         painel.setBackground(Color.BLACK);
         tituloLB.setText("Login");
-        conteudoContainer.remove(Animator.jssTextField(novaSenha, 20, 230, 300, 50, "Confirm Password"));
+        conteudoContainer.remove(Animator.jssTextField(novaSenha, 20, 230, 300, 50, "Password"));
         confirmacaoLB.setText("LOGAR");
         confirmacaoLB.setBounds(60, 2, 130, 30);
         logando = true;
 	}
 //EXIBIR TELA
+	/**
+	 * Esse método é responsável por exibir a tela, sempre que ele for chamado a tela que é o JFrame que é a tela ficará visivel.
+	 */
     public void exibir() {
     	tela.setVisible(true);
     }
 //OCULTAR TELA
+    /**
+     * Esse método é responsável por ocultar a tela, sempre que ele for chamado a tela que é o JFrame que é a tela ficará oculto.
+     */
     public void ocultar() {
     	tela.setVisible(false);
     }

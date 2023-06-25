@@ -1,26 +1,26 @@
 package Controle;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import Modelo.Memoria;
 import View.TelaAdmin;
 import View.TelaLogin;
-import View.TelaUsuario;
-
-public class Main {	
+/**
+ * 
+ * 
+ * @author joaoseisei
+ * @since 2023
+ * @version V2.1
+ */
+public class Main{	
+	
 	public static void main(String[] args) {
 		Memoria memoria = new Memoria();
 		TelaLogin telaLogin = new TelaLogin();
 		TelaLoginControle tlControle = new TelaLoginControle(memoria, telaLogin);
 		telaLogin.exibir();
 		tlControle.TLControler();
-		
-		tlControle.addConta(false, "João", "blau");
-		TelaUsuario tu = new TelaUsuario(memoria.getUsuarioOBJ("João", "blau"));
-		//tu.exibir();
-		TelaUsuarioControle tuc = new TelaUsuarioControle(memoria, tu);
-		
-		
 		
 		tlControle.addConta(true, "adm", "adm");
 		TelaAdmin telaAdmin = new TelaAdmin(memoria.getAdminOBJ("adm", "adm"));

@@ -5,7 +5,8 @@ import java.util.ArrayList;
  * preferências do usuario.
  * 
  * @author joaoseisei
- *
+ * @since 2023
+ * @version V1.2
  */
 public class Usuario extends Conta{
 //ATRIBUTOS

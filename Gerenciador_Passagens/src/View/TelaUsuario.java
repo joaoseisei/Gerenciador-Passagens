@@ -24,7 +24,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import Modelo.Usuario;
-
+/**
+ * A classe TelaUsuario é responsavel por exibir todo o painel de login utilizando o swing do java, em forma de interface gráfica.
+ * 
+ * @author joaoseisei
+ * @since 2023
+ * @version V1.1
+ */
 public class TelaUsuario {
 //ATRIBUTOS
 	private JFrame tela;
@@ -47,6 +53,13 @@ public class TelaUsuario {
 	//-------------USUARIO------------
 	private Usuario usuario;
 //CONSTRUTOR
+	/**
+	 * O contrutor de TelaUsuário recebe como parametro um Usuário, isso é para que cada TelaUsuario se adapte ao usuário,
+	 * além disso basicamente é colocado todo o conteudo da interface gráfica quando a classe é criada
+	 * para sempre que instancia-la aparecer a interface gráfica.
+	 * 
+	 * @param usuario 
+	 */
 	public TelaUsuario(Usuario usuario) {
 	//PUXANDO O USUARIO
 		this.usuario = usuario;
@@ -327,16 +340,16 @@ public class TelaUsuario {
 		return passagemOnibus;
 	}
 //METODOS
-	public void atualizarFavoritos(){
-		container.removeAll();
-    	for(int i = 0; i < usuario.getFavoritos().size(); i++){
-    		JPanel caixa = new JPanel();
-    		JLabel conteudo = new JLabel(usuario.getFavoritos().get(i).toString());
-    		caixa.add(conteudo);
-    		container.add(caixa);
-    	}
-    }
-	
+	/**
+	 * Esse método é responsável por adicionar passagens e itinerarios no container, além disso ele também adiciona um botão de adicionar nos favoritos
+	 * do usuario e verifica se essa passagem ja existe nos favoritos, se não existir ou a lista de favoritos estiver vazia ele adiciona, também é feito
+	 * um separamento de linha, para que o container tenham diversas linhas uma em baixo da outra utilizando o .slipt("\n"), pois o próprio
+	 * tostring ja tem o tamanho ideal e barramento necessário.
+	 * 
+	 * @param user Usuário a ser verificado para adição de favoritos.
+	 * @param containerA Container que será criado com as informações.
+	 * @param informacao Informação a ser adicionada.
+	 */
 	public void addPassagem(Usuario user, JPanel containerA, String informacao) {
 		JPanel caixa = new JPanel();
 		String[] linhas = informacao.split("\n"); 
@@ -348,35 +361,41 @@ public class TelaUsuario {
 		JButton favorito = new JButton("♥");
 		favorito.setBackground(Color.pink);
 		favorito.setBounds(0, 0, 20, 20);
-		favorito.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(!user.getFavoritos().isEmpty() || user.getFavoritos() != null) {
-					int i = 0;
-			        for (String index : user.getFavoritos()) {
-			            if (index.equals(informacao)) {
-			                i++;
-			            }
-			        }
-			        if (i == 0) {
-			            user.addFavoritos(informacao);
-			        }
-				}else {
-					usuario.addFavoritos(informacao);
+		favorito.addActionListener(
+			new ActionListener() {
+				public void actionPerformed(ActionEvent e) {	
+					if(!user.getFavoritos().isEmpty() || user.getFavoritos() != null) {
+						int i = 0;
+						for (String index : user.getFavoritos()){
+							if (index.equals(informacao)) i++;
+						}
+						if (i == 0) user.addFavoritos(informacao);
+					}else usuario.addFavoritos(informacao);
 				}
 			}
-		});
+		);
 		caixa.add(favorito);
 		caixa.setPreferredSize(new Dimension(500, 100));
 		caixa.setLayout(new BoxLayout(caixa, BoxLayout.Y_AXIS));
 		containerA.add(caixa);
 		container.setViewportView(passagem);
 	}
-	
+	/**
+	 * Esse método é responsável por resetar todo o conteúdo de um container e adicionar uma labem com a mesagem "resultado:",
+	 * isso é utilizado para resetar o container sempre que for filtrar algo.
+	 * 
+	 * @param container
+	 * @param texto
+	 */
 	public void resetFiltro(JPanel container, JLabel texto) {
  		container.removeAll();
  		texto = new JLabel("RESULTADO:");
  		container.add(texto);
  	}
+	/**
+	 * Esse método é responsavel por definir o tipo de itinerario que o usuário deseja ver, se for true ele irá ver, e se for false a letra
+	 * ficará vermelha e o usuário não verá os itinerarios.
+	 */
 	public void trocarItinerario() {
 		if(itinerario) {
 			itinerario = false;
@@ -386,6 +405,10 @@ public class TelaUsuario {
 			itinerarioLB.setForeground(Color.white);
 		}
 	}
+	/**
+	 * Esse método é responsavel por definir o tipo de passagem que o usuário deseja ver, se for true ele irá ver, e se for false a letra
+	 * ficará vermelha e o usuário não verá as passagens de avião.
+	 */
 	public void trocarPassagemAviao() {
 		if(passagemAviao) {
 			passagemAviao = false;
@@ -395,6 +418,10 @@ public class TelaUsuario {
 			passagemAviaoLB.setForeground(Color.white);
 		}
 	}
+	/**
+	 * Esse método é responsavel por definir o tipo de passagem que o usuário deseja ver, se for true ele irá ver, e se for false a letra
+	 * ficará vermelha e o usuário não verá as passagem de ônibus.
+	 */
 	public void trocarPassagemOnibus() {
 		if(passagemOnibus) {
 			passagemOnibus = false;
@@ -405,10 +432,16 @@ public class TelaUsuario {
 		}
 	}
 //EXIBIR TELA
+	/**
+	 * Esse método é responsável por exibir a tela, sempre que ele for chamado a tela que é o JFrame que é a tela ficará visivel.
+	 */
 	public void exibir() {
     	tela.setVisible(true);
     }
 //OCULAR TELA
+	/**
+	 * Esse método é responsável por ocultar a tela, sempre que ele for chamado a tela que é o JFrame que é a tela ficará oculto.
+	 */
 	public void ocultar() {
     	tela.setVisible(false);
     }

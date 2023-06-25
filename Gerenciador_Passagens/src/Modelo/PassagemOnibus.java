@@ -5,6 +5,8 @@ import java.util.Arrays;
  * nessa classe temos todos os itens a cima mais 4 atributos que definem uma passagem de ônibus.
  * 
  * @author joaoseisei
+ * @since 2023
+ * @version V1.2
  *
  */
 public class PassagemOnibus extends Passagem{

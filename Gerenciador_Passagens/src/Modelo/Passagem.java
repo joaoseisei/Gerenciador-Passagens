@@ -6,7 +6,8 @@ import java.util.*;
  * PassagemAviao e PassagemOnibus
  * 
  * @author joaoseisei
- *
+ * @since 2023
+ * @version V1.2
  */
 public abstract class Passagem {
 //ATRIBUTOS

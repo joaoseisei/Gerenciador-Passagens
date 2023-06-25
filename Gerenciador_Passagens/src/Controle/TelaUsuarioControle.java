@@ -110,49 +110,56 @@ public class TelaUsuarioControle {
 		LocalDate fim = telaUser.getDataFinal();
 		String pontPartida = telaUser.getPontPartida();
 		String pontChegada = telaUser.getPontChegada();
-		
 		if(telaUser.getItinerario()) {
 			for(String index : filtrarItinerario(inicio, fim, pontPartida, pontChegada)) {
 				telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
-				System.out.println(index);
 			}
-		}
-		if(telaUser.getPassagemAviao()) {
+		}if(telaUser.getPassagemAviao()) {
 			for(String index : filtrarPassagemAviao(inicio, fim, pontPartida, pontChegada)) {
 				telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
 			}
-		}
-		if(telaUser.getPassagemOnibus()) {
+		}if(telaUser.getPassagemOnibus()) {
 			for(String index : filtrarPassagemOnibus(inicio, fim, pontPartida, pontChegada)) {
 				telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
 			}
 		}
 	}
 //---------------------------BOTOES--------------------------------
+	/**
+	 * Esse método é responsáve por exibir somente os favoritos no painel JScrollPane.
+	 */
 	public void filtrarFavoritos() {
-		telaUser.getFav().addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e){
-            	System.out.println("teste");
-                telaUser.resetFiltro(telaUser.getContainerPassagem(), telaUser.getSubtituloLB());
-                for(String index : telaUser.getUsuario().getFavoritos()) {
-                	telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
-                }
-            }
-        });
+		telaUser.getFav().addMouseListener(
+			new MouseAdapter(){
+				/**
+				 * Detecta o clique do mouse do botao Fav.
+				 * @param e Recebe como parametro o evento do clique do mouse.
+				 */
+				public void mouseClicked(MouseEvent e){
+					telaUser.resetFiltro(telaUser.getContainerPassagem(), telaUser.getSubtituloLB());
+					for(String index : telaUser.getUsuario().getFavoritos()) {
+						telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
+					}
+				}
+			}
+		);
 	}
 	/**
 	 * Essa função é responsavel por atualizar o painel de passagens de acordo com as preferências do usuário
-	 * (data inicial, data final, ponto de partida e ponto de chegada).
+	 * (data inicial, data final, ponto de partida e ponto de chegada). Além disso, é criado uma nova função MouseCliked 
+	 * e é chamada a função filtrar que atualiza o filtro de acordo com as preferências.
 	 */
 	public void filtrarButton() {
-		telaUser.getConfirmacao().addMouseListener(new MouseAdapter() {
-			/**
-			 * Na função MouseCliked é chamada a função filtrar que atualiza o filtro de acordo com as preferências.
-			 * @param e Recebe como parametro o evento do clique do mouse.
-			 */
-            public void mouseClicked(MouseEvent e){
+		telaUser.getConfirmacao().addMouseListener(
+			new MouseAdapter(){
+				/**
+				 * Detecta o clique do mouse do botão Confirmação.
+				 * @param e Recebe como parametro o evento do clique do mouse.
+				 */
+				public void mouseClicked(MouseEvent e){
                 filtrar();
-            }
-        });
+				}
+			}
+		);
 	}
 }
