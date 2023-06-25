@@ -1,9 +1,12 @@
 package Modelo;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+
 import java.util.Arrays;
 /**
  * A classe conta é uma classe abstrada que possui atributos basicos de uma conta
@@ -11,6 +14,8 @@ import java.util.Arrays;
  * Usuario e Admin
  * 
  * @author joaoseisei
+ * @since 2023
+ * @version V1.2
  *
  */
 public abstract class Conta {
@@ -51,6 +56,9 @@ public abstract class Conta {
 	 * Essa função funçao recebe uma String e criptografa ela e em seguida faz o retorno da sstring criptografada.
 	 * @param senha String que será encriptada.
 	 * @return O retorno é uma criptografia do parametro senha.
+	 * @throws Esse método pode gerar 2 possíveis erros o InvalidKeySpecExcetion e o NoSuchAlgorithmException,
+	 * entretanto como o código é hardcode nunca dará erro, é extremamente confiável. Sendo assim, como nunca 
+	 * acontecerá eu retorno a própria função.
 	 */
 	public String criptografarSenha(String senha) {
 		byte[] sal = new byte[16];
@@ -61,11 +69,11 @@ public abstract class Conta {
 			return Arrays.toString(senhaHash);
 		} catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
 			e.printStackTrace();
-			return criptografarSenha(senha);
+			return null;
 		}
 	}
 //TOSTRING
 	public String toString() {
-		return "Nome: " + nome + " | Senha: " + senha + " | Empresa: " + tipo + "\n";
+		return "Nome: "+nome+" | Senha: "+senha+" | Empresa: "+tipo+"\n";
 	}
 }

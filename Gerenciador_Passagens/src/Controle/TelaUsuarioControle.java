@@ -1,28 +1,24 @@
 package Controle;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import Modelo.Itinerario;
 import Modelo.Memoria;
+import Modelo.Itinerario;
 import Modelo.PassagemAviao;
 import Modelo.PassagemOnibus;
-import Modelo.Usuario;
+
 import View.TelaUsuario;
+
 /**
- * 
+ * A classe TelaUsuariControle é responsável por vincular a classe TelaUsuario com a memoria do sistema.
  * 
  * @author joaoseisei
+ * @since 2023
+ * @version V2.1
  *
  */
 public class TelaUsuarioControle {
@@ -105,93 +101,56 @@ public class TelaUsuarioControle {
 		}return filtro;
 	}
 	/**
-	 * 
+	 * Esse método é responsável por receber os inputs da tela e filtrar conforme o valor deles
+	 * utilizando a funções de filtrar feitas.
 	 */
 	public void filtrar() {
-		resetFiltro(telaUser.getContainerPassagem(), telaUser.getSubtituloLB());
+		telaUser.resetFiltro(telaUser.getContainerPassagem(), telaUser.getSubtituloLB());
 		LocalDate inicio = telaUser.getDataInicial();
 		LocalDate fim = telaUser.getDataFinal();
 		String pontPartida = telaUser.getPontPartida();
 		String pontChegada = telaUser.getPontChegada();
 		
-		for(String index : filtrarItinerario(inicio, fim, pontPartida, pontChegada)) {
-			addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
-		}
-		
-		for(String index : filtrarPassagemAviao(inicio, fim, pontPartida, pontChegada)) {
-			addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
-		}
-
-		for(String index : filtrarPassagemOnibus(inicio, fim, pontPartida, pontChegada)) {
-			addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
-		}
-	}
-//------------------------------JAVAX----------------------------------
-	public void resetFiltro(JPanel container, JLabel texto) {
- 		container.removeAll();
- 		texto = new JLabel("RESULTADO:");
- 		container.add(texto);
- 	}
-	public void addPassagem(Usuario user, JPanel container, String informacao) {
-		JPanel caixa = new JPanel();
-		String[] linhas = informacao.split("\n"); 
-    	caixa.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        for (String linha : linhas) {
-            JLabel conteudo = new JLabel(linha);
-            caixa.add(conteudo);
-        }
-		JButton favorito = new JButton("♥");
-		favorito.setBackground(Color.pink);
-		favorito.setBounds(0, 0, 20, 20);
-		favorito.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(!user.getFavoritos().isEmpty() || user.getFavoritos() != null) {
-					int i = 0;
-			        for (String index : user.getFavoritos()) {
-			            if (index.equals(informacao)) {
-			                i++;
-			            }
-			        }
-			        if (i == 0) {
-			            user.addFavoritos(informacao);
-			        }
-				}else {
-					addFavorito(user, informacao);
-				}
+		if(telaUser.getItinerario()) {
+			for(String index : filtrarItinerario(inicio, fim, pontPartida, pontChegada)) {
+				telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
+				System.out.println(index);
 			}
-		});
-		caixa.add(favorito);
-		caixa.setPreferredSize(new Dimension(500, 100));
-		caixa.setLayout(new BoxLayout(caixa, BoxLayout.Y_AXIS));
-		container.add(caixa);
-		telaUser.getContainer().setViewportView(telaUser.getContainerPassagem());
+		}
+		if(telaUser.getPassagemAviao()) {
+			for(String index : filtrarPassagemAviao(inicio, fim, pontPartida, pontChegada)) {
+				telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
+			}
+		}
+		if(telaUser.getPassagemOnibus()) {
+			for(String index : filtrarPassagemOnibus(inicio, fim, pontPartida, pontChegada)) {
+				telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
+			}
+		}
 	}
-//-------------------------FAVORITOS--------------------------------
-	public void addFavorito(Usuario user, String informacao) {
-		telaUser.getUsuario().addFavoritos(informacao);
-	}
-	public void atualizarFavoritos(){
-    	telaUser.getFavoritoPainel().removeAll();
-    	telaUser.getFavoritoPainel().add(telaUser.getVisualizarFavoritos());
-    	for(int i = 0; i < telaUser.getUsuario().getFavoritos().size(); i++){
-    		JPanel caixa = new JPanel();
-    		JLabel conteudo = new JLabel(telaUser.getUsuario().getFavoritos().get(i).toString());
-    		caixa.add(conteudo);
-    		telaUser.getFavoritoPainel().add(caixa);
-    		telaUser.getFavorito().setViewportView(telaUser.getFavoritoPainel());
-    	}
-    }
 //---------------------------BOTOES--------------------------------
-	public void atualizarFavoritosButton() {
-		telaUser.getVisualizarFavoritos().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	atualizarFavoritos();
+	public void filtrarFavoritos() {
+		telaUser.getFav().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e){
+            	System.out.println("teste");
+                telaUser.resetFiltro(telaUser.getContainerPassagem(), telaUser.getSubtituloLB());
+                for(String index : telaUser.getUsuario().getFavoritos()) {
+                	telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
+                }
             }
         });
 	}
+	/**
+	 * Essa função é responsavel por atualizar o painel de passagens de acordo com as preferências do usuário
+	 * (data inicial, data final, ponto de partida e ponto de chegada).
+	 */
 	public void filtrarButton() {
-		telaUser.getConfirmacao().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+		telaUser.getConfirmacao().addMouseListener(new MouseAdapter() {
+			/**
+			 * Na função MouseCliked é chamada a função filtrar que atualiza o filtro de acordo com as preferências.
+			 * @param e Recebe como parametro o evento do clique do mouse.
+			 */
+            public void mouseClicked(MouseEvent e){
                 filtrar();
             }
         });

@@ -144,7 +144,14 @@ public class TelaLoginControle {
 			TelaUsuarioControle tuControle = new TelaUsuarioControle(memoria, telaUser);
 			telaUser.exibir();
 			tuControle.filtrarButton();
-			tuControle.atualizarFavoritosButton();
+			tuControle.filtrarFavoritos();
+			
+			telaUser.getSair().addMouseListener(new MouseAdapter() {
+	            public void mouseClicked(MouseEvent e){
+	            	telaUser.ocultar();
+	            	telaLogin.exibir();
+	            }
+	        });
 			
 		}else if(verificacaoLogin(nome,senha,tipo).equals("AdminLogado")){
 			telaLogin.ocultar();

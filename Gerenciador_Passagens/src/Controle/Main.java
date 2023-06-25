@@ -1,8 +1,11 @@
 package Controle;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 import Modelo.Memoria;
-import View.*;
+import View.TelaAdmin;
+import View.TelaLogin;
+import View.TelaUsuario;
 
 public class Main {	
 	public static void main(String[] args) {
@@ -11,6 +14,11 @@ public class Main {
 		TelaLoginControle tlControle = new TelaLoginControle(memoria, telaLogin);
 		telaLogin.exibir();
 		tlControle.TLControler();
+		
+		tlControle.addConta(false, "João", "blau");
+		TelaUsuario tu = new TelaUsuario(memoria.getUsuarioOBJ("João", "blau"));
+		//tu.exibir();
+		TelaUsuarioControle tuc = new TelaUsuarioControle(memoria, tu);
 		
 		
 		

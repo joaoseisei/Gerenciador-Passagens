@@ -20,6 +20,12 @@ public class Animator {
 		container.setOpaque(false);
 		container.add(painel);
 	}
+	public static void arredondarBordas(JPanel container, JScrollPane painel, int raio){
+		BasicStroke borda = new BasicStroke(raio, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+		container.setBorder(BorderFactory.createStrokeBorder(borda, painel.getBackground()));
+		container.setOpaque(false);
+		container.add(painel);
+	}
 //JSS TEXTFIELD
 	public static JTextField jssTextField(JTextField input,int posicaoX,int posicaoY,int largura,int altura,String mensagem){
 		JPanel linha = new JPanel();
