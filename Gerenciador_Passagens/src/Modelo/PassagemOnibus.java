@@ -6,7 +6,7 @@ import java.util.Arrays;
  * 
  * @author joaoseisei
  * @since 2023
- * @version V1.2
+ * @version 1.3
  *
  */
 public class PassagemOnibus extends Passagem{
@@ -20,6 +20,7 @@ public class PassagemOnibus extends Passagem{
 	 * Esse construtor é responsável por adicionar todos os atributos de uma passagem de ônibus, isso ocorre
 	 * pois é importante criar uma passagem de ônibus com todos as informações definidas. Além disso existe
 	 * um setter automático de numParadas através do setter "setHorarioENumParadas".
+	 * 
 	 * @param itinerario
 	 * @param escalas
 	 * @param preco
@@ -59,6 +60,7 @@ public class PassagemOnibus extends Passagem{
 	/**
 	 * Esse método é responsável por definir o número de paradas automaticamente sempre que for adicionado
 	 * ou removido uma parada da lista de escalas "paradas".
+	 * 
 	 * @param novoHorarioParadas Nova lista de horário de paradas.
 	 */
 	public void setHorarioENumParadas(String[] novoHorarioParadas) {
@@ -73,6 +75,7 @@ public class PassagemOnibus extends Passagem{
 	/**
 	 * Esse método é herdado da classe passagem e é modificado para calcular o preço de acordo com o número de escalas,
      * ou se o ônibus é leito ou nao, esse método nunca irá retornar algo menor que 0.00.
+     * 
      * @return retornará o preco calculado de acordo com a passagem de ônibus.
 	 */
 	@Override

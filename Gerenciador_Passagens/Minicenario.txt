@@ -8,6 +8,8 @@ O software deve ter os seguintes requisitos:
        2. Variar o preço da passagem de acordo com o tipo dela (1° classe, onibus leito...) de forma automática.
        3. Não permitir que as passagens tenham o mesmo lugar de entrada e saída (por exemplo, DF-Brasil, DF-Brasil).
    * Se a passagem tiver escala, a mesma terá um desconto proporcional ao número de escalas, entretanto a passagem não poderá ter o preço negativo.
-   * Cada passagem deverá ter um ID único, e que seja possivel editar a passagem (Iterário) ou remove-lá da lista de passagens com base no ID.
+   * Cada passagem deverá ter um ID único, e que seja possivel editar a passagem ou itinerario e remove-los da lista de passagens com base no ID.
    * Filtrar as passagens com base na data de entrada e saída e local de entrada e saída.
+   * João deseja que os Usuarios possam salvar as passagens ou itinerarios que acharem interessante.
+   * João também quer que tenha um sistema de login, e que seus funcionários tenham uma interface gráfica própria pra poder trabalhar.
 Ademais, João também deseja que as passagens de ônibus e avião tenham no minimo 3 diferenças entre elas para diferenciar as passagens e também quer que o software seja executado no computador com o máximo de segurança possível.

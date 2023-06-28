@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -19,13 +18,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import Modelo.Admin;
+import Controle.AdminControle;
 /**
  * A classe TelaAdmin é responsavel por exibir todo o painel de login utilizando o swing do java, em forma de interface gráfica.
  * 
  * @author joaoseisei
  * @since 2023
- * @version V1.1
+ * @version 1.2
  */
 public class TelaAdmin {
 //ATRIBUTOS
@@ -42,7 +41,7 @@ public class TelaAdmin {
 	DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	DateTimeFormatter formatadorHora = DateTimeFormatter.ofPattern("HH:mm");
 	//-------------ADMIN------------
-	private Admin admin;
+	private AdminControle admin;
 //CONSTRUTOR
 	/**
 	 * O contrutor de TelaAdmin recebe como parametro um Admin, isso é para que cada TelaAdmin se adapte ao admin,
@@ -51,7 +50,7 @@ public class TelaAdmin {
 	 * 
 	 * @param admin Admin responsável pela tela. 
 	 */
-	public TelaAdmin(Admin admin) {
+	public TelaAdmin(AdminControle admin) {
 	//PUXANDO O ADMIN
 		this.admin = admin;
 	//-------------FONTES-----------------------------
@@ -72,7 +71,7 @@ public class TelaAdmin {
 		configuracao = new JPanel();
 		configuracao.setBounds(0, 0, 550, 700);
 		configuracao.setBackground(Color.DARK_GRAY);
-		userLB = new JLabel("PAINEL DE CONTROLE - " + admin.getNome());
+		userLB = new JLabel("PAINEL DE CONTROLE - " + admin.getAdmin().getNome());
 		userLB.setFont(titulo);
 		userLB.setForeground(Color.WHITE);
 		userLB.setBounds(10, 5, 500, 35);
@@ -266,7 +265,7 @@ public class TelaAdmin {
 		conteudo = new JPanel();
 		conteudo.setLayout(new BoxLayout(conteudo, BoxLayout.Y_AXIS));
         //TITULO
-        dadosAdm = new JLabel("Mudanças feitas:     " + admin.getMudancaFeita());
+        dadosAdm = new JLabel("Mudanças feitas:     " + admin.getAdmin().getMudancaFeita());
         dadosAdm.setAlignmentX(Component.LEFT_ALIGNMENT); 
         conteudo.add(dadosAdm);
         
@@ -276,7 +275,7 @@ public class TelaAdmin {
         painel.add(container);
 	}
 //GETTERS
-	public Admin getAdmin() {
+	public AdminControle getAdminControle() {
 		return admin;
 	}
 //--------------------JAVAX-------------------------------------
@@ -482,7 +481,7 @@ public class TelaAdmin {
 	 */
 	public void resetar(){
     	conteudo.removeAll();
-    	JLabel dados = new JLabel("Mudanças feitas:     " + admin.getMudancaFeita());
+    	JLabel dados = new JLabel("Mudanças feitas:     " + admin.getAdmin().getMudancaFeita());
     	conteudo.add(dados);
     }
 //EXIBIR TELA

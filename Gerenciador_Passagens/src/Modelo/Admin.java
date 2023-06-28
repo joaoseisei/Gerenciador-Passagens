@@ -5,7 +5,7 @@ package Modelo;
  * 
  * @author joaoseisei
  * @since 2023
- * @version V1.2
+ * @version 1.3
  */
 public class Admin extends Conta{
 //ATRIBUTOS
@@ -14,6 +14,7 @@ public class Admin extends Conta{
 	/**
 	 * Construtor para inicialziar as variaveis da classe e é herdada da classe mãe Conta. 
 	 * Sendo assim, o nome e senha já estão sendo tratados.
+	 * 
 	 * @param tipo Tipo de conta, se for true é uma conta Administrativa.
 	 * @param nome Nome da conta.
 	 * @param senha Senha da conta.

@@ -1,4 +1,5 @@
 package Modelo;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Random;
@@ -7,7 +8,7 @@ import java.util.Random;
  * 
  * @author joaoseisei
  * @since 2023
- * @version V1.2
+ * @version 1.3
  */
 public class Itinerario {
 //ATRIBUTOS
@@ -21,6 +22,7 @@ public class Itinerario {
 	 * pois é importante não criar um objeto dele com informações pendentes, também existe uma verificação
 	 * para impedir datas iniciais posteriores as finais. Além disso é randomizado um id aleatório 
 	 * para todo itinerário criado.
+	 * 
 	 * @param dataInicial
 	 * @param dataFinal
 	 * @param horaInicial

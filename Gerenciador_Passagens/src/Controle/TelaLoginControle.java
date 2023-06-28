@@ -16,7 +16,7 @@ import View.*;
  * 
  * @author joaoseisei
  * @since 2023
- * @version V2.1
+ * @version 1.2
  *
  */
 public class TelaLoginControle {
@@ -27,6 +27,7 @@ public class TelaLoginControle {
 	/**
 	 * Esse construtor é responsável por vincular a TelaLogin e a Memoria na classe, para poder
 	 * utilizar banco de dados e botoẽs.
+	 * 
 	 * @param memoria Banco de dados
 	 * @param telaLogin Botões e inputs
 	 */
@@ -37,7 +38,9 @@ public class TelaLoginControle {
 //-------------------------VERIFICACAO---------------------------
 	/**
 	 * Esse método é responsável por verificar se existe um Usuario com o mesmo nome.
+	 * 
 	 * @param nome Nome a ser verificado.
+	 * 
 	 * @return Retorna true se existe um usuário com o mesmo nome e false se o nome está disponivel.
 	 */
 	public boolean verificarUserRegistro(String nome) {
@@ -49,7 +52,9 @@ public class TelaLoginControle {
 	}
 	/**
 	 * Esse método é responsável por verificar se existe um Admin com o mesmo nome.
+	 * 
 	 * @param nome Nome a ser verificado.
+	 * 
 	 * @return Retorna true se existe um usuário com o mesmo nome e false se o nome está disponivel.
 	 */
 	public boolean verificarAdminRegistro(String nome) {
@@ -61,6 +66,7 @@ public class TelaLoginControle {
 	/**
 	 * O método addConta é responsável por adicionar uma conta no banco de dados "Memoria",
 	 * essa função utiliza somente os getters e setters para adicionar na conta.
+	 * 
 	 * @param tipo Tipo de conta, se for true é administrativa e se for false é de usuário.
 	 * @param nome Nome da conta.
 	 * @param senha Senha da conta.
@@ -85,6 +91,7 @@ public class TelaLoginControle {
 	 * dos inputs, para isso  ela filtra e analisa os dados recebidos não permitindo criar conta caso
 	 * os inputs sejam nulos ou as senhas forem diferentes, se for diferente disso ele ira ver se já 
 	 * existe um usuário com o mesmo nome e se não tiver ele cadastra utilizando a função addConta.
+	 * 
 	 * @param nome Nome do usuário.
 	 * @param senha Senha do Usuário.
 	 * @param novaSenha Confirmação de senha.
@@ -112,9 +119,11 @@ public class TelaLoginControle {
 	/**
 	 * Esse método responsável por verificar se existe um usuário existente com o mesmo nome, mesma
 	 * senha e mesmo tipo no banco de dados.
+	 * 
 	 * @param nome Nome a ser analisado.
 	 * @param senha Senha a ser analisada.
 	 * @param tipo Tipo de conta, se for true é administrativa e se for false e usuário.
+	 * 
 	 * @return Se existir um usuário ou admin correspondente o retorno será "UsuarioLogado" ou "AdminLogado"
 	 * respectivamente, se não tiver nenhum correspondente o resultado será "NenhumaContaEncontada".
 	 */
@@ -135,6 +144,7 @@ public class TelaLoginControle {
 	}
 	/**
 	 * Esse método é responsável por gerenciar o acesso a outras telas, através do metódo verificacaoLogin.
+	 * 
 	 * @param nome Nome a ser analisado.
 	 * @param senha Senha a ser analisado.
 	 * @param tipo Tipo de conta, se for true é administrativa e se for false e usuário.
@@ -142,7 +152,8 @@ public class TelaLoginControle {
 	public void fazerLogin(String nome, String senha, boolean tipo){
 		if(verificacaoLogin(nome,senha,tipo).equals("UsuarioLogado")) {
 			telaLogin.ocultar();
-			TelaUsuario telaUser = new TelaUsuario(memoria.getUsuarioOBJ(nome,senha));
+			UsuarioControle user = new UsuarioControle(memoria.getUsuarioOBJ(nome,senha));
+			TelaUsuario telaUser = new TelaUsuario(user);
 			TelaUsuarioControle tuControle = new TelaUsuarioControle(memoria, telaUser);
 			telaUser.exibir();
 			tuControle.filtrarButton();
@@ -163,7 +174,8 @@ public class TelaLoginControle {
 			
 		}else if(verificacaoLogin(nome,senha,tipo).equals("AdminLogado")){
 			telaLogin.ocultar();
-			TelaAdmin telaAdmin = new TelaAdmin(memoria.getAdminOBJ(nome,senha));
+			AdminControle adm = new AdminControle(memoria.getAdminOBJ(nome,senha));
+			TelaAdmin telaAdmin = new TelaAdmin(adm);
 			TelaAdminControle taControle = new TelaAdminControle(memoria, telaAdmin);
 			telaAdmin.exibir();
 			taControle.criarButton();

@@ -17,7 +17,7 @@ import javax.swing.JTextPane;
  * 
  * @author joaoseisei
  * @since 2023
- * @version V1.1
+ * @version 1.2
  */
 public class TelaLogin{
 //ATRIBUTOS

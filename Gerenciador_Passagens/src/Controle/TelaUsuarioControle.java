@@ -12,13 +12,13 @@ import Modelo.PassagemAviao;
 import Modelo.PassagemOnibus;
 
 import View.TelaUsuario;
-
 /**
- * A classe TelaUsuariControle é responsável por vincular a classe TelaUsuario com a memoria do sistema.
+ * A classe TelaUsuarioControle é responsável por vincular a classe TelaUsuario com a memoria do sistema e
+ * controlar os botões da TelaUsuario.
  * 
  * @author joaoseisei
  * @since 2023
- * @version V2.1
+ * @version 1.2
  *
  */
 public class TelaUsuarioControle {
@@ -29,6 +29,7 @@ public class TelaUsuarioControle {
 	/**
 	 * Esse construtor é responsável por vincular a TelaUsuario e a Memoria na classe, para poder
 	 * utilizar banco de dados e botoẽs.
+	 * 
 	 * @param memoria
 	 * @param telaUser
 	 */
@@ -41,10 +42,12 @@ public class TelaUsuarioControle {
 	 * Esse método é responsável por filtrar o ArrayList de itinerário com base nos 4 parâmetros abaixo, 
 	 * caso o valor colocado for null ele passará no filtro, caso for diferente de null ele verificará se o
 	 * index é igual ao valor escolhido com base no .equals.
+	 * 
 	 * @param dataInicial
 	 * @param dataFinal
 	 * @param pontPartida
 	 * @param pontChegada
+	 * 
 	 * @return Retorna um ArrayList de Strins com os itinerários filtrados com os parâmetros escolhidos.
 	 */
 	public ArrayList<String> filtrarItinerario(LocalDate dataInicial,LocalDate dataFinal,String pontPartida,String pontChegada){
@@ -62,10 +65,12 @@ public class TelaUsuarioControle {
 	 * Esse método é responsável por filtrar o ArrayList de passagem de avião com base nos 4 parâmetros abaixo, 
 	 * caso o valor colocado for null ele passará no filtro, caso for diferente de null ele verificará se o
 	 * index é igual ao valor escolhido com base no .equals.
+	 * 
 	 * @param dataInicial
 	 * @param dataFinal
 	 * @param pontPartida
 	 * @param pontChegada
+	 * 
 	 * @return Retorna um ArrayList de Strins com as passagens de aviões filtradas com os parâmetros escolhidos.
 	 */
 	public ArrayList<String> filtrarPassagemAviao(LocalDate dataInicial,LocalDate dataFinal,String pontPartida,String pontChegada){
@@ -83,10 +88,12 @@ public class TelaUsuarioControle {
 	 * Esse método é responsável por filtrar o ArrayList de passagem de ônibus com base nos 4 parâmetros abaixo, 
 	 * caso o valor colocado for null ele passará no filtro, caso for diferente de null ele verificará se o
 	 * index é igual ao valor escolhido com base no .equals.
+	 * 
 	 * @param dataInicial
 	 * @param dataFinal
 	 * @param pontPartida
 	 * @param pontChegada
+	 * 
 	 * @return Retorna um ArrayList de Strins com as passagens de ônibus filtrados com os parâmetros escolhidos.
 	 */
 	public ArrayList<String> filtrarPassagemOnibus(LocalDate dataInicial,LocalDate dataFinal,String pontPartida,String pontChegada){
@@ -112,15 +119,15 @@ public class TelaUsuarioControle {
 		String pontChegada = telaUser.getPontChegada();
 		if(telaUser.getItinerario()) {
 			for(String index : filtrarItinerario(inicio, fim, pontPartida, pontChegada)) {
-				telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
+				telaUser.addPassagem(telaUser.getContainerPassagem(), index);
 			}
 		}if(telaUser.getPassagemAviao()) {
 			for(String index : filtrarPassagemAviao(inicio, fim, pontPartida, pontChegada)) {
-				telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
+				telaUser.addPassagem(telaUser.getContainerPassagem(), index);
 			}
 		}if(telaUser.getPassagemOnibus()) {
 			for(String index : filtrarPassagemOnibus(inicio, fim, pontPartida, pontChegada)) {
-				telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
+				telaUser.addPassagem(telaUser.getContainerPassagem(), index);
 			}
 		}
 	}
@@ -137,8 +144,8 @@ public class TelaUsuarioControle {
 				 */
 				public void mouseClicked(MouseEvent e){
 					telaUser.resetFiltro(telaUser.getContainerPassagem(), telaUser.getSubtituloLB());
-					for(String index : telaUser.getUsuario().getFavoritos()) {
-						telaUser.addPassagem(telaUser.getUsuario(), telaUser.getContainerPassagem(), index);
+					for(String index : telaUser.getUsuarioControle().getUsuario().getFavoritos()) {
+						telaUser.addPassagem(telaUser.getContainerPassagem(), index);
 					}
 				}
 			}

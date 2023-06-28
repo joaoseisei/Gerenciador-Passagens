@@ -23,13 +23,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import Modelo.Usuario;
+import Controle.UsuarioControle;
 /**
  * A classe TelaUsuario é responsavel por exibir todo o painel de login utilizando o swing do java, em forma de interface gráfica.
  * 
  * @author joaoseisei
  * @since 2023
- * @version V1.1
+ * @version 1.2
  */
 public class TelaUsuario {
 //ATRIBUTOS
@@ -51,7 +51,7 @@ public class TelaUsuario {
 	private boolean passagemAviao = true;
 	private boolean passagemOnibus = true;
 	//-------------USUARIO------------
-	private Usuario usuario;
+	private UsuarioControle usuario;
 //CONSTRUTOR
 	/**
 	 * O contrutor de TelaUsuario recebe como parametro um Usuário, isso é para que cada TelaUsuario se adapte ao usuário,
@@ -60,7 +60,7 @@ public class TelaUsuario {
 	 * 
 	 * @param usuario 
 	 */
-	public TelaUsuario(Usuario usuario) {
+	public TelaUsuario(UsuarioControle usuario) {
 	//PUXANDO O USUARIO
 		this.usuario = usuario;
 	//-------------FONTES-----------------------------
@@ -114,7 +114,7 @@ public class TelaUsuario {
 				icone.add(oe);
 				
 			//USERNAME
-				userLB = new JLabel(usuario.getNome());
+				userLB = new JLabel(usuario.getUsuario().getNome());
 				userLB.setFont(nomeFont);
 				userLB.setForeground(Color.gray);
 				userLB.setBounds(79,45, 200, 200);
@@ -275,7 +275,7 @@ public class TelaUsuario {
 		painel.add(utilidade);
 	}
 //-----------USUARIO--------------
-	public Usuario getUsuario(){
+	public UsuarioControle getUsuarioControle(){
 		return usuario;
 	}
 //-----------BOTOES---------------
@@ -350,7 +350,7 @@ public class TelaUsuario {
 	 * @param containerA Container que será criado com as informações.
 	 * @param informacao Informação a ser adicionada.
 	 */
-	public void addPassagem(Usuario user, JPanel containerA, String informacao) {
+	public void addPassagem(JPanel containerA, String informacao) {
 		JPanel caixa = new JPanel();
 		String[] linhas = informacao.split("\n"); 
     	caixa.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -364,13 +364,7 @@ public class TelaUsuario {
 		favorito.addActionListener(
 			new ActionListener() {
 				public void actionPerformed(ActionEvent e) {	
-					if(!user.getFavoritos().isEmpty() || user.getFavoritos() != null) {
-						int i = 0;
-						for (String index : user.getFavoritos()){
-							if (index.equals(informacao)) i++;
-						}
-						if (i == 0) user.addFavoritos(informacao);
-					}else usuario.addFavoritos(informacao);
+					usuario.addFavoritoFiltrado(informacao);
 				}
 			}
 		);

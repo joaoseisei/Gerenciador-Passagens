@@ -3,6 +3,8 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import Controle.AdminControle;
 import Controle.TelaAdminControle;
 import Controle.TelaLoginControle;
 import Modelo.Admin;
@@ -15,8 +17,11 @@ public class TesteUnitario{
 	Memoria memoria = new Memoria();
 	TelaLogin telaLogin = new TelaLogin();
 	TelaLoginControle tlc = new TelaLoginControle(memoria, telaLogin);
+	
+	//CRIAÇÃO DE ADMINISTRADOR
 	Admin adm = new Admin(true, "teste","teste");
-	TelaAdmin ta = new TelaAdmin(adm);
+	AdminControle adminControle = new AdminControle(adm);
+	TelaAdmin ta = new TelaAdmin(adminControle);
 	TelaAdminControle tla = new TelaAdminControle(memoria, ta);
 	
 	@Test

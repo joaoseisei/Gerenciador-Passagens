@@ -3,11 +3,11 @@ import java.util.*;
 /**
  * A classe passagem é uma classe abstrata com informações basicas de uma passagem, como preço, marca...
  * Além disso ela receberá um objeto Itinerario como atributo e servirá para ser herdada pelas classes:
- * PassagemAviao e PassagemOnibus
+ * PassagemAviao e PassagemOnibus.
  * 
  * @author joaoseisei
  * @since 2023
- * @version V1.2
+ * @version 1.3
  */
 public abstract class Passagem {
 //ATRIBUTOS
@@ -22,6 +22,7 @@ public abstract class Passagem {
 	 * O construtor de Passagem recebe todos os atributos para a criação de uma passagem, nele existem
 	 * diversas verificações para manter o máximo de coesão possível, como conflito de horario e local
 	 * através de setters, também é adicionado um gerador de id único. 
+	 * 
 	 * @param itinerario
 	 * @param escalas
 	 * @param preco
@@ -62,6 +63,7 @@ public abstract class Passagem {
 	/**
 	 * Esse método é responsável por definir o número de escalas automaticamente sempre que for adicionado
 	 * ou removido uma escala da lista de escalas "escalas".
+	 * 
 	 * @param novaEscala Nova lista de escalas
 	 */
 	public void setEscalasENumEscalas(String[] novaEscala) {
@@ -75,10 +77,14 @@ public abstract class Passagem {
 	public void setMarca(String novaMarca){
     	if(novaMarca != null) this.marca = novaMarca;
     }
+	public void setItinerario(Itinerario itinerario) {
+		if(itinerario != null) this.itinerario = itinerario;
+	}
 //METODO ABSTRATO
 	/**
 	 * Esse método é responsavel por calcular o preço, ele é abstrato pois o calculo de preço de 
 	 * PassagemAviao e PassagemOnibus é diferente.
+	 * 
 	 * @return retornará o preco calculado de acordo com o tipo de passagem.
 	 */
 	public abstract Double calculaPreco();

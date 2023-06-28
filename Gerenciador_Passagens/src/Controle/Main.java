@@ -7,30 +7,46 @@ import Modelo.Memoria;
 import View.TelaAdmin;
 import View.TelaLogin;
 /**
- * 
+ * Essa classe é responsável por iniciar a aplicação.
  * 
  * @author joaoseisei
  * @since 2023
- * @version V2.1
+ * @version 1.2
  */
 public class Main{	
-	
+	/**
+	 * Método main.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
+	//--------------------INICIALIZACAO DA APLICAÇAO----------------------
+		
 		Memoria memoria = new Memoria();
 		TelaLogin telaLogin = new TelaLogin();
 		TelaLoginControle tlControle = new TelaLoginControle(memoria, telaLogin);
 		telaLogin.exibir();
 		tlControle.TLControler();
 		
+	//------------------------PASSAGENS DE TESTE--------------------------
+		
+	//CRIAÇÃO DE ADMINISTRADOR
 		tlControle.addConta(true, "adm", "adm");
-		TelaAdmin telaAdmin = new TelaAdmin(memoria.getAdminOBJ("adm", "adm"));
+		AdminControle adm = new AdminControle(memoria.getAdminOBJ("adm", "adm"));
+		TelaAdmin telaAdmin = new TelaAdmin(adm);
 		TelaAdminControle taControle = new TelaAdminControle(memoria, telaAdmin);
+		
+	//ADMINISTRADOR ADICIONANDO PASSAGENS
+		
+	//-------ITINERARIO--------
 		taControle.addItinerario(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 05), 
 			  	LocalTime.of(14, 0), LocalTime.of(18, 0),
 			  	"Brasil", "Chile" );
 		taControle.addItinerario(LocalDate.of(2023, 12, 06), LocalDate.of(2023, 12, 07), 
 			  	LocalTime.of(14, 0), LocalTime.of(18, 0),
 			  	"Brasil", "Chile" );
+		
+	//--------AVIAO-----------
 		taControle.addPassagemAviao(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 05), 
 			  	LocalTime.of(14, 0), LocalTime.of(18, 0),
 			  	"Brasil", "Chile" , new String[] {"SP-Brasil", "BA-Argentina"} , 
@@ -39,6 +55,8 @@ public class Main{
 				LocalTime.of(10, 0), LocalTime.of(15, 0),
 	  			"PB-Brasil", "DF-Brasil" , new String[] {} , 
 	  			300.38, "Azul", 2 , 20, "Comercial", 900);
+		
+	//--------ONIBUS----------
 		taControle.addPassagemOnibus(LocalDate.of(2023, 12, 04), LocalDate.of(2023, 12, 5), 
 				LocalTime.of(14, 0), LocalTime.of(1, 0),
 				"SP-Brasil", "DF-Brasil" , new String[] {"SP-Brasil", "GO-BRASIL", "BA-BRASIL"} , 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * 
  * @author joaoseisei
  * @since 2023
- * @version V1.2
+ * @version 1.3
  */
 public class Memoria {
 //ATRIBUTOS
@@ -31,7 +31,8 @@ public class Memoria {
 		return new ArrayList<>(listaUsuario);
 	}
 	/**
-	 * O método getAdminOBJ é responsável por buscar um admin na lista de admin e retornar o objeto dele
+	 * O método getAdminOBJ é responsável por buscar um admin na lista de admin e retornar o objeto dele.
+	 * 
 	 * @param nome Nome do admin a ser buscado.
 	 * @param senha Senha do admin a ser buscado.
 	 * @return Retorna o objeto admin encontrado e se nao encontrar nenhum correspondente retorna null.
@@ -46,6 +47,7 @@ public class Memoria {
 	/**
 	 * O método getUsuarioOBJ é responsável por buscar um usuario na lista de usuarios e retornar o objeto dele.
 	 * @param nome Nome do usuário a ser buscado.
+	 * 
 	 * @param senha Senha do usuário a ser buscado.
 	 * @return Retorna o objeto usuário encontrado se não encontrar nenhum correspondente retorna null.
 	 */

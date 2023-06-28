@@ -15,7 +15,7 @@ import java.util.Arrays;
  * 
  * @author joaoseisei
  * @since 2023
- * @version V1.2
+ * @version 1.3
  *
  */
 public abstract class Conta {
@@ -27,6 +27,7 @@ public abstract class Conta {
 	/**
 	 * Construtor para inicialziar as variaveis da classe, nele existe uma verificação para não 
 	 * deixar o nome nulo e uma função que salva a senha como uma senha criptografada.
+	 * 
 	 * @param tipo Tipo de conta, se for false é uma conta de Usuario.
 	 * @param nome Nome da conta.
 	 * @param senha Senha da conta, íra passar pela função criptografarSenha e salvará 
@@ -55,6 +56,7 @@ public abstract class Conta {
 	/**
 	 * Essa função funçao recebe uma String e criptografa ela e em seguida faz o retorno da sstring criptografada.
 	 * @param senha String que será encriptada.
+	 * 
 	 * @return O retorno é uma criptografia do parametro senha.
 	 * @throws Esse método pode gerar 2 possíveis erros o InvalidKeySpecExcetion e o NoSuchAlgorithmException,
 	 * entretanto como o código é hardcode nunca dará erro, é extremamente confiável. Sendo assim, como nunca 
