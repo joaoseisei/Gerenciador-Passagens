@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import Modelo.Memoria;
 import Modelo.Itinerario;
 import Modelo.PassagemAviao;
@@ -135,20 +137,27 @@ public class TelaUsuarioControle {
 		LocalDate fim = telaUser.getDataFinal();
 		String pontPartida = telaUser.getPontPartida();
 		String pontChegada = telaUser.getPontChegada();
+		int i = 0;
 		if (telaUser.getItinerario()) {
 			for (String index : filtrarItinerario(inicio, fim, pontPartida, pontChegada)) {
 				telaUser.addPassagem(telaUser.getContainerPassagem(), index);
+				i++;
 			}
 		}
 		if (telaUser.getPassagemAviao()) {
 			for (String index : filtrarPassagemAviao(inicio, fim, pontPartida, pontChegada)) {
 				telaUser.addPassagem(telaUser.getContainerPassagem(), index);
+				i++;
 			}
 		}
 		if (telaUser.getPassagemOnibus()) {
 			for (String index : filtrarPassagemOnibus(inicio, fim, pontPartida, pontChegada)) {
 				telaUser.addPassagem(telaUser.getContainerPassagem(), index);
+				i++;
 			}
+		}
+		if(i==0) {
+			JOptionPane.showMessageDialog(null, "NENHUMA PASSAGEM ENCONTRADA", "NENHUMA PASSAGEM ENCONTRADA", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
