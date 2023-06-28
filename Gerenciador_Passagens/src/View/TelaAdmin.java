@@ -39,7 +39,7 @@ public class TelaAdmin {
 			idItinerario, preco, marca, classe, tipoVoo, pesoBagagem, alturaVoo, escalas, horarioParadas;
 	private Font titulo, inputsFont;
 	private JCheckBox leito, refeicaoInclusa;
-	private JButton criarIt, criarPA, criarPO, editarIt, editarPA, editarPO, excluirIt, excluirPA, excluirPO, atualizar;
+	private JButton criarIt, criarPA, criarPO, editarIt, editarPA, editarPO, excluirIt, excluirPA, excluirPO, atualizar, sair;
 	private JScrollPane container;
 	DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	DateTimeFormatter formatadorHora = DateTimeFormatter.ofPattern("HH:mm");
@@ -278,6 +278,11 @@ public class TelaAdmin {
 		container.setViewportView(conteudo);
 
 		painel.add(container);
+		
+		sair = new JButton("Sair");
+		sair.setBackground(Color.gray);
+		sair.setBounds(1000, 5,  170, 30);
+		painel.add(sair);
 	}
 
 //GETTERS
@@ -474,6 +479,10 @@ public class TelaAdmin {
 
 	public JButton getExcluirPO() {
 		return excluirPO;
+	}
+	
+	public JButton getSair() {
+		return sair;
 	}
 
 //AUTOMATIZAR FORMATAÇAO

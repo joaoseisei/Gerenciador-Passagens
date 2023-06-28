@@ -205,8 +205,20 @@ public class TelaLoginControle {
 			taControle.editarButton();
 			taControle.excluirButton();
 			taControle.atualizarButton();
-		} else
-			JOptionPane.showMessageDialog(null, "USARIO NÃO ENCONTRADO", "ERRO", JOptionPane.ERROR_MESSAGE);
+			
+			telaAdmin.getSair().addMouseListener(new MouseAdapter() {
+				/**
+				 * Detecta o clique do mouse do botão Confirmação.
+				 * 
+				 * @param e Recebe como parametro o evento do clique do mouse
+				 */
+				public void mouseClicked(MouseEvent e) {
+					telaAdmin.ocultar();
+					telaLogin.exibir();
+				}
+			});
+		} 
+		else JOptionPane.showMessageDialog(null, "USARIO NÃO ENCONTRADO", "ERRO", JOptionPane.ERROR_MESSAGE);
 	}
 
 //------------------------BOTOES-------------------------
