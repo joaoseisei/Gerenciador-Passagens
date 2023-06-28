@@ -1,6 +1,7 @@
 package Controle;
 
 import Modelo.Admin;
+
 /**
  * Essa classe é responsável por armazenar o Admin que criará a TelaAdmin.
  * 
@@ -12,6 +13,7 @@ import Modelo.Admin;
 public class AdminControle {
 //ATRIBUTO
 	private Admin admin;
+
 //CONSTRUTOR
 	/**
 	 * Construtor para inicializar o AdminControle.
@@ -21,14 +23,17 @@ public class AdminControle {
 	public AdminControle(Admin adm) {
 		this.admin = adm;
 	}
+
 //GETTER
 	public Admin getAdmin() {
 		return admin;
 	}
+
 //SETTER
 	public void setAdmin(Admin adm) {
 		this.admin = adm;
 	}
+
 //ADICIONAR MUDANCAS
 	/**
 	 * Esse método é responsável por adicionar +1 no objeto Admin.
